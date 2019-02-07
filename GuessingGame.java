@@ -41,6 +41,10 @@ public class GuessingGame {
 		return false;
 	}
 	
+	public String test() {
+		return "This is just garabage code to act as a test";
+	}
+	
 	/**
 	 * When running this program, it will call getAndCheckGuess with a random number to guess.
 	 * If you want to test with a particular number to guess, provide the number to guess
@@ -76,5 +80,5 @@ public class GuessingGame {
         if (!correct) {
             System.out.println("Ran out of guesses. The number to guess was " + numToGuess);
         }
-	}	
+	}
 }
