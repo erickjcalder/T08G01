@@ -19,27 +19,28 @@ public class Player extends ActiveEntity
         {
             case "w":
             {
-                velocityY = 1;
+                velocityY = 1;  //PREPRODUCTION
                 break;
             }
             case "s":
             {
-                velocityY = -1;
+                velocityY = -1;  //PREPRODUCTION
                 break;
             }
             case "d":
             {
-                velocityX = 1;
+                velocityX = 1;  //PREPRODUCTION
                 break;
             }
             case "a":
             {
-                velocityX = -1;
+                velocityX = -1;  //PREPRODUCTION
                 break;
             }
             case "attack":
             {
-                AttackLogic(0);
+                AttackLogic(0);  //PREPRODUCTION
+                break;
             }
 
             case "retreat":  //PREPRODUCTION
@@ -60,6 +61,7 @@ public class Player extends ActiveEntity
                 {
                     velocityY = 1;
                 }
+                break;
             }
         }
         MovementLogic();  //PREPRODUCTION
@@ -71,7 +73,7 @@ public class Player extends ActiveEntity
      * Handles movement of the player.
      */
     @Override
-    void MovementLogic()
+    void MovementLogic()  //PREPRODUCTION
     {
         if(velocityX == 1)
         {
