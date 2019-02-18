@@ -22,7 +22,7 @@ abstract class Entity
     Image graphics = null;
 
     /**
-     * Entities cannot affect other entities on the same team.
+     * Entities cannot damage other entities on the same team, nor buff other entities on other teams.
      */
     String team;
 
