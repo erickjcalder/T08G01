@@ -7,6 +7,16 @@ import javafx.scene.image.Image;
 abstract class Entity
 {
     /**
+     * Represents the name of the entity.
+     */
+    String name = "";
+
+    /**
+     * Represents the "attack" stat of the entity. Negative values act as healing.
+     */
+    int damage = 0;
+
+    /**
      * Represents the (x,y) coordinates of the entity.
      */
     Point2D location = null;
@@ -22,7 +32,7 @@ abstract class Entity
     Image graphics = null;
 
     /**
-     * Entities cannot damage other entities on the same team, nor buff other entities on other teams.
+     * Entities cannot affect other entities on the same team.
      */
     String team;
 

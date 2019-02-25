@@ -1,12 +1,21 @@
 import javafx.geometry.Point2D;
 
-public class Player extends ActiveEntity
+class Player extends ActiveEntity
 {
     /**
      * Band-aid to make retreat function work; will be removed for GUI ver.
      * Represents the previous room.
      */
     private Point2D previousRoom;  //PREPRODUCTION
+
+    Player(int baseDamage, int baseHealth)
+    {
+        healthMax = baseHealth;
+        health = healthMax;
+        damage = baseDamage;
+        name = "Player";
+        team = "player";
+    }
 
     /**
      * Handles controls for the player. Actual actions are passed off
@@ -19,28 +28,27 @@ public class Player extends ActiveEntity
         {
             case "w":
             {
-                velocityY = 1;  //PREPRODUCTION
+                velocityY = 1;
                 break;
             }
             case "s":
             {
-                velocityY = -1;  //PREPRODUCTION
+                velocityY = -1;
                 break;
             }
             case "d":
             {
-                velocityX = 1;  //PREPRODUCTION
+                velocityX = 1;
                 break;
             }
             case "a":
             {
-                velocityX = -1;  //PREPRODUCTION
+                velocityX = -1;
                 break;
             }
             case "attack":
             {
-                AttackLogic(0);  //PREPRODUCTION
-                break;
+                AttackLogic(0);
             }
 
             case "retreat":  //PREPRODUCTION
@@ -61,7 +69,6 @@ public class Player extends ActiveEntity
                 {
                     velocityY = 1;
                 }
-                break;
             }
         }
         MovementLogic();  //PREPRODUCTION
@@ -73,7 +80,7 @@ public class Player extends ActiveEntity
      * Handles movement of the player.
      */
     @Override
-    void MovementLogic()  //PREPRODUCTION
+    void MovementLogic()
     {
         if(velocityX == 1)
         {
@@ -123,16 +130,16 @@ public class Player extends ActiveEntity
     @Override
     void checkInteraction(Entity initiator)
     {
-        //Does action based on initiator
+        // if initator is enemy:
+        health -= initiator.damage;
     }
 
     /**
      * Handles changing rooms.
-     * @param room Room to change to.
+     * @param room Coordinates of room to change to.
      */
     private void ChangeRoom(Point2D room)
     {
-        //if room exists
         previousRoom = currentRoom;
         currentRoom = room;
     }

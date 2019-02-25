@@ -4,7 +4,12 @@
 abstract class ActiveEntity extends Entity
 {
     /**
-     * Represents health of the entity.
+     * Represents maximum health of the entity.
+     */
+    int healthMax;
+
+    /**
+     * Represents current health of the entity.
      */
     int health;
 
