@@ -49,6 +49,7 @@ class Player extends ActiveEntity
             case "attack":
             {
                 AttackLogic(0);
+                break;
             }
 
             case "retreat":  //PREPRODUCTION
@@ -69,6 +70,7 @@ class Player extends ActiveEntity
                 {
                     velocityY = 1;
                 }
+                break;
             }
         }
         MovementLogic();  //PREPRODUCTION
