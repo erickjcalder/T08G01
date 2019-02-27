@@ -125,6 +125,11 @@ public class TextGame {
         input = input.toLowerCase();
         switch (input) {
 
+            default: {
+                System.out.println("Invalid input");
+                break;
+            }
+
             case "exit game": {
                 System.exit(0);
             }
@@ -160,11 +165,17 @@ public class TextGame {
                         " skull, killing you instantly.\n\nGAME OVER\n");
                 System.exit(0);
             }
+
+            case "map": {
+                gameMap.printMap();
+                break;
+            }
         }
     }
 
     private static void printHelpMessage() {
         System.out.println("- To move to another room, type 'move <direction you would like to move>'\n" +
+                "- To view the map, type 'map'\n" +
                 "- To view this message again, type 'help'\n");
     }
 
@@ -181,7 +192,7 @@ public class TextGame {
 
         //Title screen
         System.out.println("________________________________________\n");
-        System.out.println("      I couldn't think of a title       ");
+        System.out.println("             <working title>            ");
         System.out.println("________________________________________");
         System.out.println("Press enter to begin");
         utilityScanner.nextLine();
