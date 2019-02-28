@@ -132,7 +132,7 @@ class Player extends ActiveEntity
     @Override
     void checkInteraction(Entity initiator)
     {
-        // if initator is enemy:
+        // if initiator is enemy:
         health -= initiator.damage;
     }
 

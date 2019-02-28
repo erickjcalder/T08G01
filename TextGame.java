@@ -131,6 +131,7 @@ public class TextGame {
             }
 
             case "exit game": {
+                System.out.println("GAME OVER");
                 System.exit(0);
             }
 

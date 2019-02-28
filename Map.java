@@ -197,7 +197,7 @@ public class Map {
 
     public void printMap() {
         for (int i = 0; i < this.roomTypes.length; i++) {
-            for (int j = 0; j < this.roomTypes.length; j++) {
+            for (int j = 0; j < this.roomTypes[i].length; j++) {
                 if (this.roomTypes[i][j] != 0) {
                     System.out.print("X   ");
                 } else {
