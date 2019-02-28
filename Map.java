@@ -1,5 +1,8 @@
-
 public class Map {
+	
+	/**
+	* This class handles everything to do with the map for the game.
+	*/
 
     //VARIABLES
     private int[][] roomTypes;
@@ -56,21 +59,44 @@ public class Map {
      * Room types end here
      */
     //CONSTRUCTORS
+	
+	/**
+	* Creates a new Map object using default 2D array sizes of 3 x 3
+	*/
     public Map() {
         roomTypes = new int[3][3];
         currentFloor = new Rooms[3][3];
     }
 
+	/**
+	* Creates a new Map object using given dimensions of the map
+	*
+	* @param  int  the length of the 2D arrays
+	* @param  int  the width of the 2D arrays
+	*/
     public Map(int length, int height) {
         roomTypes = new int[length][height];
         currentFloor = new Rooms[length][height];
     }
 
     //GETTERS
+	
+	/**
+	* Returns an int that describes the type of room at a specific index in the roomTypes array of the map object
+	*
+	* @param  int  the first index for the 2D array
+	* @param  int  the second index for the 2D array
+	* @return      the int at the specified index
+	*/
     public int getRoomType(int index1, int index2) {
         return this.roomTypes[index1][index2];
     }
 
+	/**
+	* Returns a copy of the 2D int array roomTypesArray() belonging to the map object 
+	*
+	* @return      a copy of the roomTypesArray() belonging to the map object
+	*/
     public int[][] getRoomTypesArray() {
         int[][] roomTypeCopy = new int[this.roomTypes.length][this.roomTypes.length];
 
@@ -83,6 +109,12 @@ public class Map {
         return roomTypeCopy;
     }
 
+	/**
+	* Returns a Rooms object 
+	*
+	* @param  int  the room number 
+	* @return      the Rooms object corresponding to the given int
+	*/
     public Rooms getRoomCopy(int roomNumber) {
         if (roomNumber > 0 && roomNumber <= 15) {
             switch (roomNumber) {
@@ -151,34 +183,34 @@ public class Map {
         return new Rooms(room0);
     }
 
-    /**
-     * public boolean getRoomTruth(int index1, int index2) { public boolean
-     * getRoomTruth(int index1, int index2) { return this.rooms[index1][index2];
-     * }
-     *
-     * public boolean[][] getRooms() { boolean[][] roomsCopy = new
-     * boolean[this.rooms.length][this.rooms.length]; boolean[][] roomsCopy =
-     * new boolean[this.rooms.length][this.rooms.length];
-     *
-     * for (int i = 0; i < this.rooms.length; i++) { for (int j = 0; j <
-     * this.rooms.length; j++) { @@ -181,42 +22,50 @@ publi
-     *
-     * c Rooms getRoomCopy(int roomNumber) {
-     *
-     * return roomsCopy; }
-     */
-    /**
-     * public int getMapSize() { return this.rooms.length; }
-     */
     //SETTERS
+	
+	/**
+	* Sets the room type at a specific index in the Map object's roomTypes array
+	*
+	* @param  int  the first index for the 2D array 
+	* @param  int  the second index for the 2D array
+	*/
     public void setRoomType(int index1, int index2, int type) {
         this.roomTypes[index1][index2] = type;
     }
 
+	/**
+	* Sets a row of the Map object's roomTypes int array to a given int array
+	*
+	* @param  int  the first for the row of the 2D array 
+	* @param  int[]  an array of a row to add to the Map object's roomTypes array
+	*/
     public void setRoomTypeByRow(int rowIndex, int[] rowToAdd) {
         roomTypes[rowIndex] = rowToAdd;
     }
 
+	/**
+	* Sets the room type at a specific index in the Map object's roomTypes array
+	*
+	* @param  int  the first for the row of the 2D array 
+	* @param  int[]  an array of a row to add to the Map object's roomTypes array
+	*/
     public void setRoomTypesArray(int[][] roomTypes) {
         for (int i = 0; i < this.roomTypes.length; i++) {
             for (int j = 0; j < this.roomTypes.length; j++) {
@@ -187,6 +219,9 @@ public class Map {
         }
     }
 
+	/**
+	* Builds the current floor of a map by looping through the Map object's currentFloor array and adding all the Rooms
+	*/
     public void buildCurrentFloor() {
         for (int i = 0; i < roomTypes.length; i++) {
             for (int j = 0; j < roomTypes[i].length; j++) {
@@ -195,6 +230,9 @@ public class Map {
         }
     }
 
+	/**
+	* Prints a visual representation of the map to the console
+	*/
     public void printMap() {
         for (int i = 0; i < this.roomTypes.length; i++) {
             for (int j = 0; j < this.roomTypes[i].length; j++) {
