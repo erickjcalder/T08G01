@@ -1,4 +1,4 @@
-public class Enemy extends ActiveEntity {
+public abstract class Enemy extends ActiveEntity {
 
   Enemy(int baseDamage, int baseHealth) {
     healthMax = baseHealth ;
