@@ -2,19 +2,15 @@ import javafx.geometry.Point2D;
 
 class Player extends ActiveEntity
 {
-    /**
-     * Band-aid to make retreat function work; will be removed for GUI ver.
-     * Represents the previous room.
-     */
-    private Point2D previousRoom;  //PREPRODUCTION
-
-    Player(int baseDamage, int baseHealth)
+    Player()
     {
-        healthMax = baseHealth;
-        health = healthMax;
-        damage = baseDamage;
-        name = "Player";
-        team = "player";
+        setHealthMax(100);
+        setHealth(100);
+        setArmor(0);
+        setDamage(1);
+        setDamageMult(1);
+        setName("Player");
+        setTeam("player");
     }
 
     /**
@@ -26,24 +22,28 @@ class Player extends ActiveEntity
     {
         switch(input.toLowerCase())
         {
+            default:
+            {
+                normalizeVelocity();
+            }
             case "w":
             {
-                velocityY = 1;
+                addVelocity(0, 1);
                 break;
             }
             case "s":
             {
-                velocityY = -1;
+                addVelocity(0, -1);
                 break;
             }
             case "d":
             {
-                velocityX = 1;
+                addVelocity(1, 0);
                 break;
             }
             case "a":
             {
-                velocityX = -1;
+                addVelocity(-1, 0);
                 break;
             }
             case "attack":
@@ -51,30 +51,7 @@ class Player extends ActiveEntity
                 AttackLogic(0);
                 break;
             }
-
-            case "retreat":  //PREPRODUCTION
-            {
-                if(currentRoom.getX() > previousRoom.getX())
-                {
-                    velocityX = -1;
-                }
-                else if(currentRoom.getX() < previousRoom.getX())
-                {
-                    velocityX = 1;
-                }
-                else if(currentRoom.getY() > previousRoom.getY())
-                {
-                    velocityY = -1;
-                }
-                else if(currentRoom.getY() < previousRoom.getY())
-                {
-                    velocityY = 1;
-                }
-                break;
-            }
         }
-        MovementLogic();  //PREPRODUCTION
-                          //Put in mainloop instead.
     }
 
 
@@ -82,25 +59,9 @@ class Player extends ActiveEntity
      * Handles movement of the player.
      */
     @Override
-    void MovementLogic()
+    protected void MovementLogic()
     {
-        if(velocityX == 1)
-        {
-            ChangeRoom(new Point2D(currentRoom.getX() + 1, currentRoom.getY()));
-        }
-        else if(velocityX == -1)
-        {
-            ChangeRoom(new Point2D(currentRoom.getX() - 1, currentRoom.getY()));
-        }
-        else if(velocityY == 1)
-        {
-            ChangeRoom(new Point2D(currentRoom.getX(), currentRoom.getY() + 1));
-        }
-        else if(velocityY == -1)
-        {
-            ChangeRoom(new Point2D(currentRoom.getX(), currentRoom.getY() - 1));
-        }
-
+        setLocation(new Point2D(getLocation().getX() + getVelocityX(), getLocation().getY() + getVelocityY()));
     }
 
     /**
@@ -108,7 +69,7 @@ class Player extends ActiveEntity
      * @param direction Direction of attack.
      */
     @Override
-    void AttackLogic(int direction)
+    protected void AttackLogic(int direction)
     {
         //Attacks
     }
@@ -117,9 +78,9 @@ class Player extends ActiveEntity
      * Handles events based on health.
      */
     @Override
-    void HealthThresholdEvents()
+    protected void HealthThresholdEvents()
     {
-        if(health <= 0)
+        if(getHealth() <= 0)
         {
             //Game over
         }
@@ -130,10 +91,12 @@ class Player extends ActiveEntity
      * @param initiator Entity that initiates interactions.
      */
     @Override
-    void checkInteraction(Entity initiator)
+    protected void checkInteraction(Entity initiator)
     {
-        // if initiator is enemy:
-        health -= initiator.damage;
+        if(initiator instanceof Enemy)
+        {
+            ModifyHealth(initiator.getDamage());
+        }
     }
 
     /**
@@ -142,7 +105,6 @@ class Player extends ActiveEntity
      */
     private void ChangeRoom(Point2D room)
     {
-        previousRoom = currentRoom;
-        currentRoom = room;
+        setCurrentRoom(room);
     }
 }
