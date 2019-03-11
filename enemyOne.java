@@ -45,7 +45,7 @@ public class enemyOne extends Enemy {
   */
   @Override
   protected void checkInteraction(Entity initiator) {
-    if(initiator instance of player) {
+    if(initiator instanceof player) {
       ModifyHealth(initiator.getDamage()) ;
     }
   }
