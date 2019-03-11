@@ -1,181 +1,66 @@
-import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
+import java.awt.Graphics;
 
-import java.awt.*;
+public abstract class Entity {
+	
+	//This class should be extended by all or most entities in the game at the moment
+	//Later on this class could be extended and used to create another abstract class
 
-/**
- * Represents any entity.
- */
-abstract class Entity
-{
-    /**
-     * Represents the name of the entity.
-     */
-    private String name = "";
+	protected int x, y;
+	protected int velX, velY;
+	protected int mapX, mapY;
+	protected int health;
+	protected String id;
 
-    /**
-     * Represents the "attack" stat of the entity. Negative values act as healing.
-     */
-    private int damage = 1;
+	public Entity(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    /**
-     * Represents multiplier to damage.
-     */
-    private double damageMult = 1.0;
+	//Each object must have a tick method to take care of movement, speed changes, position, collision or any
+	//other kinds of things that need to be updated on a constant basis
+	public abstract void tick();
 
-    /**
-     * Represents the (x,y) coordinates of the entity.
-     */
-    private Point2D location = null;
+	//Each object must have a render method that draws the object to the screen
+	public abstract void render(Graphics g);
 
-    /**
-     * Represents the (x,y) coordinates of the room the entity is in.
-     */
-    private Point2D currentRoom = null;
+	public int getX() {
+		return this.x;
+	}
 
-    /**
-     * The image displayed.
-     */
-    private Image graphics = null;
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    /**
-     * Entities cannot damage other entities on the same team, nor buff other entities on other teams
-     */
-    private String team = "";
+	public int getY() {
+		return this.y;
+	}
 
-    /**
-     * Returns the name of the entity.
-     * @return name of the entity.
-     */
-    public String getName()
-    {
-        return this.name;
-    }
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    /**
-     * Sets the name of the entity.
-     * @param name name of the entity.
-     */
-    protected void setName(String name)
-    {
-        this.name = name;
-    }
+	public int getVelX() {
+		return this.velX;
+	}
 
-    /**
-     * Returns the damage of the entity.
-     * @return damage of the entity.
-     */
-    public int getDamage()
-    {
-        return this.damage;
-    }
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
 
-    /**
-     * Sets the damage of the entity.
-     * @param damage damage of the entity.
-     */
-    protected void setDamage(int damage)
-    {
-        this.damage = damage;
-    }
+	public int getVelY() {
+		return this.velY;
+	}
 
-    /**
-     * Returns the damage multiplier of the entity.
-     * @return damage multiplier of the entity.
-     */
-    public double getDamageMult()
-    {
-        return this.damageMult;
-    }
+	public void setVelY(int velY) {
+		this.velY = velY;
+	}
+	
+	public String getID() {
+		return this.id;
+	}
+	
+	public void setID(String id) {
+		this.id = id;
+	}
 
-    /**
-     * Sets the damage multiplier of the entity.
-     * @param damageMult damage multiplier of the entity.
-     */
-    protected void setDamageMult(double damageMult)
-    {
-        this.damageMult = damageMult;
-    }
-
-    /**
-     * Returns the location of the entity.
-     * @return location of the entity.
-     */
-    public Point2D getLocation()
-    {
-        return this.location;
-    }
-
-    /**
-     * Sets the location of the entity.
-     * @param location location of the entity.
-     */
-    protected void setLocation(Point2D location)
-    {
-        this.location = location;
-    }
-
-    /**
-     * Returns the current room of the entity.
-     * @return current room of the entity.
-     */
-    public Point2D getCurrentRoom()
-    {
-        return this.currentRoom;
-    }
-
-    /**
-     * Sets the current room of the entity.
-     * @param currentRoom current room of the entity.
-     */
-    protected void setCurrentRoom(Point2D currentRoom)
-    {
-        this.currentRoom = currentRoom;
-    }
-
-    /**
-     * Returns the graphical representation of the entity.
-     * @return graphical representation of the entity.
-     */
-    public Image getGraphics()
-    {
-        return this.graphics;
-    }
-
-    /**
-     * Sets the graphical representation of the entity.
-     * @param graphics graphical representation of the entity.
-     */
-    protected void setGraphics(Image graphics)
-    {
-        this.graphics = graphics;
-    }
-
-    /**
-     * Gets the team of the entity.
-     * @return team of the entity.
-     */
-    public String getTeam()
-    {
-        return this.team;
-    }
-
-    /**
-     * Sets the team of the entity.
-     * @param team team of the entity.
-     */
-    protected void setTeam(String team)
-    {
-        this.team = team;
-    }
-
-    /**
-     * Represents the computation of the entity's movement.
-     */
-    protected abstract void MovementLogic();
-
-    /**
-     * Represents the computation of the entity's attacks.
-     */
-    protected abstract void AttackLogic(int direction);
 }

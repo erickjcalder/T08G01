@@ -1,110 +1,109 @@
-import javafx.geometry.Point2D;
+import java.awt.Color;
+import java.awt.Graphics;
 
-class Player extends ActiveEntity
-{
-    Player()
-    {
-        setHealthMax(100);
-        setHealth(100);
-        setArmor(0);
-        setDamage(1);
-        setDamageMult(1);
-        setName("Player");
-        setTeam("player");
-    }
+public class Player extends Entity {
 
-    /**
-     * Handles controls for the player. Actual actions are passed off
-     * to logic classes.
-     * @param input String inputted.
-     */
-    void Controls(String input)
-    {
-        switch(input.toLowerCase())
-        {
-            default:
-            {
-                normalizeVelocity();
-            }
-            case "w":
-            {
-                addVelocity(0, 1);
-                break;
-            }
-            case "s":
-            {
-                addVelocity(0, -1);
-                break;
-            }
-            case "d":
-            {
-                addVelocity(1, 0);
-                break;
-            }
-            case "a":
-            {
-                addVelocity(-1, 0);
-                break;
-            }
-            case "attack":
-            {
-                AttackLogic(0);
-                break;
-            }
-        }
-    }
+	LevelHandler levelhandler;
+	Map map;
+	int shotDelay;
+	int shotTimer;
 
+	public Player(int x, int y, LevelHandler levelhandler) {
+		super(x, y);
 
-    /**
-     * Handles movement of the player.
-     */
-    @Override
-    protected void MovementLogic()
-    {
-        setLocation(new Point2D(getLocation().getX() + getVelocityX(), getLocation().getY() + getVelocityY()));
-    }
+		this.levelhandler = levelhandler;
+		this.map = levelhandler.getMap();
 
-    /**
-     * Handles attacking.
-     * @param direction Direction of attack.
-     */
-    @Override
-    protected void AttackLogic(int direction)
-    {
-        //Attacks
-    }
+		this.id = "player";
 
-    /**
-     * Handles events based on health.
-     */
-    @Override
-    protected void HealthThresholdEvents()
-    {
-        if(getHealth() <= 0)
-        {
-            //Game over
-        }
-    }
+		this.x = 500;
+		this.y = 350;
 
-    /**
-     * Handles interactions with other entities.
-     * @param initiator Entity that initiates interactions.
-     */
-    @Override
-    protected void checkInteraction(Entity initiator)
-    {
-        if(initiator instanceof Enemy)
-        {
-            ModifyHealth(initiator.getDamage());
-        }
-    }
+		this.mapX = 2;
+		this.mapY = 1;
 
-    /**
-     * Handles changing rooms.
-     * @param room Coordinates of room to change to.
-     */
-    private void ChangeRoom(Point2D room)
-    {
-        setCurrentRoom(room);
-    }
+		this.velX = 0;
+		this.velY = 0;
+
+		this.shotTimer = 0;
+		this.shotDelay = 30;
+	}
+
+	// Very crude collision detection to make sure player stays inside walls
+	public void tick() {
+
+		if (y + velY > 599 && !map.roomCheck(mapX, mapY + 1)) {
+			y = 599;
+			velY = 0;
+		} else if (y + velY > 599 && map.roomCheck(mapX, mapY + 1) && (x > 557 || x < 467)) {
+			y = 599;
+			velY = 0;
+		}
+
+		if (y + velY < 100 && !map.roomCheck(mapX, mapY - 1)) {
+			y = 100;
+			velY = 0;
+		} else if (y + velY < 100 && map.roomCheck(mapX, mapY - 1) && (x > 557 || x < 467)) {
+			y = 100;
+			velY = 0;
+		}
+
+		if (x + velX > 885 && !map.roomCheck(mapX + 1, mapY)) {
+			x = 885;
+			velX = 0;
+		} else if (x + velX > 885 && map.roomCheck(mapX + 1, mapY) && (y > 375 || y < 325)) {
+			x = 885;
+			velX = 0;
+		}
+
+		if (x + velX < 100 && !map.roomCheck(mapX - 1, mapY)) {
+			x = 100;
+			velX = 0;
+		} else if (x + velX < 100 && map.roomCheck(mapX - 1, mapY) && (y > 375 || y < 325)) {
+			x = 100;
+			velX = 0;
+		}
+
+		x += velX;
+		y += velY;
+
+		if (x > 940 && map.roomCheck(mapX + 1, mapY)) {
+			x = 40;
+			mapX++;
+		}
+
+		if (x < 40 && map.roomCheck(mapX - 1, mapY)) {
+			x = 940;
+			mapX--;
+		}
+
+		if (y < 40 && map.roomCheck(mapX, mapY - 1)) {
+			y = 600;
+			mapY--;
+		}
+
+		if (y > 640 && map.roomCheck(mapX, mapY + 1)) {
+			y = 40;
+			mapY++;
+		}
+		
+		shotTimer++;
+	}
+
+	public void render(Graphics g) {
+		g.setColor(new Color(255, 255, 255));
+		g.fillRect(x, y, 40, 40);
+	}
+
+	public boolean checkDelay() {
+		if (shotTimer < shotDelay) {
+			shotTimer++;
+			return false;
+		}
+		
+		shotTimer = 0;
+		return true;
+
+	}
+
 }
