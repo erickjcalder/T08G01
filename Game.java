@@ -30,6 +30,9 @@ public class Game extends Canvas implements Runnable {
 		if (OS.contains("windows")) {
 			WIDTH = 1030;
 			HEIGHT = 768;
+		} else {
+			WIDTH = 1030;
+			HEIGHT = 768;
 		}
 
 		new Window(WIDTH, HEIGHT, "Game", this);
