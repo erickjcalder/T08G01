@@ -26,7 +26,7 @@ public class enemyOne extends Enemy {
   */
   @Override
   void MovementLogic() {
-    setLocation(new Point2D(getLocation().getX() + getVelocityX(), getLocation().getY() + getVelocityY())) ; 
+    setLocation(new Point2D(getLocation().getX() + getVelocityX(), getLocation().getY() + getVelocityY())) ;
   }
 
   /**
