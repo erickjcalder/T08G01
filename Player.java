@@ -4,12 +4,15 @@ import java.awt.Graphics;
 public class Player extends Entity {
 
 	LevelHandler levelhandler;
+	Handler handler;
 	Map map;
 	int shotDelay;
 	int shotTimer;
 
-	public Player(int x, int y, LevelHandler levelhandler) {
+	public Player(int x, int y, LevelHandler levelhandler, Handler handler) {
 		super(x, y);
+
+		this.handler = handler;
 
 		this.levelhandler = levelhandler;
 		this.map = levelhandler.getMap();
@@ -26,7 +29,8 @@ public class Player extends Entity {
 		this.velY = 0;
 
 		this.shotTimer = 2147483647;
-		this.shotDelay = 30;
+		this.shotDelay = 1;
+
 	}
 
 	// Very crude collision detection to make sure player stays inside walls
@@ -70,23 +74,27 @@ public class Player extends Entity {
 		if (x > 940 && map.roomCheck(mapX + 1, mapY)) {
 			x = 40;
 			mapX++;
+			handler.clearProjectiles();
 		}
 
 		if (x < 40 && map.roomCheck(mapX - 1, mapY)) {
 			x = 940;
 			mapX--;
+			handler.clearProjectiles();
 		}
 
 		if (y < 40 && map.roomCheck(mapX, mapY - 1)) {
 			y = 600;
 			mapY--;
+			handler.clearProjectiles();
 		}
 
 		if (y > 640 && map.roomCheck(mapX, mapY + 1)) {
 			y = 40;
 			mapY++;
+			handler.clearProjectiles();
 		}
-		
+
 		shotTimer++;
 	}
 
@@ -99,15 +107,15 @@ public class Player extends Entity {
 		if (shotTimer > 2047483647) {
 			shotTimer = shotDelay;
 		}
-		
+
 		if (shotTimer < 0) {
 			shotTimer = shotDelay;
 		}
-		
+
 		if (shotTimer < shotDelay) {
 			return false;
 		}
-		
+
 		shotTimer = 0;
 		return true;
 

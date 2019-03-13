@@ -35,4 +35,13 @@ public class Handler {
 		this.object.remove(object);
 	}
 
+	public void clearProjectiles() {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Projectile) {
+				removeObject(object.get(i));
+				i = 0;
+			}
+		}
+	}
+
 }
