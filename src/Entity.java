@@ -1,4 +1,3 @@
-import javafx.geometry.Point2D;
 import java.awt.*;
 
 /**
@@ -35,9 +34,14 @@ abstract class Entity
 
 
     /**
-     * Represents the (x,y) coordinates of the entity.
+     * Represents the X coordinate of the entity.
      */
-    private Point2D location = null;
+    private int X = 0;
+
+    /**
+     * Represents the X coordinate of the entity.
+     */
+    private int Y = 0;
 
 
     /**
@@ -70,7 +74,8 @@ abstract class Entity
 
     Entity(int X, int Y)
     {
-        this.location = new Point2D(X, Y);
+        this.X = X;
+        this.Y = Y;
     }
 
 
@@ -160,21 +165,12 @@ abstract class Entity
 
 
     /**
-     * Returns the location of the entity.
-     * @return location of the entity.
-     */
-    protected Point2D getLocation()
-    {
-        return location;
-    }
-
-    /**
      * Returns the X-value of the entity's position.
      * @return X-value of entity's position.
      */
     protected int getX()
     {
-        return (int) this.location.getX();
+        return this.X;
     }
 
     /**
@@ -183,18 +179,9 @@ abstract class Entity
      */
     protected int getY()
     {
-        return (int) this.location.getY();
+        return this.Y;
     }
 
-    /**
-     * Sets the location of the entity.
-     * @param X X-value of entity's position.
-     * @param Y Y-value of entity's position.
-     */
-    protected void setLocation(int X, int Y)
-    {
-        this.location = new Point2D(X, Y);
-    }
 
     /**
      * Sets the X-value of the entity's position.
@@ -202,7 +189,7 @@ abstract class Entity
      */
     protected void setX(int X)
     {
-        this.location = new Point2D(X, this.location.getY());
+        this.X = X;
     }
 
     /**
@@ -211,7 +198,7 @@ abstract class Entity
      */
     protected void setY(int Y)
     {
-        this.location = new Point2D(this.location.getX(), Y);
+        this.Y = Y;
     }
 
 
