@@ -31,8 +31,8 @@ public class Game extends Canvas implements Runnable {
 			WIDTH = 1030;
 			HEIGHT = 768;
 		} else {
-			WIDTH = 1030;
-			HEIGHT = 768;
+			WIDTH = 1027;
+			HEIGHT = 777;
 		}
 
 		new Window(WIDTH, HEIGHT, "Game", this);
