@@ -19,11 +19,16 @@ public class LevelHandler {
 		return map;
 	}
 
+	public Handler getHandler()
+	{
+		return handler;
+	}
+
 	// renders a visual representation of the map in the top right corner
 	public void renderMap(Graphics g) {
 		Entity playerObject = handler.object.get(0);
 
-		if (playerObject.getID().equals("player")) {
+		if (playerObject instanceof Player) {
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
 					if (map.roomLoc[i][j].getRoomType() != 0) {
@@ -33,7 +38,7 @@ public class LevelHandler {
 						
 						g.setColor(new Color(100, 100, 100));
 
-						if (i == playerObject.mapX && j == playerObject.mapY) {
+						if (i == ((Player) playerObject).getMapX() && j == ((Player) playerObject).getMapY()) {
 							g.setColor(new Color(255, 100, 100));
 						}
 
@@ -55,7 +60,7 @@ public class LevelHandler {
 	}
 
 	public void renderRoom(Graphics g) {
-			this.map.roomLoc[handler.object.get(0).mapX][handler.object.get(0).mapY].render(g);
+			this.map.roomLoc[handler.object.get(0).getMapX()][handler.object.get(0).getMapY()].render(g);
 		}
 	
 }
