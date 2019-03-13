@@ -84,19 +84,19 @@ public class KeyInput extends KeyAdapter {
 				// Arrow keys to shoot
 
 				if (this.upPress && player.checkDelay() && !this.downPress && !this.leftPress && !this.rightPress) {
-					handler.addObject(new Projectile(player.getX(), player.getY(), 0, -10));
+					handler.addObject(new Projectile(player.getX() + 10, player.getY() - 25, 0, -10));
 				}
 
 				if (this.downPress && player.checkDelay() && !this.upPress && !this.leftPress && !this.rightPress) {
-					handler.addObject(new Projectile(player.getX(), player.getY(), 0, 10));
+					handler.addObject(new Projectile(player.getX() + 10, player.getY() + 45, 0, 10));
 				}
 
 				if (this.leftPress && player.checkDelay() && !this.downPress && !this.upPress && !this.rightPress) {
-					handler.addObject(new Projectile(player.getX(), player.getY(), -10, 0));
+					handler.addObject(new Projectile(player.getX() - 25, player.getY() + 10, -10, 0));
 				}
 
 				if (this.rightPress && player.checkDelay() && !this.downPress && !this.leftPress && !this.upPress) {
-					handler.addObject(new Projectile(player.getX(), player.getY(), 10, 0));
+					handler.addObject(new Projectile(player.getX() + 45, player.getY() + 10, 10, 0));
 				}
 
 			}
