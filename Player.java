@@ -88,6 +88,7 @@ public class Player extends Entity {
 		}
 		
 		shotTimer++;
+		System.out.println(shotTimer);
 	}
 
 	public void render(Graphics g) {
@@ -97,7 +98,6 @@ public class Player extends Entity {
 
 	public boolean checkDelay() {
 		if (shotTimer < shotDelay) {
-			shotTimer++;
 			return false;
 		}
 		
