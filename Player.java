@@ -25,7 +25,7 @@ public class Player extends Entity {
 		this.velX = 0;
 		this.velY = 0;
 
-		this.shotTimer = 0;
+		this.shotTimer = 2147483647;
 		this.shotDelay = 30;
 	}
 
@@ -88,7 +88,6 @@ public class Player extends Entity {
 		}
 		
 		shotTimer++;
-		System.out.println(shotTimer);
 	}
 
 	public void render(Graphics g) {
@@ -97,6 +96,14 @@ public class Player extends Entity {
 	}
 
 	public boolean checkDelay() {
+		if (shotTimer > 2047483647) {
+			shotTimer = shotDelay;
+		}
+		
+		if (shotTimer < 0) {
+			shotTimer = shotDelay;
+		}
+		
 		if (shotTimer < shotDelay) {
 			return false;
 		}
