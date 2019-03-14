@@ -2,6 +2,9 @@ import java.awt.*;
 
 /**
  * Represents any entity.
+ *
+ * @author Justin
+ * @version Demo 2
  */
 abstract class Entity {
 	/**

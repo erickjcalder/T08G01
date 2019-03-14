@@ -2,6 +2,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+/**
+ * Represents any player character.
+ *
+ * @author Justin
+ * @version Demo 2
+ */
 class Player extends ActiveEntity {
 	/**
 	 * Instance of the current map.

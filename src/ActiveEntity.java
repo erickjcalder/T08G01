@@ -1,5 +1,8 @@
 /**
  * Represents any 'active' entity. (e.g. enemies, player)
+ *
+ * @author Justin
+ * @version Demo 2
  */
 abstract class ActiveEntity extends Entity {
 	/**
