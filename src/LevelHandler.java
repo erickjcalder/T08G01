@@ -12,21 +12,30 @@ public class LevelHandler {
 		this.handler = handler;
 		width = 7;
 		height = 7;
-		map = new Map(width, height);
+		map = new Map(width, height, this);
 	}
 
 	public Map getMap() {
 		return map;
 	}
 
-	public Handler getHandler()
-	{
+	public Handler getHandler() {
 		return handler;
+	}
+	
+	public void addPickups(int mapX, int mapY) {
+		handler.addObject(this.map.roomLoc[mapX][mapY].pickups[0]);
 	}
 
 	// renders a visual representation of the map in the top right corner
 	public void renderMap(Graphics g) {
 		Entity playerObject = handler.object.get(0);
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			if (handler.object.get(i) instanceof Player) {
+				playerObject = handler.object.get(i);
+			}
+		}
 
 		if (playerObject instanceof Player) {
 			for (int i = 0; i < width; i++) {
@@ -35,7 +44,7 @@ public class LevelHandler {
 
 						g.setColor(new Color(200, 200, 200));
 						g.fillRect(1022 - (width * 25) + (i * 20), 23 + (j * 20), 12, 12);
-						
+
 						g.setColor(new Color(100, 100, 100));
 
 						if (i == ((Player) playerObject).getMapX() && j == ((Player) playerObject).getMapY()) {
@@ -52,7 +61,7 @@ public class LevelHandler {
 							g.setColor(new Color(0, 0, 0));
 							g.fillRect(1024 - (width * 25) + (i * 20) + 4, 25 + (j * 20) - 10, 2, 10);
 						}
-						
+
 					}
 				}
 			}
@@ -60,7 +69,14 @@ public class LevelHandler {
 	}
 
 	public void renderRoom(Graphics g) {
-			this.map.roomLoc[handler.object.get(0).getMapX()][handler.object.get(0).getMapY()].render(g);
+		Entity playerObject = handler.object.get(0);
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			if (handler.object.get(i) instanceof Player) {
+				playerObject = handler.object.get(i);
+			}
 		}
-	
+		this.map.roomLoc[playerObject.getMapX()][playerObject.getMapY()].render(g);
+	}
+
 }

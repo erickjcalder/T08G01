@@ -15,6 +15,7 @@ public class Handler {
 				removeObject(tempObject);
 			}
 		}
+		checkCollision();
 	}
 
 	// Loops through every object and renders it
@@ -32,6 +33,49 @@ public class Handler {
 
 	public void removeObject(Entity object) {
 		this.object.remove(object);
+	}
+	
+	public void addPickups() {
+		
+	}
+
+	public void clearProjectiles() {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Projectile) {
+				removeObject(object.get(i));
+				i = 0;
+			}
+		}
+	}
+	
+	public void clearPickups() {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Pickups) {
+				removeObject(object.get(i));
+				i = 0;
+			}
+		}
+	}
+
+	public void checkCollision() {
+		Entity playerObject = object.get(0);
+
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Player) {
+				playerObject = object.get(i);
+			}
+		}
+		
+		for (int i = 0; i < object.size(); i++) {
+			if (!object.get(i).equals(playerObject)) {
+			if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
+					&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
+					&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
+							&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+				removeObject(object.get(i));
+			}
+		}
+		}
 	}
 
 }

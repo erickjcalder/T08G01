@@ -5,18 +5,20 @@ public class Map {
 	Room roomLoc[][];
 	int width;
 	int height;
+	LevelHandler handler;
 
 	// creates a 2D array of Room objects and will decide where each room will go
 	// and what entrances the Room will have
 	// later on will also determine what type of Room it is
-	public Map(int width, int height) {
+	public Map(int width, int height, LevelHandler handler) {
 		this.width = width;
 		this.height = height;
 		this.roomLoc = new Room[width][height];
+		this.handler = handler;
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				this.roomLoc[i][j] = new Room(false, false, false, false, false, 0);
+				this.roomLoc[i][j] = new Room(false, false, false, false, false, 0, handler);
 			}
 		}
 
@@ -45,33 +47,33 @@ public class Map {
 		switch (r.nextInt(1)) {
 
 		case 0:
-			this.roomLoc[0][0] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[1][0] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[2][0] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[0][0] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[1][0] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[2][0] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[2][1] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[3][1] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[2][1] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[3][1] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[1][2] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[2][2] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[3][2] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[4][2] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[5][2] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[6][2] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[1][2] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[2][2] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[3][2] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[4][2] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[5][2] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[6][2] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[3][3] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[3][3] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[0][4] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[3][4] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[0][4] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[3][4] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[0][5] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[1][5] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[2][5] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[3][5] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[0][5] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[1][5] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[2][5] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[3][5] = new Room(false, false, false, false, false, 1, handler);
 
-			this.roomLoc[3][6] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[4][6] = new Room(false, false, false, false, false, 1);
-			this.roomLoc[5][6] = new Room(false, false, false, false, false, 1);
+			this.roomLoc[3][6] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[4][6] = new Room(false, false, false, false, false, 1, handler);
+			this.roomLoc[5][6] = new Room(false, false, false, false, false, 1, handler);
 		}
 
 		// Creates all the doors to the other rooms

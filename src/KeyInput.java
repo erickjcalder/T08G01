@@ -36,33 +36,57 @@ public class KeyInput extends KeyAdapter {
 				Player player = (Player) handler.object.get(i);
 
 				// Acceleration and deceleration for W key
-				if (this.wPress && !this.sPress) {
-					player.LogicInterface("up");
+				if (this.wPress && !this.sPress && player.getVelocityY() > -7) {
+					player.setVelocityY(player.getVelocityY() - 2);
+					player.animState = "walking back";
+				} else if (player.getVelocityY() < 0) {
+					player.setVelocityY(player.getVelocityY() + 1);
 				}
 
 				// Acceleration and deceleration for A key
-				if (this.aPress && !this.dPress) {
-					player.LogicInterface("left");
+				if (this.aPress && !this.dPress && player.getVelocityX() > -7) {
+					player.setVelocityX(player.getVelocityX() - 2);
+					if (!this.wPress && !this.sPress) {
+						player.animState = "walking left";
+					}
+				} else if (player.getVelocityX() < 0) {
+					player.setVelocityX(player.getVelocityX() + 1);
 				}
 
 				// Acceleration and deceleration for S key
-				if (this.sPress && !this.wPress) {
-					player.LogicInterface("down");
+				if (this.sPress && !this.wPress && player.getVelocityY() < 7) {
+					player.setVelocityY(player.getVelocityY() + 2);
+					player.animState = "walking front";
+				} else if (player.getVelocityY() > 0) {
+					player.setVelocityY(player.getVelocityY() - 1);
 				}
 
 				// Acceleration and deceleration for D key
-				if (this.dPress && !this.aPress) {
-					player.LogicInterface("right");
+				if (this.dPress && !this.aPress && player.getVelocityX() < 7) {
+					player.setVelocityX(player.getVelocityX() + 2);
+					if (!this.wPress && !this.sPress) {
+						player.animState = "walking right";
+					}
+				} else if (player.getVelocityX() > 0) {
+					player.setVelocityX(player.getVelocityX() - 1);
 				}
 
 				// Slows to 0 Y velocity if opposite key directions pressed
 				if (this.wPress && this.sPress) {
-					player.LogicInterface("updown");
+					if (player.getVelocityY() > 0) {
+						player.setVelocityY(player.getVelocityY() - 1);
+					} else if (player.getVelocityY() < 0) {
+						player.setVelocityY(player.getVelocityY() + 1);
+					}
 				}
 
 				// Slows to 0 X velocity if opposite key directions pressed
 				if (this.aPress && this.dPress) {
-					player.LogicInterface("leftright");
+					if (player.getVelocityX() > 0) {
+						player.setVelocityX(player.getVelocityX() - 1);
+					} else if (player.getVelocityX() < 0) {
+						player.setVelocityX(player.getVelocityX() + 1);
+					}
 				}
 
 				// Arrow keys to shoot

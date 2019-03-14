@@ -1,7 +1,10 @@
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
-public class Projectile extends Entity{
+public class Projectile extends Entity {
+
+	Image projectile = Toolkit.getDefaultToolkit().getImage("resources/Projectile.png");
 
 	public Projectile(int x, int y, int velX, int velY) {
 		super(x, y);
@@ -17,34 +20,40 @@ public class Projectile extends Entity{
 
 	@Override
 	public void tick() {
-		setX(getX()+(int)getVelocityX());
-		setY(getY()+(int)getVelocityY());
+		setX(getX() + (int) getVelocityX());
+		setY(getY() + (int) getVelocityY());
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(new Color(185, 0, 0));
-		g.fillOval(getX(), getY(), 20, 20);
-		
+		g.drawImage(projectile, getX(), getY(), null);
+
 	}
 
 	/**
 	 * Handles all AI or controls.
-	 * @param input Action to be performed.
+	 * 
+	 * @param input
+	 *            Action to be performed.
 	 */
-	public void LogicInterface(String input){
+	public void LogicInterface(String input) {
 
 	}
 
 	/**
 	 * Represents the computation of the Projectile's movement.
 	 */
-	public void MovementLogic(){
+	public void MovementLogic() {
 
 	}
 
-	public void AttackLogic(int direction){
+	public void AttackLogic(int direction) {
 
+	}
+
+	@Override
+	protected void checkInteraction(Entity initiator) {
+		// TODO Auto-generated method stub
 
 	}
 }
