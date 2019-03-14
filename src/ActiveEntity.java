@@ -59,7 +59,7 @@ abstract class ActiveEntity extends Entity
      * Sets current health of entity, up to maximum health.
      * @param health current health of entity.
      */
-    protected void setHealth(int health)
+    void setHealth(int health)
     {
         this.health = health;
 
@@ -82,7 +82,7 @@ abstract class ActiveEntity extends Entity
      * Sets armor value of entity, where armor is between 0 and 100.
      * @param armor armor value of entity.
      */
-    protected void setArmor(int armor)
+    void setArmor(int armor)
     {
         this.armor = armor;
         if(this.armor > 100)

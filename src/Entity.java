@@ -130,7 +130,7 @@ abstract class Entity
      * Sets the damage multiplier of the entity.
      * @param damageMult damage multiplier of the entity.
      */
-    protected void setDamageMult(double damageMult)
+    void setDamageMult(double damageMult)
     {
         this.damageMult = damageMult;
     }
@@ -140,7 +140,7 @@ abstract class Entity
      * Returns the time that must pass between shots.
      * @return Time that must pass between shots
      */
-    protected int getShotCooldown()
+    int getShotCooldown()
     {
         return shotCooldown;
     }
