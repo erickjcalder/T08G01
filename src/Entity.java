@@ -295,6 +295,14 @@ abstract class Entity
         this.team = team;
     }
 
+
+    /**
+     * Checks interaction with entity and acts based on type.
+     * @param initiator Entity that initiates interactions.
+     */
+    protected abstract void checkInteraction(Entity initiator);
+
+
     /**
      * Handles all AI or controls.
      * @param input Action to be performed.

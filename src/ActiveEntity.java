@@ -100,11 +100,6 @@ abstract class ActiveEntity extends Entity
      */
     protected abstract void HealthThresholdEvents();
 
-    /**
-     * Checks interaction with entity and acts based on type.
-     * @param initiator Entity that initiates interactions.
-     */
-    protected abstract void checkInteraction(Entity initiator);
 
     /**
      * Returns the damage mitigation multiplier of the entity.
