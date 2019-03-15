@@ -95,8 +95,7 @@ abstract class Entity {
 	/**
 	 * Sets the name of the entity.
 	 * 
-	 * @param name
-	 *            name of the entity.
+	 * @param name name of the entity.
 	 */
 	protected void setName(String name) {
 		this.name = name;
@@ -114,8 +113,7 @@ abstract class Entity {
 	/**
 	 * Sets the damage of the entity.
 	 * 
-	 * @param damage
-	 *            damage of the entity.
+	 * @param damage damage of the entity.
 	 */
 	protected void setDamage(int damage) {
 		this.damage = damage;
@@ -133,8 +131,7 @@ abstract class Entity {
 	/**
 	 * Sets the damage multiplier of the entity.
 	 * 
-	 * @param damageMult
-	 *            damage multiplier of the entity.
+	 * @param damageMult damage multiplier of the entity.
 	 */
 	void setDamageMult(double damageMult) {
 		this.damageMult = damageMult;
@@ -161,8 +158,7 @@ abstract class Entity {
 	/**
 	 * Sets the time that must pass between shots.
 	 * 
-	 * @param shotCooldown
-	 *            The time that must pass between shots.
+	 * @param shotCooldown The time that must pass between shots.
 	 */
 	protected void setShotCooldown(int shotCooldown) {
 		this.shotCooldown = shotCooldown;
@@ -189,8 +185,7 @@ abstract class Entity {
 	/**
 	 * Sets the X-value of the entity's position.
 	 * 
-	 * @param X
-	 *            X-value of entity's position.
+	 * @param X X-value of entity's position.
 	 */
 	protected void setX(int X) {
 		this.X = X;
@@ -199,16 +194,27 @@ abstract class Entity {
 	/**
 	 * Sets the Y-value of the entity's position.
 	 * 
-	 * @param Y
-	 *            Y-value of entity's position.
+	 * @param Y Y-value of entity's position.
 	 */
 	protected void setY(int Y) {
 		this.Y = Y;
 	}
 
+	/**
+	 * Sets the width of the entity
+	 * 
+	 * @param int width of the entity
+	 */
+
 	protected void setWidth(int width) {
 		this.width = width;
 	}
+	
+	/**
+	 * Sets the height of the entity
+	 * 
+	 * @param int height of the entity
+	 */
 
 	protected void setHeight(int height) {
 		this.height = height;
@@ -217,8 +223,7 @@ abstract class Entity {
 	/**
 	 * Sets X-value of velocity.
 	 * 
-	 * @param velocityX
-	 *            X-value of velocity.
+	 * @param velocityX X-value of velocity.
 	 */
 	protected void setVelocityX(float velocityX) {
 		this.velocityX = velocityX;
@@ -227,8 +232,7 @@ abstract class Entity {
 	/**
 	 * Sets Y-value of velocity.
 	 * 
-	 * @param velocityY
-	 *            Y-value of velocity.
+	 * @param velocityY Y-value of velocity.
 	 */
 	protected void setVelocityY(float velocityY) {
 		this.velocityY = velocityY;
@@ -270,9 +274,21 @@ abstract class Entity {
 		return mapY;
 	}
 
+	
+	/**
+	 * Returns the width of the entity
+	 * 
+	 * @return int width of the entity
+	 */
 	public int getWidth() {
 		return width;
 	}
+	
+	/**
+	 * Returns the height of the entity
+	 * 
+	 * @param int height of the entity
+	 */
 
 	public int getHeight() {
 		return height;
@@ -281,8 +297,7 @@ abstract class Entity {
 	/**
 	 * Sets X position on map.
 	 * 
-	 * @param mapX
-	 *            X position on map.
+	 * @param mapX X position on map.
 	 */
 	protected void setMapX(int mapX) {
 		this.mapX = mapX;
@@ -291,8 +306,7 @@ abstract class Entity {
 	/**
 	 * Sets Y position on map.
 	 * 
-	 * @param mapY
-	 *            Y position on map.
+	 * @param mapY Y position on map.
 	 */
 	protected void setMapY(int mapY) {
 		this.mapY = mapY;
@@ -310,8 +324,7 @@ abstract class Entity {
 	/**
 	 * Sets the team of the entity.
 	 * 
-	 * @param team
-	 *            team of the entity.
+	 * @param team team of the entity.
 	 */
 	protected void setTeam(String team) {
 		this.team = team;
@@ -320,16 +333,14 @@ abstract class Entity {
 	/**
 	 * Checks interaction with entity and acts based on type.
 	 * 
-	 * @param initiator
-	 *            Entity that initiates interactions.
+	 * @param initiator Entity that initiates interactions.
 	 */
 	protected abstract void checkInteraction(Entity initiator);
 
 	/**
 	 * Handles all AI or controls.
 	 * 
-	 * @param input
-	 *            Action to be performed.
+	 * @param input Action to be performed.
 	 */
 	public abstract void LogicInterface(String input);
 
@@ -355,8 +366,7 @@ abstract class Entity {
 	/**
 	 * Code for rendering the entity.
 	 * 
-	 * @param g
-	 *            Graphics object to be drawn to.
+	 * @param g Graphics object to be drawn to.
 	 */
 	abstract public void render(Graphics g);
 

@@ -2,6 +2,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+/**
+ * Projectiles are any object that is shot by an Enemy or Player
+ *
+ * @author Vlad
+ * @version Demo 2
+ */
+
 public class Projectile extends Entity {
 
 	Image projectile = Toolkit.getDefaultToolkit().getImage("resources/Projectile.png");
@@ -24,6 +31,12 @@ public class Projectile extends Entity {
 		setY(getY() + (int) getVelocityY());
 	}
 
+	/**
+	 * Draws the Projectile to the screen
+	 * 
+	 * @param Graphics
+	 *            the graphics object that is used to draw to the screen
+	 */
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(projectile, getX(), getY(), null);

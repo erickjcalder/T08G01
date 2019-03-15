@@ -3,6 +3,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+/**
+ * Controls everything that has to do with items that can be picked up
+ *
+ * @author Rahil
+ * @version Demo 2
+ */
+
 public class Pickups extends Entity {
 	ActiveEntity ae;
 
@@ -111,10 +118,13 @@ public class Pickups extends Entity {
 	 * handles updates
 	 */
 	public void tick() {
-		//randomPickup();
+		// randomPickup();
 
 	}
 
+	/**
+	 * Draws the pickup to the screen
+	 */
 	public void render(Graphics g) {
 		g.drawImage(health, getX(), getY(), null);
 	}

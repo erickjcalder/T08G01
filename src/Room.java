@@ -1,6 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Room objects are used to determine what spawns in the room that the player is
+ * in on the map
+ *
+ * @author Erick
+ * @version Demo 2
+ */
 public class Room {
 
 	boolean north, south, east, west;
@@ -27,14 +34,26 @@ public class Room {
 
 	}
 
+	/**
+	 * Returns the type of room of the Room object
+	 *
+	 * @return int the type of room, represented by an integer
+	 */
 	public int getRoomType() {
 		return this.roomType;
 	}
-
+	/**
+	 * Sets the roomType to a given value
+	 *
+	 * @param int the type of room that the Room will be changed to
+	 */
 	public void setRoomType(int roomType) {
 		this.roomType = roomType;
 	}
-
+	
+	/**
+	 * Draws the current room to the screen
+	 */
 	public void render(Graphics g) {
 		g.setColor(new Color(222, 184, 135));
 

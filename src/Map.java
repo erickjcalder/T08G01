@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/**
+ * Creates a Map for the game to be played on
+ *
+ * @author Erick
+ * @version Demo 2
+ */
 public class Map {
 
 	Room roomLoc[][];
@@ -7,9 +13,11 @@ public class Map {
 	int height;
 	LevelHandler handler;
 
-	// creates a 2D array of Room objects and will decide where each room will go
-	// and what entrances the Room will have
-	// later on will also determine what type of Room it is
+	/**
+	 * Creates a 2D array of Room objects and will decide where each room will go
+	 * and what entrances the Room will have later on will also determine what type
+	 * of Room it is
+	 */
 	public Map(int width, int height, LevelHandler handler) {
 		this.width = width;
 		this.height = height;
@@ -26,6 +34,16 @@ public class Map {
 
 	}
 
+	/**
+	 * Checks to see if there is a room at a specified set of coordinates
+	 * 
+	 * @param int
+	 *            the x coordinate of the room
+	 * @param int
+	 *            the y coordinate of the room
+	 * @return boolean whether or not there is a room at the specified coordinates
+	 */
+
 	public boolean roomCheck(int x, int y) {
 
 		if (x < 0 || y < 0 || x == width || y == height) {
@@ -39,7 +57,9 @@ public class Map {
 		return false;
 	}
 
-	// Determines the layout by randomly selecting a premade layout
+	/**
+	 * Creates the layout of the Map
+	 */
 	public void chooseLayout() {
 
 		Random r = new Random();

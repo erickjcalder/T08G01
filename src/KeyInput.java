@@ -1,6 +1,13 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Monitors key inputs and handles them accordingly
+ *
+ * @author Parker
+ * @version Demo 2
+ */
+
 public class KeyInput extends KeyAdapter {
 
 	private Handler handler;
@@ -14,6 +21,14 @@ public class KeyInput extends KeyAdapter {
 	private boolean downPress;
 	private boolean leftPress;
 	private boolean rightPress;
+
+	/**
+	 * Creates a KeyInput object. KeyInputs objects have 8 booleans that correspond
+	 * to whether the W, A, S, D, Up, Left, Down, Right are currently pressed
+	 * 
+	 * @param handler
+	 *            instance of handler that is used to change velocity of Player
+	 */
 
 	public KeyInput(Handler handler) {
 		this.handler = handler;
@@ -29,6 +44,11 @@ public class KeyInput extends KeyAdapter {
 		rightPress = false;
 	}
 
+	/**
+	 * Decides what to do based on what keys are pressed. Will add velocity if a
+	 * WASD key is pressed, take away velocity if a WASD key is not pressed and will
+	 * create a Projectile object if an arrow key is pressed
+	 */
 	public void tick() {
 
 		for (int i = 0; i < handler.object.size(); i++) {
@@ -111,7 +131,13 @@ public class KeyInput extends KeyAdapter {
 		}
 	}
 
-	// Checks to see what keys are pressed
+	/**
+	 * Checks to see what keys are pressed and changes their corresponding boolean
+	 * to true if they are
+	 * 
+	 * @param KeyEvent
+	 *            used to get the code of the pressed keys
+	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -153,7 +179,13 @@ public class KeyInput extends KeyAdapter {
 
 	}
 
-	// checks to see if a key is released
+	/**
+	 * Checks to see if a key has been released changes the corresponding boolean to
+	 * false if it has been
+	 * 
+	 * @param KeyEvent
+	 *            used to get the code of the released keys
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 

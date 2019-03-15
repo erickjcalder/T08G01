@@ -9,6 +9,13 @@ import java.awt.image.BufferStrategy;
  * retrieval: 28/02/2019
  */
 
+/**
+ * The main backend of the game
+ *
+ * @author Parker
+ * @version Demo 2
+ */
+
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,11 +28,9 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private KeyInput keyInput;
 
-	// when a new game object is created a new window is first created
-	// a new Handler is created and assigned to the Game object's handler instance
-	// variable
-	// a new Player entity object is added to the handler
-	// a KeyInput is created and added to the Game object
+	/**
+	 * Creates a new Game object and also creates a new window
+	 */
 	public Game() {
 		if (OS.contains("windows")) {
 			WIDTH = 1030;
@@ -44,18 +49,18 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	// start creates a new Thread using Game object
-	// is only called once in the Window class once the window has been set up
-	// sets the running boolean to true
+	/**
+	 * Creates and starts a new Thread using Game object
+	 */
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 
-	// stop method called only once in run() if game loop is left
-	// waits for thread to die
-	// sets running boolean to false
+	/**
+	 * Waits for the thread to die to close the game
+	 */
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -65,8 +70,10 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	// the run method is part of the Runnable interface
-	// Game loop, runs tick method and render method, should never be changed
+	/**
+	 * Calls tick method 60 times per second as well as calling the render method as
+	 * many times as possible
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -97,25 +104,19 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
-	// Tick method, ticks the handler tick method and the keyinput tick method
-	// handler tick method is responsible for ticking all Entities in the game
-	// keyinput tick method just responsible for key inputs
-	// this method should never really have anything added to it unless there is
-	// good reason
+	/**
+	 * Call Handler and KeyInput tick methods which are used to update the game
+	 */
 	public void tick() {
 		handler.tick();
 		keyInput.tick();
 	}
 
-	// first creates a buffer strategy, then draws a background, then calls
-	// individual render methods
-	// handler.renderRoom() draws the room first
-	// handler.render() draws all entities
-	// handler.renderMap() draws the minimap in the top right
-	// after calling all the render methods the graphics object is disposed, the
-	// buffer strategy is shown and
-	// finally the sync method is called which just makes sure the program can run
-	// properly on Linux
+	/**
+	 * Creates a BufferStrategy, which is used to create a Graphics object, which is
+	 * passed to individual render methods that cause every object to be drawn to
+	 * the screen
+	 */
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -139,7 +140,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	// A new game object is created
+	/**
+	 * Creates a new Game object
+	 */
 	public static void main(String[] args) {
 		new Game();
 	}

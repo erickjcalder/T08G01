@@ -1,13 +1,21 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Determines and handles how each level is handled within the game
+ *
+ * @author Parker
+ * @version Demo 2
+ */
 public class LevelHandler {
 
 	Handler handler;
 	Map map;
 	int width, height;
 
-	// map is just defaulted to 7x7 right now for no particular reason
+	/**
+	 * Creates a new LevelHandler object and also creates a new Map
+	 */
 	public LevelHandler(Handler handler) {
 		this.handler = handler;
 		width = 7;
@@ -15,19 +23,38 @@ public class LevelHandler {
 		map = new Map(width, height, this);
 	}
 
+	/**
+	 * Returns the current Map object belonging to the LevelHandler
+	 * 
+	 * @return Map the instance of Map that belongs to LevelHandler
+	 */
+
 	public Map getMap() {
 		return map;
 	}
 
+	/**
+	 * Returns the current Handler object belonging to the LevelHandler
+	 * 
+	 * @return Handler the instance of Handler that belongs to LevelHandler
+	 */
+
 	public Handler getHandler() {
 		return handler;
 	}
-	
+
+	/**
+	 * Adds the pickups in the current room to the object list in Handler
+	 */
+
 	public void addPickups(int mapX, int mapY) {
 		handler.addObject(this.map.roomLoc[mapX][mapY].pickups[0]);
 	}
 
-	// renders a visual representation of the map in the top right corner
+	/**
+	 * Draws the minimap in the top right corner
+	 */
+
 	public void renderMap(Graphics g) {
 		Entity playerObject = handler.object.get(0);
 
@@ -67,6 +94,10 @@ public class LevelHandler {
 			}
 		}
 	}
+
+	/**
+	 * Renders the room that the Player is currently in
+	 */
 
 	public void renderRoom(Graphics g) {
 		Entity playerObject = handler.object.get(0);
