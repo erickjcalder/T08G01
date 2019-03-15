@@ -5,8 +5,8 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 /**
- * Class adapted from: https://www.youtube.com/watch?v=1gir2R7G9ws Date of
- * retrieval: 28/02/2019
+ * Class adapted from: https://www.youtube.com/watch?v=1gir2R7G9ws 
+ * Date of retrieval: 28/02/2019
  */
 
 /**
@@ -16,13 +16,12 @@ import java.awt.image.BufferStrategy;
  * @version Demo 2
  */
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas {
 
 	private static final long serialVersionUID = 1L;
 
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	private int WIDTH, HEIGHT;
-	private Thread thread;
 	private Handler handler;
 	private LevelHandler levelhandler;
 	private boolean running = false;
@@ -47,27 +46,6 @@ public class Game extends Canvas implements Runnable {
 		keyInput = new KeyInput(handler);
 		this.addKeyListener(keyInput);
 
-	}
-
-	/**
-	 * Creates and starts a new Thread using Game object
-	 */
-	public synchronized void start() {
-		thread = new Thread(this);
-		thread.start();
-		running = true;
-	}
-
-	/**
-	 * Waits for the thread to die to close the game
-	 */
-	public synchronized void stop() {
-		try {
-			thread.join();
-			running = false;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -101,7 +79,6 @@ public class Game extends Canvas implements Runnable {
 				frames = 0;
 			}
 		}
-		stop();
 	}
 
 	/**
@@ -144,6 +121,8 @@ public class Game extends Canvas implements Runnable {
 	 * Creates a new Game object
 	 */
 	public static void main(String[] args) {
-		new Game();
+		Game game = new Game();
+		game.running = true;
+		game.run();
 	}
 }
