@@ -78,6 +78,21 @@ abstract class Entity {
 	 */
 	private int height;
 
+	/**
+	 * The frame of the current animation
+	 */
+	private int animFrame;
+
+	/**
+	 * The time being counted in between frames of animation
+	 */
+	private int animTimer;
+
+	/**
+	 * The current animation of the Entity
+	 */
+	private String animState;
+
 	Entity(int X, int Y) {
 		this.X = X;
 		this.Y = Y;
@@ -156,6 +171,15 @@ abstract class Entity {
 	}
 
 	/**
+	 * Returns the time since the last shot.
+	 * 
+	 * @return Time that passed since the last shot.
+	 */
+	protected void setShotTimer(int shotTimer) {
+		this.shotTimer = shotTimer;
+	}
+
+	/**
 	 * Sets the time that must pass between shots.
 	 * 
 	 * @param shotCooldown The time that must pass between shots.
@@ -209,7 +233,7 @@ abstract class Entity {
 	protected void setWidth(int width) {
 		this.width = width;
 	}
-	
+
 	/**
 	 * Sets the height of the entity
 	 * 
@@ -274,7 +298,6 @@ abstract class Entity {
 		return mapY;
 	}
 
-	
 	/**
 	 * Returns the width of the entity
 	 * 
@@ -283,7 +306,7 @@ abstract class Entity {
 	public int getWidth() {
 		return width;
 	}
-	
+
 	/**
 	 * Returns the height of the entity
 	 * 
@@ -331,6 +354,54 @@ abstract class Entity {
 	}
 
 	/**
+	 * Returns the current frame of animation of the Entity
+	 */
+	public int getAnimFrame() {
+		return animFrame;
+	}
+
+	/**
+	 * Returns the current frame of animation of the Entity
+	 * 
+	 * @param team team of the entity.
+	 */
+	public void setAnimFrame(int animFrame) {
+		this.animFrame = animFrame;
+	}
+	
+	/**
+	 * Returns the current frame of animation of the Entity
+	 */
+	public int getAnimTimer() {
+		return animTimer;
+	}
+
+	/**
+	 * Returns the current frame of animation of the Entity
+	 * 
+	 * @param team team of the entity.
+	 */
+	public void setAnimTimer(int animTimer) {
+		this.animTimer = animTimer;
+	}
+	
+	/**
+	 * Returns the current frame of animation of the Entity
+	 */
+	public String getAnimState() {
+		return new String(this.animState);
+	}
+
+	/**
+	 * Returns the current frame of animation of the Entity
+	 * 
+	 * @param team team of the entity.
+	 */
+	public void setAnimState(String animState) {
+		this.animState = new String(animState);
+	}
+
+	/**
 	 * Checks interaction with entity and acts based on type.
 	 * 
 	 * @param initiator Entity that initiates interactions.
@@ -342,22 +413,22 @@ abstract class Entity {
 	 * 
 	 * @param input Action to be performed.
 	 */
-	public abstract void LogicInterface(String input);
+	public abstract void logicInterface(String input);
 
 	/**
 	 * Represents the computation of the entity's movement.
 	 */
-	protected abstract void MovementLogic();
+	protected abstract void movementLogic();
 
 	/**
 	 * Represents the computation of the entity's attacks.
 	 */
-	protected abstract void AttackLogic(int direction);
+	protected abstract void attackLogic(int direction);
 
 	/**
 	 * Updates the delay on the shots.
 	 */
-	protected void UpdateShotDelay() {
+	protected void updateShotDelay() {
 		if (this.shotTimer < this.shotCooldown) {
 			shotTimer++;
 		}

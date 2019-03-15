@@ -95,7 +95,7 @@ abstract class ActiveEntity extends Entity {
 	/**
 	 * Represents events caused by health.
 	 */
-	protected abstract void HealthThresholdEvents();
+	protected abstract void healthThresholdEvents();
 
 	/**
 	 * Returns the damage mitigation multiplier of the entity.
@@ -120,7 +120,7 @@ abstract class ActiveEntity extends Entity {
 	 * @param baseDamage
 	 *            damage taken.
 	 */
-	protected void ModifyHealth(int baseDamage) {
+	protected void modifyHealth(int baseDamage) {
 		this.health -= baseDamage * (1 - getArmorAbsorption());
 	}
 
@@ -132,11 +132,11 @@ abstract class ActiveEntity extends Entity {
 	 * @param bypassArmor
 	 *            if the damage should ignore armor.
 	 */
-	protected void ModifyHealth(int baseDamage, boolean bypassArmor) {
+	protected void modifyHealth(int baseDamage, boolean bypassArmor) {
 		if (bypassArmor) {
 			this.health -= baseDamage;
 		} else {
-			ModifyHealth(baseDamage);
+			modifyHealth(baseDamage);
 		}
 	}
 }

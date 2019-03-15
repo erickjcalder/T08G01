@@ -35,8 +35,8 @@ public class Pickups extends Entity {
 		this.setVelocityX(0);
 		this.setVelocityY(0);
 
-		setWidth(40);
-		setHeight(40);
+		setWidth(38);
+		setHeight(38);
 
 	}
 	// this class deals with the random powerups that spawn on every new level at
@@ -94,20 +94,20 @@ public class Pickups extends Entity {
 
 	}
 
-	public void LogicInterface(String inp) {
+	public void logicInterface(String inp) {
 		/**
 		 * this method is never invoked as there are no buttons pressed for pickups
 		 */
 	}
 
-	public void MovementLogic() {
+	public void movementLogic() {
 		/**
 		 * Pickups are not mobile.
 		 */
 
 	}
 
-	public void AttackLogic() {
+	public void attackLogic() {
 		/**
 		 * Pickups dont have any attack mechanic.
 		 */
@@ -126,7 +126,7 @@ public class Pickups extends Entity {
 	 * Draws the pickup to the screen
 	 */
 	public void render(Graphics g) {
-		g.drawImage(health, getX(), getY(), null);
+		g.drawImage(health, getX(), getY(), 38, 38, null);
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class Pickups extends Entity {
 	}
 
 	@Override
-	protected void AttackLogic(int direction) {
+	protected void attackLogic(int direction) {
 		// TODO Auto-generated method stub
 
 	}

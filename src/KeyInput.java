@@ -26,8 +26,7 @@ public class KeyInput extends KeyAdapter {
 	 * Creates a KeyInput object. KeyInputs objects have 8 booleans that correspond
 	 * to whether the W, A, S, D, Up, Left, Down, Right are currently pressed
 	 * 
-	 * @param handler
-	 *            instance of handler that is used to change velocity of Player
+	 * @param handler instance of handler that is used to change velocity of Player
 	 */
 
 	public KeyInput(Handler handler) {
@@ -58,7 +57,7 @@ public class KeyInput extends KeyAdapter {
 				// Acceleration and deceleration for W key
 				if (this.wPress && !this.sPress && player.getVelocityY() > -7) {
 					player.setVelocityY(player.getVelocityY() - 2);
-					player.animState = "walking back";
+					player.setAnimState("walking back");
 				} else if (player.getVelocityY() < 0) {
 					player.setVelocityY(player.getVelocityY() + 1);
 				}
@@ -67,7 +66,7 @@ public class KeyInput extends KeyAdapter {
 				if (this.aPress && !this.dPress && player.getVelocityX() > -7) {
 					player.setVelocityX(player.getVelocityX() - 2);
 					if (!this.wPress && !this.sPress) {
-						player.animState = "walking left";
+						player.setAnimState("walking left");
 					}
 				} else if (player.getVelocityX() < 0) {
 					player.setVelocityX(player.getVelocityX() + 1);
@@ -76,7 +75,7 @@ public class KeyInput extends KeyAdapter {
 				// Acceleration and deceleration for S key
 				if (this.sPress && !this.wPress && player.getVelocityY() < 7) {
 					player.setVelocityY(player.getVelocityY() + 2);
-					player.animState = "walking front";
+					player.setAnimState("walking front");
 				} else if (player.getVelocityY() > 0) {
 					player.setVelocityY(player.getVelocityY() - 1);
 				}
@@ -85,7 +84,7 @@ public class KeyInput extends KeyAdapter {
 				if (this.dPress && !this.aPress && player.getVelocityX() < 7) {
 					player.setVelocityX(player.getVelocityX() + 2);
 					if (!this.wPress && !this.sPress) {
-						player.animState = "walking right";
+						player.setAnimState("walking right");
 					}
 				} else if (player.getVelocityX() > 0) {
 					player.setVelocityX(player.getVelocityX() - 1);
@@ -112,19 +111,23 @@ public class KeyInput extends KeyAdapter {
 				// Arrow keys to shoot
 
 				if (this.upPress && !this.downPress && !this.leftPress && !this.rightPress) {
-					player.LogicInterface("shootup");
+					player.logicInterface("shootup");
+					player.setAnimState("throw back");
 				}
 
 				if (this.downPress && !this.upPress && !this.leftPress && !this.rightPress) {
-					player.LogicInterface("shootdown");
+					player.logicInterface("shootdown");
+					player.setAnimState("throw front");
 				}
 
 				if (this.leftPress && !this.downPress && !this.upPress && !this.rightPress) {
-					player.LogicInterface("shootleft");
+					player.logicInterface("shootleft");
+					player.setAnimState("throw left");
 				}
 
 				if (this.rightPress && !this.downPress && !this.leftPress && !this.upPress) {
-					player.LogicInterface("shootright");
+					player.logicInterface("shootright");
+					player.setAnimState("throw right");
 				}
 
 			}
@@ -135,8 +138,7 @@ public class KeyInput extends KeyAdapter {
 	 * Checks to see what keys are pressed and changes their corresponding boolean
 	 * to true if they are
 	 * 
-	 * @param KeyEvent
-	 *            used to get the code of the pressed keys
+	 * @param KeyEvent used to get the code of the pressed keys
 	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -183,8 +185,7 @@ public class KeyInput extends KeyAdapter {
 	 * Checks to see if a key has been released changes the corresponding boolean to
 	 * false if it has been
 	 * 
-	 * @param KeyEvent
-	 *            used to get the code of the released keys
+	 * @param KeyEvent used to get the code of the released keys
 	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();

@@ -99,7 +99,7 @@ public class Handler {
 		}
 
 		for (int i = 0; i < object.size(); i++) {
-			if (!object.get(i).equals(playerObject)) {
+			if (object.get(i) instanceof Pickups) {
 				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
 						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
 						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()

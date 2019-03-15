@@ -49,18 +49,18 @@ public class Projectile extends Entity {
 	 * @param input
 	 *            Action to be performed.
 	 */
-	public void LogicInterface(String input) {
+	public void logicInterface(String input) {
 
 	}
 
 	/**
 	 * Represents the computation of the Projectile's movement.
 	 */
-	public void MovementLogic() {
+	public void movementLogic() {
 
 	}
 
-	public void AttackLogic(int direction) {
+	public void attackLogic(int direction) {
 
 	}
 
