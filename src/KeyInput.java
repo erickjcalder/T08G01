@@ -22,6 +22,8 @@ public class KeyInput extends KeyAdapter {
 	private boolean leftPress;
 	private boolean rightPress;
 
+	private Game game;
+
 	/**
 	 * Creates a KeyInput object. KeyInputs objects have 8 booleans that correspond
 	 * to whether the W, A, S, D, Up, Left, Down, Right are currently pressed
@@ -29,7 +31,7 @@ public class KeyInput extends KeyAdapter {
 	 * @param handler instance of handler that is used to change velocity of Player
 	 */
 
-	public KeyInput(Handler handler) {
+	public KeyInput(Handler handler, Game game) {
 		this.handler = handler;
 
 		wPress = false;
@@ -41,6 +43,8 @@ public class KeyInput extends KeyAdapter {
 		downPress = false;
 		leftPress = false;
 		rightPress = false;
+
+		this.game = game;
 	}
 
 	/**
@@ -177,6 +181,14 @@ public class KeyInput extends KeyAdapter {
 
 		if (key == KeyEvent.VK_RIGHT) {
 			this.rightPress = true;
+		}
+
+		if (key == KeyEvent.VK_ESCAPE) {
+			if (game.getGameState().equals("game")) {
+				game.setGameState("menu");
+			} else {
+				game.setGameState("game");
+			}
 		}
 
 	}

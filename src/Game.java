@@ -26,6 +26,8 @@ public class Game extends Canvas {
 	private LevelHandler levelhandler;
 	private boolean running = false;
 	private KeyInput keyInput;
+	public String gameState;
+	private Menu menu;
 
 	/**
 	 * Creates a new Game object and also creates a new window
@@ -43,8 +45,13 @@ public class Game extends Canvas {
 		handler = new Handler();
 		levelhandler = new LevelHandler(handler);
 		handler.addObject(new Player(490, 350, levelhandler));
-		keyInput = new KeyInput(handler);
+		keyInput = new KeyInput(handler, this);
+		menu = new Menu(this);
 		this.addKeyListener(keyInput);
+		this.addMouseListener(menu);
+
+
+		gameState = "menu";
 
 	}
 
@@ -85,8 +92,12 @@ public class Game extends Canvas {
 	 * Call Handler and KeyInput tick methods which are used to update the game
 	 */
 	public void tick() {
-		handler.tick();
-		keyInput.tick();
+		if (gameState.equals("game")) {
+			handler.tick();
+			keyInput.tick();
+		} else if (gameState.equals("menu")) {
+			menu.tick();
+		}
 	}
 
 	/**
@@ -105,9 +116,14 @@ public class Game extends Canvas {
 		g.setColor(new Color(188, 143, 143));
 		g.fillRect(0, 0, 1024, 768);
 
-		levelhandler.renderRoom(g);
-		handler.render(g);
-		levelhandler.renderMap(g);
+		if (gameState.equals("game")) {
+			levelhandler.renderRoom(g);
+			handler.render(g);
+			levelhandler.renderMap(g);
+		} else if (gameState.equals("menu")) {
+			menu.render(g);
+
+		}
 
 		g.dispose();
 		bs.show();
@@ -124,5 +140,13 @@ public class Game extends Canvas {
 		Game game = new Game();
 		game.running = true;
 		game.run();
+	}
+	
+	public String getGameState() {
+		return new String(this.gameState);
+	}
+	
+	public void setGameState(String gameState) {
+		this.gameState = new String(gameState);
 	}
 }
