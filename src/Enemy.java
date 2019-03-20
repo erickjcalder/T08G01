@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-class enemyOne extends ActiveEntity {
+public class Enemy extends ActiveEntity {
 
   private Map map ;
   private Handler handler ;
@@ -107,7 +107,7 @@ class enemyOne extends ActiveEntity {
   @Override
   public void Render(Graphics g) {
     switch(getAnimState()) {
-      //cases 
+      //cases
     }
   }
 }
