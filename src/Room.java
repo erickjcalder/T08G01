@@ -48,6 +48,7 @@ public class Room {
 	 * @param int the type of room that the Room will be changed to
 	 */
 	public void setRoomType(int roomType) {
+
 		this.roomType = roomType;
 	}
 	

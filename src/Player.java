@@ -25,8 +25,8 @@ class Player extends ActiveEntity {
 		this.map = levelHandler.getMap();
 		this.handler = levelHandler.getHandler();
 		this.levelHandler = levelHandler;
-		setMapX(2);
-		setMapY(1);
+		setMapX(levelHandler.map.getStartX());
+		setMapY(levelHandler.map.getStartY());
 		setHealthMax(100);
 		setHealth(100);
 		setArmor(0);
