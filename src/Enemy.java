@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-public class Enemy extends ActiveEntity {
+public abstract class Enemy extends ActiveEntity {
 
   private Map map ;
   private Handler handler ;
@@ -15,7 +15,7 @@ public class Enemy extends ActiveEntity {
   private Image front[] = new Image[5] ;
   private LevelHandler levelHandler ;
 
-  enemyOne(int X, int Y, LevelHandler levelHandler) {
+  Enemy(int X, int Y, LevelHandler levelHandler) {
     super(X,Y) ;
     this.map = levelHandler.getMap() ;
     this.handler = levelHandler.getHandler() ;
@@ -33,7 +33,7 @@ public class Enemy extends ActiveEntity {
     setWidth(40) ;
     setHeight(40) ;
 
-  //  animState = ("walking front") ;
+    animState = ("walking front") ;
 /**
     left[0] = Toolkit.getDefaultToolkit().getImage("");
     left[1] = Toolkit.getDefaultToolkit().getImage("");
@@ -83,7 +83,50 @@ public class Enemy extends ActiveEntity {
 
   @Override
   protected void MovementLogic() {
-    //enemy movement
+    if (getY() + getHeight() + getVelocityY() > 640 && !this.map.roomCheck(getMapX(), getMapY() + 1)) {
+			setY(640 - getHeight());
+			setVelocityY(0);
+
+		} else if (getY() + getHeight() + getVelocityY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)
+				&& (getX() > 515 || getX() < 452)) {
+			setY(640 - getHeight());
+			setVelocityY(0);
+		}
+
+		if (getY() + getVelocityY() < 55 && !this.map.roomCheck(getMapX(), getMapY() - 1)) {
+			setY(55);
+			setVelocityY(0);
+
+		} else if (getY() + getVelocityY() < 55 && this.map.roomCheck(getMapX(), getMapY() - 1)
+				&& (getX() > 515 || getX() < 452)) {
+
+			setY(55);
+			setVelocityY(0);
+
+		}
+
+		if (getX() + getWidth() + getVelocityX() > 936 && !this.map.roomCheck(getMapX() + 1, getMapY())) {
+			setX(936 - getWidth());
+			setVelocityX(0);
+
+		} else if (getX() + getWidth() + getVelocityX() > 936 && this.map.roomCheck(getMapX() + 1, getMapY())
+				&& (getY() > 335 || getY() < 265)) {
+			setX(936 - getWidth());
+			setVelocityX(0);
+		}
+
+		if (getX() + getVelocityX() < 90 && !this.map.roomCheck(getMapX() - 1, getMapY())) {
+			setX(90);
+			setVelocityX(0);
+
+		} else if (getX() + getVelocityX() < 90 && this.map.roomCheck(getMapX() - 1, getMapY())
+				&& (getY() > 335 || getY() < 265)) {
+			setX(90);
+			setVelocityX(0);
+		}
+
+    setX(getX() + (int) getVelocityX());
+    setY(getY() + (int) getVelocityY());
   }
 
   @Override
@@ -104,7 +147,7 @@ public class Enemy extends ActiveEntity {
     setAnimTimer(getAnimTimer() + 1) ;
   }
 
-  @Override
+  //@Override
   public void Render(Graphics g) {
     switch(getAnimState()) {
       //cases
