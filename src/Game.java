@@ -49,6 +49,7 @@ public class Game extends Canvas {
 		menu = new Menu(this);
 		this.addKeyListener(keyInput);
 		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 
 
 		gameState = "menu";
@@ -140,6 +141,7 @@ public class Game extends Canvas {
 		Game game = new Game();
 		game.running = true;
 		game.run();
+		System.exit(0);
 	}
 	
 	public String getGameState() {
@@ -148,5 +150,9 @@ public class Game extends Canvas {
 	
 	public void setGameState(String gameState) {
 		this.gameState = new String(gameState);
+	}
+	
+	public void stop() {
+		running = false;
 	}
 }

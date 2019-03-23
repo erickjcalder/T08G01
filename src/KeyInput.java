@@ -22,13 +22,16 @@ public class KeyInput extends KeyAdapter {
 	private boolean leftPress;
 	private boolean rightPress;
 
+	private boolean escPress;
+
 	private Game game;
 
 	/**
 	 * Creates a KeyInput object. KeyInputs objects have 8 booleans that correspond
 	 * to whether the W, A, S, D, Up, Left, Down, Right are currently pressed
 	 * 
-	 * @param handler instance of handler that is used to change velocity of Player
+	 * @param handler
+	 *            instance of handler that is used to change velocity of Player
 	 */
 
 	public KeyInput(Handler handler, Game game) {
@@ -43,6 +46,8 @@ public class KeyInput extends KeyAdapter {
 		downPress = false;
 		leftPress = false;
 		rightPress = false;
+
+		escPress = false;
 
 		this.game = game;
 	}
@@ -142,7 +147,8 @@ public class KeyInput extends KeyAdapter {
 	 * Checks to see what keys are pressed and changes their corresponding boolean
 	 * to true if they are
 	 * 
-	 * @param KeyEvent used to get the code of the pressed keys
+	 * @param KeyEvent
+	 *            used to get the code of the pressed keys
 	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -184,11 +190,12 @@ public class KeyInput extends KeyAdapter {
 		}
 
 		if (key == KeyEvent.VK_ESCAPE) {
-			if (game.getGameState().equals("game")) {
+			if (game.getGameState().equals("game") && !this.escPress) {
 				game.setGameState("menu");
-			} else {
+			} else if (!this.escPress) {
 				game.setGameState("game");
 			}
+			this.escPress = true;
 		}
 
 	}
@@ -197,7 +204,8 @@ public class KeyInput extends KeyAdapter {
 	 * Checks to see if a key has been released changes the corresponding boolean to
 	 * false if it has been
 	 * 
-	 * @param KeyEvent used to get the code of the released keys
+	 * @param KeyEvent
+	 *            used to get the code of the released keys
 	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -236,6 +244,10 @@ public class KeyInput extends KeyAdapter {
 
 		if (key == KeyEvent.VK_RIGHT) {
 			this.rightPress = false;
+		}
+
+		if (key == KeyEvent.VK_ESCAPE) {
+			this.escPress = false;
 		}
 
 	}

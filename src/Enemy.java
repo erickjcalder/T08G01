@@ -61,7 +61,7 @@ public abstract class Enemy extends ActiveEntity {
   }
 
   @Override
-  protected void AttackLogic(int direction) {
+  protected void attackLogic(int direction) {
     switch(direction) {
       case 270 :
         handler.addObject(new Projectile(getX() + 10, getY() -25, 0, -10)) ;
@@ -82,7 +82,7 @@ public abstract class Enemy extends ActiveEntity {
   }
 
   @Override
-  protected void MovementLogic() {
+  protected void movementLogic() {
     if (getY() + getHeight() + getVelocityY() > 640 && !this.map.roomCheck(getMapX(), getMapY() + 1)) {
 			setY(640 - getHeight());
 			setVelocityY(0);
@@ -130,7 +130,7 @@ public abstract class Enemy extends ActiveEntity {
   }
 
   @Override
-  protected void HealthThresholdEvents() {
+  protected void healthThresholdEvents() {
     if(getHealth() <= 0) {
       //Enemy dies and disappears
     }
@@ -139,7 +139,7 @@ public abstract class Enemy extends ActiveEntity {
   @Override
   protected void checkInteraction(Entity initiator) {
     if(initiator instanceof Projectile) {
-      ModifyHealth(initiator.getDamage()) ;
+      modifyHealth(initiator.getDamage()) ;
     }
   }
 
