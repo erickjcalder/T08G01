@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.util.Random;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -12,19 +13,29 @@ import java.awt.Toolkit;
 
 public class Pickups extends Entity {
 	ActiveEntity ae;
+	
+	Handler handler;
+	LevelHandler levelHandler;
 
 	Image health = Toolkit.getDefaultToolkit().getImage("resources/health_up.png");
 	Image damage = Toolkit.getDefaultToolkit().getImage("resources/double_damage.png");
 	Image speed = Toolkit.getDefaultToolkit().getImage("resources/attack_speed.png");
 	Image defence = Toolkit.getDefaultToolkit().getImage("resources/defence_up.png");
+	
 
-	public Pickups() {
+
+	public Pickups(Handler handler, LevelHandler levelHandler) {
 		/**
 		 * As the pickup always spawns in the middle of the room, the location will
 		 * always be the same.
 		 */
+		
 
 		super(500, 500);
+		
+		this.handler = handler;
+		this.levelHandler = levelHandler;
+		
 
 		this.setName("Pickup");
 		this.setTeam("");
@@ -44,7 +55,7 @@ public class Pickups extends Entity {
 
 	public void doubleDamage() {
 		/**
-		 * efectively increases damage by 2 times
+		 * effectively increases damage by 2 times
 		 */
 		super.setDamageMult(2.0);
 	}
@@ -118,7 +129,9 @@ public class Pickups extends Entity {
 	 * handles updates
 	 */
 	public void tick() {
-		// randomPickup();
+		if (handler.checkCollision("pickup")) {
+			levelHandler.removePickup(this);
+		}
 
 	}
 

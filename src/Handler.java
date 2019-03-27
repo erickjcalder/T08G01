@@ -25,7 +25,7 @@ public class Handler {
 				removeObject(tempObject);
 			}
 		}
-		checkCollision();
+		//checkCollision();
 	}
 
 	/**
@@ -86,10 +86,19 @@ public class Handler {
 		}
 	}
 
+	public void clearEnemies() {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Enemy) {
+				removeObject(object.get(i));
+				i = 0;
+			}
+		}
+	}
+
 	/**
 	 * Checks to see if objects are overlapping
 	 */
-	public void checkCollision() {
+	public boolean checkCollision(String collisionType) {
 		Entity playerObject = object.get(0);
 
 		for (int i = 0; i < object.size(); i++) {
@@ -99,15 +108,17 @@ public class Handler {
 		}
 
 		for (int i = 0; i < object.size(); i++) {
-			if (object.get(i) instanceof Pickups) {
+			if (object.get(i) instanceof Pickups && collisionType.equals("pickup")) {
 				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
 						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
 						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
 								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
 					removeObject(object.get(i));
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 }

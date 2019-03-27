@@ -11,7 +11,7 @@ public class LevelHandler {
 
 	Handler handler;
 	Map map;
-	int width, height;
+	int width, height, currentRoomX, currentRoomY;
 
 	/**
 	 * Creates a new LevelHandler object and also creates a new Map
@@ -21,6 +21,8 @@ public class LevelHandler {
 		width = 7;
 		height = 7;
 		map = new Map(width, height, this);
+		currentRoomX = map.getStartX();
+		currentRoomY = map.getStartY();
 	}
 
 	/**
@@ -43,12 +45,42 @@ public class LevelHandler {
 		return handler;
 	}
 
+	public void removeEnemy(Enemy enemy) {
+		this.map.roomLoc[this.currentRoomX][this.currentRoomY].removeEnemy(enemy);
+		System.out.println(currentRoomX);
+	}
+
+	public void removePickup(Pickups pickup) {
+		this.map.roomLoc[this.currentRoomX][this.currentRoomY].removePickup(pickup);
+		System.out.println(currentRoomX);
+	}
+
 	/**
 	 * Adds the pickups in the current room to the object list in Handler
 	 */
 
 	public void addPickups(int mapX, int mapY) {
-		handler.addObject(this.map.roomLoc[mapX][mapY].pickups[0]);
+		if (this.map.roomLoc[mapX][mapY].pickupList.size() > 0) {
+			for (int i = 0; i < this.map.roomLoc[mapX][mapY].pickupList.size(); i++) {
+				handler.addObject(this.map.roomLoc[mapX][mapY].pickupList.get(i));
+			}
+		}
+	}
+
+	public void addEnemies(int mapX, int mapY) {
+		if (this.map.roomLoc[mapX][mapY].pickupList.size() > 0) {
+			for (int i = 0; i < this.map.roomLoc[mapX][mapY].enemyList.size(); i++) {
+				handler.addObject(this.map.roomLoc[mapX][mapY].enemyList.get(i));
+			}
+		}
+	}
+
+	public void setCurrentRoomX(int currentRoomX) {
+		this.currentRoomX = currentRoomX;
+	}
+
+	public void setCurrentRoomY(int currentRoomY) {
+		this.currentRoomY = currentRoomY;
 	}
 
 	/**

@@ -254,32 +254,44 @@ class Player extends ActiveEntity {
 			setX(40);
 			handler.clearProjectiles();
 			handler.clearPickups();
+			handler.clearEnemies();
 			levelHandler.addPickups(getMapX() + 1, getMapY());
+			levelHandler.addEnemies(getMapX() + 1, getMapY());
 			setMapX(getMapX() + 1);
+			levelHandler.setCurrentRoomX(getMapX());
 		}
 
 		if (getX() < 40 && this.map.roomCheck(getMapX() - 1, getMapY())) {
 			setX(940);
 			handler.clearProjectiles();
 			handler.clearPickups();
+			handler.clearEnemies();
 			levelHandler.addPickups(getMapX() - 1, getMapY());
+			levelHandler.addEnemies(getMapX() - 1, getMapY());
 			setMapX(getMapX() - 1);
+			levelHandler.setCurrentRoomX(getMapX());
 		}
 
 		if (getY() < 40 && this.map.roomCheck(getMapX(), getMapY() - 1)) {
 			setY(600);
 			handler.clearProjectiles();
 			handler.clearPickups();
+			handler.clearEnemies();
 			levelHandler.addPickups(getMapX(), getMapY() - 1);
+			levelHandler.addEnemies(getMapX(), getMapY() - 1);
 			setMapY(getMapY() - 1);
+			levelHandler.setCurrentRoomY(getMapY());
 		}
 
 		if (getY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)) {
 			setY(40);
 			handler.clearProjectiles();
 			handler.clearPickups();
+			handler.clearEnemies();
 			levelHandler.addPickups(getMapX(), getMapY() + 1);
+			levelHandler.addEnemies(getMapX(), getMapY() + 1);
 			setMapY(getMapY() + 1);
+			levelHandler.setCurrentRoomY(getMapY());
 		}
 	}
 

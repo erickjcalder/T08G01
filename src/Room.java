@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.LinkedList;
 
 /**
  * Room objects are used to determine what spawns in the room that the player is
@@ -13,7 +14,8 @@ public class Room {
 	boolean north, south, east, west;
 	boolean unresolvedEvent;
 	int roomType;
-	Pickups pickups[] = new Pickups[4];
+	LinkedList<Pickups> pickupList = new LinkedList<Pickups>();
+	LinkedList<Enemy> enemyList = new LinkedList<Enemy>();
 	LevelHandler levelHandler;
 
 	// Each room has 4 booleans that represent if there is a door on that side of
@@ -30,7 +32,8 @@ public class Room {
 		this.roomType = roomType;
 		this.levelHandler = levelHandler;
 
-		this.pickups[0] = new Pickups();
+		pickupList.add(new Pickups(levelHandler.getHandler(), levelHandler));
+		enemyList.add(new Wasp(500, 200, levelHandler));
 
 	}
 
@@ -50,6 +53,14 @@ public class Room {
 	public void setRoomType(int roomType) {
 
 		this.roomType = roomType;
+	}
+	
+	public void removeEnemy(Enemy enemy) {
+		enemyList.remove(enemy);
+	}
+	
+	public void removePickup(Pickups pickup) {
+		pickupList.remove(pickup);
 	}
 	
 	/**
