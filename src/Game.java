@@ -76,7 +76,7 @@ public class Game extends Canvas {
 				delta--;
 			}
 
-			if (!gameState.equals("file select")) {
+			if (!gameState.equals("file select") && !gameState.equals("warning")) {
 				if (running) {
 					render();
 				}

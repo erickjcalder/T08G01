@@ -14,7 +14,7 @@ public class FileExplorer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setMultiSelectionEnabled(false);
 		fileChooser.setDialogTitle(title);
@@ -28,8 +28,10 @@ public class FileExplorer {
 		}
 
 		selectedFile = fileChooser.getSelectedFile();
-		if (!selectedFile.getName().endsWith(".txt")) {
-			selectedFile = null;
+		if (selectedFile != null) {
+			if (!selectedFile.getName().endsWith(".txt")) {
+				selectedFile = null;
+			}
 		}
 	}
 
