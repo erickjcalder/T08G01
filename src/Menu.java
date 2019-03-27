@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 
 public class Menu extends MouseAdapter implements MouseMotionListener {
 
@@ -143,6 +144,15 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
 			game.gameState = "game";
 			menuState = "pause";
+		}
+
+		if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+			game.setGameState("file select");
+			FileExplorer fe = new FileExplorer("Select save");
+
+			File file = fe.getSelectedFile();
+			System.out.println(file);
+			game.setGameState("menu");
 		}
 
 		if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {

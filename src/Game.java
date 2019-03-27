@@ -51,7 +51,6 @@ public class Game extends Canvas {
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 
-
 		gameState = "menu";
 
 	}
@@ -68,6 +67,7 @@ public class Game extends Canvas {
 		long timer = System.currentTimeMillis();
 		int frames = 0;
 		while (running) {
+
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -75,16 +75,19 @@ public class Game extends Canvas {
 				tick();
 				delta--;
 			}
-			if (running) {
-				render();
-			}
 
-			frames++;
+			if (!gameState.equals("file select")) {
+				if (running) {
+					render();
+				}
 
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				System.out.println("FPS: " + frames);
-				frames = 0;
+				frames++;
+
+				if (System.currentTimeMillis() - timer > 1000) {
+					timer += 1000;
+					System.out.println("FPS: " + frames);
+					frames = 0;
+				}
 			}
 		}
 	}
@@ -143,15 +146,15 @@ public class Game extends Canvas {
 		game.run();
 		System.exit(0);
 	}
-	
+
 	public String getGameState() {
 		return new String(this.gameState);
 	}
-	
+
 	public void setGameState(String gameState) {
 		this.gameState = new String(gameState);
 	}
-	
+
 	public void stop() {
 		running = false;
 	}
