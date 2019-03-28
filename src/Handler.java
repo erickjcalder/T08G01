@@ -25,7 +25,6 @@ public class Handler {
 				removeObject(tempObject);
 			}
 		}
-		//checkCollision();
 	}
 
 	/**
@@ -52,14 +51,6 @@ public class Handler {
 	 */
 	public void removeObject(Entity object) {
 		this.object.remove(object);
-	}
-
-	/**
-	 * Will be used to add a list of pickups from a given room to the LinkedList of
-	 * objects
-	 */
-	public void addPickups() {
-
 	}
 
 	/**
@@ -114,6 +105,15 @@ public class Handler {
 						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
 								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
 					removeObject(object.get(i));
+					return true;
+				}
+			}
+			
+			if (object.get(i) instanceof Enemy && collisionType.equals("enemy")) {
+				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
+						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
+						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
+								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
 					return true;
 				}
 			}

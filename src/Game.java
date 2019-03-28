@@ -28,6 +28,7 @@ public class Game extends Canvas {
 	private KeyInput keyInput;
 	public String gameState;
 	private Menu menu;
+	private HUD hud;
 
 	/**
 	 * Creates a new Game object and also creates a new window
@@ -44,12 +45,13 @@ public class Game extends Canvas {
 		new Window(WIDTH, HEIGHT, "Game", this);
 		handler = new Handler();
 		levelhandler = new LevelHandler(handler);
-		handler.addObject(new Player(490, 350, levelhandler));
+		handler.addObject(new Player(490, 350, levelhandler, this));
 		keyInput = new KeyInput(handler, this);
 		menu = new Menu(this);
 		this.addKeyListener(keyInput);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
+		this.hud = new HUD(handler);
 
 		gameState = "menu";
 
@@ -99,7 +101,7 @@ public class Game extends Canvas {
 		if (gameState.equals("game")) {
 			handler.tick();
 			keyInput.tick();
-		} else if (gameState.equals("menu")) {
+		} else if (gameState.equals("menu") || gameState.equals("gameover")) {
 			menu.tick();
 		}
 	}
@@ -117,14 +119,15 @@ public class Game extends Canvas {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(new Color(188, 143, 143));
+		g.setColor(new Color(118, 87, 44));
 		g.fillRect(0, 0, 1024, 768);
 
 		if (gameState.equals("game")) {
 			levelhandler.renderRoom(g);
 			handler.render(g);
 			levelhandler.renderMap(g);
-		} else if (gameState.equals("menu")) {
+			hud.render(g);
+		} else if (gameState.equals("menu") || gameState.equals("gameover")) {
 			menu.render(g);
 
 		}
@@ -158,4 +161,11 @@ public class Game extends Canvas {
 	public void stop() {
 		running = false;
 	}
+	
+	public void gameOver() {
+		gameState = "gameover";
+		menu.setMenuState("gameover");
+	}
+	
+
 }

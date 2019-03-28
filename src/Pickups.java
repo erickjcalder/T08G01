@@ -1,4 +1,3 @@
-import java.lang.Math;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -70,7 +69,6 @@ public class Pickups extends Entity {
 	 public void healthRegen() {
 	 /**
 	 * restores health to full
-
 	 ae.setHealth(ae.getHealthMax());
 	 pickupNumber = 2;
 	 }
@@ -86,7 +84,6 @@ public class Pickups extends Entity {
 	 public void armorUp() {
 	 /**
 	 * increases armor by one everytime a rune is activated.
-
 	 ae.setArmor(ae.getArmor() + 1);
 	 pickupNumber =4;
 	 }

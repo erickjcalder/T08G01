@@ -68,11 +68,11 @@ public class Wasp extends Enemy {
 			setVelocityY(4);
 		}
 		
-		if (getX() + getVelocityX() + getWidth() > 900 || getX() + getVelocityX() < 80) {
+		if (getX() + getVelocityX() + getWidth() > 950 || getX() + getVelocityX() < 80) {
 			setVelocityX(getVelocityX() * -1);
 		}
 		
-		if (getY() + getVelocityY() + getHeight() > 500 || getY() + getVelocityY() < 80) {
+		if (getY() + getVelocityY() + getHeight() > 520 || getY() + getVelocityY() < 20) {
 			setVelocityY(getVelocityY() * -1);
 		}
 		
@@ -123,9 +123,6 @@ public class Wasp extends Enemy {
 		movementLogic();
 		animationHandler();
 		healthThresholdEvents();
-		
-		setHealth(getHealth() - 1);
-
 	}
 
 }

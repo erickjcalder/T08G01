@@ -68,7 +68,7 @@ public class LevelHandler {
 	}
 
 	public void addEnemies(int mapX, int mapY) {
-		if (this.map.roomLoc[mapX][mapY].pickupList.size() > 0) {
+		if (this.map.roomLoc[mapX][mapY].enemyList.size() > 0) {
 			for (int i = 0; i < this.map.roomLoc[mapX][mapY].enemyList.size(); i++) {
 				handler.addObject(this.map.roomLoc[mapX][mapY].enemyList.get(i));
 			}

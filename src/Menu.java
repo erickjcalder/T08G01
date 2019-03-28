@@ -82,7 +82,7 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				g.drawImage(birds[animFrame - 1], birdX - 32, birdY + 15, 24, 18, null);
 			}
 
-		} else {
+		} else if (menuState.equals("pause")) {
 			g.setColor(new Color(255, 255, 255));
 
 			g.setFont(new Font("Helvetica", 1, 85));
@@ -91,6 +91,13 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			g.setFont(new Font("Helvetica", 1, 65));
 			g.drawRect(405, 300, 250, 100);
 			g.drawString("Back", 455, 370);
+
+			g.drawRect(405, 500, 250, 100);
+			g.drawString("Save", 455, 570);
+		} else if (menuState.equals("gameover")) {
+			g.setColor(new Color(255, 255, 255));
+			g.setFont(new Font("Helvetica", 1, 65));
+			g.drawString("Game Over", 350, 300);
 		}
 	}
 
@@ -118,22 +125,24 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 
-		if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
-			hoverStart = true;
-		} else {
-			hoverStart = false;
-		}
+		if (menuState.equals("main")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				hoverStart = true;
+			} else {
+				hoverStart = false;
+			}
 
-		if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
-			hoverLoad = true;
-		} else {
-			hoverLoad = false;
-		}
+			if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				hoverLoad = true;
+			} else {
+				hoverLoad = false;
+			}
 
-		if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
-			hoverQuit = true;
-		} else {
-			hoverQuit = false;
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				hoverQuit = true;
+			} else {
+				hoverQuit = false;
+			}
 		}
 	}
 
@@ -141,23 +150,25 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 
-		if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
-			game.gameState = "game";
-			menuState = "pause";
-		}
+		if (menuState.equals("main")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				game.gameState = "game";
+				menuState = "pause";
+			}
 
-		if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
-			game.setGameState("file select");
-			FileExplorer fe = new FileExplorer("Select save");
+			if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				game.setGameState("file select");
+				FileExplorer fe = new FileExplorer("Select save");
 
-			File file = fe.getSelectedFile();
-			System.out.println(file);
+				File file = fe.getSelectedFile();
+				System.out.println(file);
 
-			game.setGameState("menu");
-		}
+				game.setGameState("menu");
+			}
 
-		if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
-			game.stop();
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				game.stop();
+			}
 		}
 	}
 
@@ -170,6 +181,10 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			return true;
 		}
 		return false;
+	}
+
+	public void setMenuState(String menuState) {
+		this.menuState = new String(menuState);
 	}
 
 }

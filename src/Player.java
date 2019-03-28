@@ -19,9 +19,10 @@ class Player extends ActiveEntity {
 	private Image back[] = new Image[5];
 	private Image front[] = new Image[5];
 	private LevelHandler levelHandler;
+	private Game game;
 
-	Player(int X, int Y, LevelHandler levelHandler) {
-		super(X, Y);
+	Player(int x, int y, LevelHandler levelHandler, Game game) {
+		super(x, y);
 		this.map = levelHandler.getMap();
 		this.handler = levelHandler.getHandler();
 		this.levelHandler = levelHandler;
@@ -34,6 +35,7 @@ class Player extends ActiveEntity {
 		setDamageMult(1);
 		setName("Player");
 		setTeam("player");
+		this.game = game;
 
 		setWidth(56);
 		setHeight(84);
@@ -194,7 +196,8 @@ class Player extends ActiveEntity {
 	/**
 	 * Handles attacking.
 	 * 
-	 * @param direction Direction of attack.
+	 * @param direction
+	 *            Direction of attack.
 	 */
 	@Override
 	protected void attackLogic(int direction) {
@@ -230,19 +233,26 @@ class Player extends ActiveEntity {
 	@Override
 	protected void healthThresholdEvents() {
 		if (getHealth() <= 0) {
-			// Game over
+			game.gameOver();
 		}
 	}
 
 	/**
 	 * Handles interactions with other entities.
 	 * 
-	 * @param initiator Entity that initiates interactions.
+	 * @param initiator
+	 *            Entity that initiates interactions.
 	 */
 	@Override
 	protected void checkInteraction(Entity initiator) {
 		if (initiator instanceof Projectile) {
 			modifyHealth(initiator.getDamage());
+		}
+	}
+
+	protected void checkCollision() {
+		if (handler.checkCollision("enemy")) {
+			setHealth(getHealth() - 1);
 		}
 	}
 
@@ -368,5 +378,7 @@ class Player extends ActiveEntity {
 		changeRoom();
 		updateShotDelay();
 		animationHandler();
+		checkCollision();
+		healthThresholdEvents();
 	}
 }
