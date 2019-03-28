@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Room objects are used to determine what spawns in the room that the player is
@@ -32,7 +33,9 @@ public class Room {
 		this.roomType = roomType;
 		this.levelHandler = levelHandler;
 
-		pickupList.add(new Pickups(levelHandler.getHandler(), levelHandler));
+		Random rand = new Random();
+		if (rand.nextInt(100)<25)
+			pickupList.add(new Pickups(levelHandler.getHandler(), levelHandler));
 		enemyList.add(new Wasp(500, 200, levelHandler));
 
 	}
