@@ -150,22 +150,38 @@ public class Game extends Canvas {
 		System.exit(0);
 	}
 
+	/**
+	 * Returns the current gameState of the game
+	 * 
+	 * @return String the current gameState
+	 */
 	public String getGameState() {
 		return new String(this.gameState);
 	}
 
+	/**
+	 * Sets the current gameState to a given parameter
+	 * 
+	 * @Param String to set the gameState to
+	 */
 	public void setGameState(String gameState) {
 		this.gameState = new String(gameState);
 	}
 
+	/**
+	 * Changes the running boolean to false which causes the game to end
+	 */
 	public void stop() {
 		running = false;
 	}
-	
+
+	/**
+	 * Sets the current gameState to 'gameover' and the menuState to 'gameover'
+	 * which causes the Game Over menu screen to appear
+	 */
 	public void gameOver() {
 		gameState = "gameover";
 		menu.setMenuState("gameover");
 	}
-	
 
 }

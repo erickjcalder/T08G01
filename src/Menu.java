@@ -44,6 +44,12 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		birdY = 400;
 	}
 
+	/**
+	 * Renders the Menu
+	 * 
+	 * @param Graphics
+	 *            the Graphics object used to draw to the screen
+	 */
 	public void render(Graphics g) {
 		if (menuState.equals("main")) {
 			g.drawImage(mainMenu, 0, 0, 1030, 780, null);
@@ -101,6 +107,9 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		}
 	}
 
+	/**
+	 * Ticks the Menu which causes animations to change
+	 */
 	public void tick() {
 		animTimer++;
 		birdX += 2;
@@ -121,6 +130,12 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		}
 	}
 
+	/**
+	 * Checks to see if the mouse is hovering over a button on the menu
+	 * 
+	 * @param MouseEvent
+	 *            the MouseEvent object used to get mouse coordinates
+	 */
 	public void mouseMoved(MouseEvent e) {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
@@ -146,6 +161,14 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		}
 	}
 
+	/**
+	 * Activated upon clicking the mouse and causes certain actions to happen
+	 * depending on if the mouse is on top of a button
+	 * 
+	 * @param MouseEvent
+	 *            the MouseEvent object used to get mouse coordinates and activate
+	 *            if the mouse is clicked
+	 */
 	public void mousePressed(MouseEvent e) {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
@@ -176,6 +199,26 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 
 	}
 
+	/**
+	 * Checks to see if the mouse is hovering over a specified place and returns
+	 * true or false
+	 * 
+	 * @param int
+	 *            the x coordinate of the mouse
+	 * @param int
+	 *            the y coordinate of the mouse
+	 * @param int
+	 *            the x coordinate of the area to check
+	 * @param int
+	 *            the y coordinate of the area to check
+	 * @param int
+	 *            the width of the area to check
+	 * @param int
+	 *            the height of the area to check
+	 * 
+	 * @return boolean the truth value of whether the mouse was in the specified
+	 *         area
+	 */
 	private boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height) {
 		if (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height) {
 			return true;
@@ -183,6 +226,12 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		return false;
 	}
 
+	/**
+	 * Changes the current menuState to a given String
+	 * 
+	 * @param String
+	 *            the state that the menuSate will be set to
+	 */
 	public void setMenuState(String menuState) {
 		this.menuState = new String(menuState);
 	}

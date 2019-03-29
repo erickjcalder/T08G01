@@ -77,6 +77,9 @@ public class Handler {
 		}
 	}
 
+	/**
+	 * Clears all Enemy objects from the screen
+	 */
 	public void clearEnemies() {
 		for (int i = 0; i < object.size(); i++) {
 			if (object.get(i) instanceof Enemy) {
@@ -87,7 +90,10 @@ public class Handler {
 	}
 
 	/**
-	 * Checks to see if objects are overlapping
+	 * Checks to see if a certain type of object is overlapping with the Player
+	 * 
+	 * @param String
+	 *            the object type that collision is being checked for
 	 */
 	public boolean checkCollision(String collisionType) {
 		Entity playerObject = object.get(0);
@@ -108,7 +114,7 @@ public class Handler {
 					return true;
 				}
 			}
-			
+
 			if (object.get(i) instanceof Enemy && collisionType.equals("enemy")) {
 				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
 						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())

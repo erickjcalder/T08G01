@@ -6,10 +6,19 @@ public class HUD {
 
 	private Handler handler;
 
+	/**
+	 * Creates a new HUD object
+	 * 
+	 * @param Handler
+	 *            the handler being used by the Game
+	 */
 	public HUD(Handler handler) {
 		this.handler = handler;
 	}
 
+	/**
+	 * Renders every aspect of the HUD to the screen
+	 */
 	public void render(Graphics g) {
 		Entity player = handler.object.get(0);
 		for (int i = 0; i < handler.object.size(); i++) {
