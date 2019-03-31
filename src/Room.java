@@ -82,6 +82,18 @@ public class Room {
 		pickupList.remove(pickup);
 	}
 
+	public void setUnresolvedEvent(boolean unresolvedEvent) {
+		this.unresolvedEvent = unresolvedEvent;
+	}
+
+	public int getEnemyListSize() {
+		return enemyList.size();
+	}
+
+	public boolean getUnresolvedEvent() {
+		return this.unresolvedEvent;
+	}
+
 	/**
 	 * Draws the current room to the screen
 	 */
@@ -95,8 +107,11 @@ public class Room {
 			for (int i = 0; i < 30; i++) {
 				g.fillRect(467 - i, 97 - i * 3, 90 + i * 2, 3);
 			}
-			// g.drawImage(doorClosedNorth, 432, 7, null);
-			g.drawImage(doorOpenNorth, 392, 7, null);
+			if (unresolvedEvent) {
+				g.drawImage(doorClosedNorth, 432, 7, null);
+			} else {
+				g.drawImage(doorOpenNorth, 392, 7, null);
+			}
 		}
 
 		// draws southern door
@@ -104,8 +119,11 @@ public class Room {
 			for (int i = 0; i < 30; i++) {
 				g.fillRect(467 - i, 639 + i * 3, 90 + i * 2, 3);
 			}
-			// g.drawImage(doorClosedSouth, 432, 639, null);
-			g.drawImage(doorOpenSouth, 392, 639, null);
+			if (unresolvedEvent) {
+				g.drawImage(doorClosedSouth, 432, 639, null);
+			} else {
+				g.drawImage(doorOpenSouth, 392, 639, null);
+			}
 		}
 
 		// draws eastern door
@@ -113,8 +131,11 @@ public class Room {
 			for (int i = 0; i < 30; i++) {
 				g.fillRect(925 + i * 3, 325 - i, 3, 90 + i * 2);
 			}
-			// g.drawImage(doorClosedEast, 925, 290, null);
-			g.drawImage(doorOpenEast, 925, 250, null);
+			if (unresolvedEvent) {
+				g.drawImage(doorClosedEast, 925, 290, null);
+			} else {
+				g.drawImage(doorOpenEast, 925, 250, null);
+			}
 		}
 
 		// draws western door
@@ -122,8 +143,11 @@ public class Room {
 			for (int i = 0; i < 30; i++) {
 				g.fillRect(97 - i * 3, 325 - i, 3, 90 + i * 2);
 			}
-			// g.drawImage(doorClosedWest, 7, 290, null);
-			g.drawImage(doorOpenWest, 7, 250, null);
+			if (unresolvedEvent) {
+				g.drawImage(doorClosedWest, 7, 290, null);
+			} else {
+				g.drawImage(doorOpenWest, 7, 250, null);
+			}
 		}
 
 	}

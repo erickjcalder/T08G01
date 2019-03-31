@@ -35,12 +35,12 @@ abstract class Entity {
 	/**
 	 * Represents the X coordinate of the entity.
 	 */
-	private int X = 0;
+	private int x = 0;
 
 	/**
 	 * Represents the X coordinate of the entity.
 	 */
-	private int Y = 0;
+	private int y = 0;
 
 	/**
 	 * Represents velocity of movement in X axis.
@@ -93,9 +93,9 @@ abstract class Entity {
 	 */
 	private String animState;
 
-	Entity(int X, int Y) {
-		this.X = X;
-		this.Y = Y;
+	Entity(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
 	/**
@@ -194,7 +194,7 @@ abstract class Entity {
 	 * @return X-value of entity's position.
 	 */
 	protected int getX() {
-		return this.X;
+		return this.x;
 	}
 
 	/**
@@ -203,7 +203,7 @@ abstract class Entity {
 	 * @return Y-value of entity position.
 	 */
 	protected int getY() {
-		return this.Y;
+		return this.y;
 	}
 
 	/**
@@ -211,8 +211,8 @@ abstract class Entity {
 	 * 
 	 * @param X X-value of entity's position.
 	 */
-	protected void setX(int X) {
-		this.X = X;
+	protected void setX(int x) {
+		this.x = x;
 	}
 
 	/**
@@ -220,8 +220,8 @@ abstract class Entity {
 	 * 
 	 * @param Y Y-value of entity's position.
 	 */
-	protected void setY(int Y) {
-		this.Y = Y;
+	protected void setY(int y) {
+		this.y = y;
 	}
 
 	/**

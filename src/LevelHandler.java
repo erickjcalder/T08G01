@@ -23,6 +23,14 @@ public class LevelHandler {
 		map = new Map(width, height, this);
 		currentRoomX = map.getStartX();
 		currentRoomY = map.getStartY();
+
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				map.roomLoc[i][j].setUnresolvedEvent(true);
+			}
+		}
+
+		map.roomLoc[currentRoomX][currentRoomY].setUnresolvedEvent(false);
 	}
 
 	/**
@@ -45,38 +53,20 @@ public class LevelHandler {
 		return handler;
 	}
 
-	/**
-	 * Removes a certain Enemy from the enemyList in the current Room the Player is
-	 * in
-	 * 
-	 * @param Enemy
-	 *            the enemy that is going to be removed
-	 */
 	public void removeEnemy(Enemy enemy) {
 		this.map.roomLoc[this.currentRoomX][this.currentRoomY].removeEnemy(enemy);
 		System.out.println(currentRoomX);
 	}
 
-	/**
-	 * Removes a certain Pickup from the pickupList in the current Room the Player
-	 * is in
-	 * 
-	 * @param Pickups
-	 *            the pickup that is going to be removed
-	 */
 	public void removePickup(Pickups pickup) {
 		this.map.roomLoc[this.currentRoomX][this.currentRoomY].removePickup(pickup);
 		System.out.println(currentRoomX);
 	}
 
 	/**
-	 * Adds the Pickups in the current Room to the object list in Handler
-	 * 
-	 * @param int
-	 *            the x coordinate of the Room the pickups will be loaded from
-	 * @param int
-	 *            the y coordinate of the Room the pickups will be loaded from
+	 * Adds the pickups in the current room to the object list in Handler
 	 */
+
 	public void addPickups(int mapX, int mapY) {
 		if (this.map.roomLoc[mapX][mapY].pickupList.size() > 0) {
 			for (int i = 0; i < this.map.roomLoc[mapX][mapY].pickupList.size(); i++) {
@@ -85,14 +75,6 @@ public class LevelHandler {
 		}
 	}
 
-	/**
-	 * Adds the Enemies in the current Room to the object list in Handler
-	 * 
-	 * @param int
-	 *            the x coordinate of the Room the enemies will be loaded from
-	 * @param int
-	 *            the y coordinate of the Room the enemies will be loaded from
-	 */
 	public void addEnemies(int mapX, int mapY) {
 		if (this.map.roomLoc[mapX][mapY].enemyList.size() > 0) {
 			for (int i = 0; i < this.map.roomLoc[mapX][mapY].enemyList.size(); i++) {
@@ -101,22 +83,10 @@ public class LevelHandler {
 		}
 	}
 
-	/**
-	 * Sets the currentRoomX to a given value
-	 * 
-	 * @param int
-	 *            the coordinate that the variable will be set to
-	 */
 	public void setCurrentRoomX(int currentRoomX) {
 		this.currentRoomX = currentRoomX;
 	}
 
-	/**
-	 * Sets the currentRoomY to a given value
-	 * 
-	 * @param int
-	 *            the coordinate that the variable will be set to
-	 */
 	public void setCurrentRoomY(int currentRoomY) {
 		this.currentRoomY = currentRoomY;
 	}
@@ -124,6 +94,7 @@ public class LevelHandler {
 	/**
 	 * Draws the minimap in the top right corner
 	 */
+
 	public void renderMap(Graphics g) {
 		Entity playerObject = handler.object.get(0);
 
@@ -167,6 +138,7 @@ public class LevelHandler {
 	/**
 	 * Renders the room that the Player is currently in
 	 */
+
 	public void renderRoom(Graphics g) {
 		Entity playerObject = handler.object.get(0);
 
@@ -176,6 +148,23 @@ public class LevelHandler {
 			}
 		}
 		this.map.roomLoc[playerObject.getMapX()][playerObject.getMapY()].render(g);
+	}
+
+	public void checkEnemiesDefeated() {
+		if (this.map.roomLoc[this.currentRoomX][this.currentRoomY].getEnemyListSize() == 0) {
+			this.map.roomLoc[this.currentRoomX][this.currentRoomY].setUnresolvedEvent(false);
+		}
+	}
+
+	public boolean canLeaveRoom() {
+		if (this.map.roomLoc[this.currentRoomX][this.currentRoomY].getUnresolvedEvent()) {
+			return false;
+		}
+		return true;
+	}
+
+	public void tick() {
+		checkEnemiesDefeated();
 	}
 
 }

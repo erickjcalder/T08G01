@@ -13,9 +13,12 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private Game game;
 	private String menuState;
 	private Image mainMenu = Toolkit.getDefaultToolkit().getImage("resources/menu.png");
+	private Image pauseMenu = Toolkit.getDefaultToolkit().getImage("resources/menupause.png");
 	private Image startButton = Toolkit.getDefaultToolkit().getImage("resources/start_button.png");
 	private Image quitButton = Toolkit.getDefaultToolkit().getImage("resources/quit_button.png");
 	private Image loadButton = Toolkit.getDefaultToolkit().getImage("resources/load_button.png");
+	private Image backButton = Toolkit.getDefaultToolkit().getImage("resources/back_button.png");
+	private Image saveButton = Toolkit.getDefaultToolkit().getImage("resources/save_button.png");
 	private Image[] birds = new Image[3];
 
 	private int animFrame;
@@ -26,6 +29,8 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private boolean hoverStart;
 	private boolean hoverQuit;
 	private boolean hoverLoad;
+	private boolean hoverBack;
+	private boolean hoverSave;
 
 	public Menu(Game game) {
 		this.game = game;
@@ -44,12 +49,6 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		birdY = 400;
 	}
 
-	/**
-	 * Renders the Menu
-	 * 
-	 * @param Graphics
-	 *            the Graphics object used to draw to the screen
-	 */
 	public void render(Graphics g) {
 		if (menuState.equals("main")) {
 			g.drawImage(mainMenu, 0, 0, 1030, 780, null);
@@ -89,17 +88,26 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			}
 
 		} else if (menuState.equals("pause")) {
+			g.drawImage(pauseMenu, 0, 0, 1030, 780, null);
 			g.setColor(new Color(255, 255, 255));
 
-			g.setFont(new Font("Helvetica", 1, 85));
-			g.drawString("Pause", 410, 100);
+			if (!hoverBack) {
+				g.drawImage(backButton, 405, 290, 250, 100, null);
+			} else {
+				g.drawImage(backButton, 400, 285, 260, 110, null);
+			}
 
-			g.setFont(new Font("Helvetica", 1, 65));
-			g.drawRect(405, 300, 250, 100);
-			g.drawString("Back", 455, 370);
+			if (!hoverSave) {
+				g.drawImage(saveButton, 405, 400, 250, 100, null);
+			} else {
+				g.drawImage(saveButton, 400, 395, 260, 110, null);
+			}
 
-			g.drawRect(405, 500, 250, 100);
-			g.drawString("Save", 455, 570);
+			if (!hoverQuit) {
+				g.drawImage(quitButton, 405, 510, 250, 100, null);
+			} else {
+				g.drawImage(quitButton, 400, 505, 260, 110, null);
+			}
 		} else if (menuState.equals("gameover")) {
 			g.setColor(new Color(255, 255, 255));
 			g.setFont(new Font("Helvetica", 1, 65));
@@ -107,9 +115,6 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		}
 	}
 
-	/**
-	 * Ticks the Menu which causes animations to change
-	 */
 	public void tick() {
 		animTimer++;
 		birdX += 2;
@@ -130,12 +135,6 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		}
 	}
 
-	/**
-	 * Checks to see if the mouse is hovering over a button on the menu
-	 * 
-	 * @param MouseEvent
-	 *            the MouseEvent object used to get mouse coordinates
-	 */
 	public void mouseMoved(MouseEvent e) {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
@@ -159,16 +158,28 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				hoverQuit = false;
 			}
 		}
+
+		if (menuState.equals("pause")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				hoverBack = true;
+			} else {
+				hoverBack = false;
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				hoverSave = true;
+			} else {
+				hoverSave = false;
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				hoverQuit = true;
+			} else {
+				hoverQuit = false;
+			}
+		}
 	}
 
-	/**
-	 * Activated upon clicking the mouse and causes certain actions to happen
-	 * depending on if the mouse is on top of a button
-	 * 
-	 * @param MouseEvent
-	 *            the MouseEvent object used to get mouse coordinates and activate
-	 *            if the mouse is clicked
-	 */
 	public void mousePressed(MouseEvent e) {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
@@ -193,32 +204,32 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				game.stop();
 			}
 		}
+
+		if (menuState.equals("pause")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				game.gameState = "game";
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				game.setGameState("file select");
+				FileExplorer fe = new FileExplorer("Select save");
+
+				File file = fe.getSelectedFile();
+				System.out.println(file);
+
+				game.setGameState("menu");
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				game.stop();
+			}
+		}
 	}
 
 	public void mouseReleased() {
 
 	}
 
-	/**
-	 * Checks to see if the mouse is hovering over a specified place and returns
-	 * true or false
-	 * 
-	 * @param int
-	 *            the x coordinate of the mouse
-	 * @param int
-	 *            the y coordinate of the mouse
-	 * @param int
-	 *            the x coordinate of the area to check
-	 * @param int
-	 *            the y coordinate of the area to check
-	 * @param int
-	 *            the width of the area to check
-	 * @param int
-	 *            the height of the area to check
-	 * 
-	 * @return boolean the truth value of whether the mouse was in the specified
-	 *         area
-	 */
 	private boolean mouseOver(int mouseX, int mouseY, int x, int y, int width, int height) {
 		if (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height) {
 			return true;
@@ -226,12 +237,6 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		return false;
 	}
 
-	/**
-	 * Changes the current menuState to a given String
-	 * 
-	 * @param String
-	 *            the state that the menuSate will be set to
-	 */
 	public void setMenuState(String menuState) {
 		this.menuState = new String(menuState);
 	}

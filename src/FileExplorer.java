@@ -8,12 +8,6 @@ public class FileExplorer {
 	File selectedFile;
 	String title;
 
-	/**
-	 * Creates a new FileExplorer that allows the user to load saves
-	 * 
-	 * @param String
-	 *            the title of the window
-	 */
 	public FileExplorer(String title) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -41,12 +35,6 @@ public class FileExplorer {
 		}
 	}
 
-	/**
-	 * Returns the file that was selected in the FileExplorer
-	 * 
-	 * @param File
-	 *            the selected file
-	 */
 	public File getSelectedFile() {
 		return selectedFile;
 	}

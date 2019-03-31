@@ -153,7 +153,8 @@ class Player extends ActiveEntity {
 	 */
 	@Override
 	protected void movementLogic() {
-		if (getY() + getHeight() + getVelocityY() > 640 && !this.map.roomCheck(getMapX(), getMapY() + 1)) {
+		if (getY() + getHeight() + getVelocityY() > 640
+				&& (!this.map.roomCheck(getMapX(), getMapY() + 1) || !levelHandler.canLeaveRoom())) {
 			setY(640 - getHeight());
 			setVelocityY(0);
 		} else if (getY() + getHeight() + getVelocityY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)
@@ -162,7 +163,8 @@ class Player extends ActiveEntity {
 			setVelocityY(0);
 		}
 
-		if (getY() + getVelocityY() < 55 && !this.map.roomCheck(getMapX(), getMapY() - 1)) {
+		if (getY() + getVelocityY() < 55
+				&& (!this.map.roomCheck(getMapX(), getMapY() - 1) || !levelHandler.canLeaveRoom())) {
 			setY(55);
 			setVelocityY(0);
 		} else if (getY() + getVelocityY() < 55 && this.map.roomCheck(getMapX(), getMapY() - 1)
@@ -171,7 +173,8 @@ class Player extends ActiveEntity {
 			setVelocityY(0);
 		}
 
-		if (getX() + getWidth() + getVelocityX() > 936 && !this.map.roomCheck(getMapX() + 1, getMapY())) {
+		if (getX() + getWidth() + getVelocityX() > 936
+				&& (!this.map.roomCheck(getMapX() + 1, getMapY()) || !levelHandler.canLeaveRoom())) {
 			setX(936 - getWidth());
 			setVelocityX(0);
 		} else if (getX() + getWidth() + getVelocityX() > 936 && this.map.roomCheck(getMapX() + 1, getMapY())
@@ -180,7 +183,8 @@ class Player extends ActiveEntity {
 			setVelocityX(0);
 		}
 
-		if (getX() + getVelocityX() < 90 && !this.map.roomCheck(getMapX() - 1, getMapY())) {
+		if (getX() + getVelocityX() < 90
+				&& (!this.map.roomCheck(getMapX() - 1, getMapY()) || !levelHandler.canLeaveRoom())) {
 			setX(90);
 			setVelocityX(0);
 		} else if (getX() + getVelocityX() < 90 && this.map.roomCheck(getMapX() - 1, getMapY())
@@ -251,7 +255,7 @@ class Player extends ActiveEntity {
 	}
 
 	protected void checkCollision() {
-		if (handler.checkCollision("enemy")) {
+		if (handler.checkPlayerCollision("enemy")) {
 			setHealth(getHealth() - 1);
 		}
 	}
@@ -261,7 +265,7 @@ class Player extends ActiveEntity {
 	 */
 	private void changeRoom() {
 		if (getX() > 940 && this.map.roomCheck(getMapX() + 1, getMapY())) {
-			setX(40);
+			setX(90);
 			handler.clearProjectiles();
 			handler.clearPickups();
 			handler.clearEnemies();
@@ -272,7 +276,7 @@ class Player extends ActiveEntity {
 		}
 
 		if (getX() < 40 && this.map.roomCheck(getMapX() - 1, getMapY())) {
-			setX(940);
+			setX(936 - getWidth());
 			handler.clearProjectiles();
 			handler.clearPickups();
 			handler.clearEnemies();
@@ -283,7 +287,7 @@ class Player extends ActiveEntity {
 		}
 
 		if (getY() < 40 && this.map.roomCheck(getMapX(), getMapY() - 1)) {
-			setY(600);
+			setY(640 - getHeight());
 			handler.clearProjectiles();
 			handler.clearPickups();
 			handler.clearEnemies();
@@ -294,7 +298,7 @@ class Player extends ActiveEntity {
 		}
 
 		if (getY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)) {
-			setY(40);
+			setY(55);
 			handler.clearProjectiles();
 			handler.clearPickups();
 			handler.clearEnemies();

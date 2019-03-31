@@ -77,9 +77,6 @@ public class Handler {
 		}
 	}
 
-	/**
-	 * Clears all Enemy objects from the screen
-	 */
 	public void clearEnemies() {
 		for (int i = 0; i < object.size(); i++) {
 			if (object.get(i) instanceof Enemy) {
@@ -90,12 +87,9 @@ public class Handler {
 	}
 
 	/**
-	 * Checks to see if a certain type of object is overlapping with the Player
-	 * 
-	 * @param String
-	 *            the object type that collision is being checked for
+	 * Checks to see if objects are overlapping with player
 	 */
-	public boolean checkCollision(String collisionType) {
+	public boolean checkPlayerCollision(String collisionType) {
 		Entity playerObject = object.get(0);
 
 		for (int i = 0; i < object.size(); i++) {
@@ -120,6 +114,34 @@ public class Handler {
 						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
 						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
 								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+					return true;
+				}
+			}
+
+			if (object.get(i) instanceof Projectile && collisionType.equals("projectile")) {
+				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
+						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
+						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
+								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks to see if objects are overlapping with an enemy
+	 */
+	public boolean checkEnemyCollision(String collisionType, Enemy enemy) {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Projectile && collisionType.equals("projectile")) {
+				if ((enemy.getWidth() + enemy.getX() >= object.get(i).getX()
+						&& enemy.getX() <= object.get(i).getWidth() + object.get(i).getX())
+						&& (enemy.getHeight() + enemy.getY() >= object.get(i).getY()
+								&& enemy.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+					addObject(new Particle(object.get(i).getX(), object.get(i).getY(), "hitparticle", this));
+					removeObject(object.get(i));
 					return true;
 				}
 			}

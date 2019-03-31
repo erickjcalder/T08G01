@@ -146,7 +146,7 @@ public class Pickups extends Entity {
 	 */
 	public void tick() {
 		randomPickup();
-		if (handler.checkCollision("pickup")) {
+		if (handler.checkPlayerCollision("pickup")) {
 			levelHandler.removePickup(this);
 		}
 
