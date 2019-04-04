@@ -52,6 +52,21 @@ public class Handler {
 	public void removeObject(Entity object) {
 		this.object.remove(object);
 	}
+	
+	public void clearEntities() {
+		while(object.size() > 0) {
+			object.removeFirst();
+		}
+	}
+	
+	public Player getPlayerInstance() {
+		for (int i = 0; i < object.size(); i++) {
+			if (object.get(i) instanceof Player) {
+				return (Player)object.get(i);
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Clears all Projectile objects from the screen

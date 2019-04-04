@@ -92,10 +92,13 @@ abstract class Entity {
 	 * The current animation of the Entity
 	 */
 	private String animState;
+	
+	protected Handler handler;
 
-	Entity(int x, int y) {
+	Entity(int x, int y, Handler handler) {
 		this.x = x;
 		this.y = y;
+		this.handler = handler;
 	}
 
 	/**

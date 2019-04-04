@@ -32,7 +32,7 @@ public class Pickups extends Entity {
 		 */
 
 
-		super(0,0);
+		super(0,0, handler);
 
 		Random r = new Random();
 		this.setX(r.nextInt((835 - 100) + 1) + 100);

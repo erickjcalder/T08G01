@@ -111,7 +111,19 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 		} else if (menuState.equals("gameover")) {
 			g.setColor(new Color(255, 255, 255));
 			g.setFont(new Font("Helvetica", 1, 65));
-			g.drawString("Game Over", 350, 300);
+			g.drawString("Game Over", 350, 200);
+
+			if (!hoverStart) {
+				g.drawImage(startButton, 405, 290, 250, 100, null);
+			} else {
+				g.drawImage(startButton, 400, 285, 260, 110, null);
+			}
+
+			if (!hoverQuit) {
+				g.drawImage(quitButton, 405, 510, 250, 100, null);
+			} else {
+				g.drawImage(quitButton, 400, 505, 260, 110, null);
+			}
 		}
 	}
 
@@ -178,6 +190,20 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				hoverQuit = false;
 			}
 		}
+
+		if (menuState.equals("gameover")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				hoverStart = true;
+			} else {
+				hoverStart = false;
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				hoverQuit = true;
+			} else {
+				hoverQuit = false;
+			}
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -218,6 +244,16 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				System.out.println(file);
 
 				game.setGameState("menu");
+			}
+
+			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				game.stop();
+			}
+		}
+
+		if (menuState.equals("gameover")) {
+			if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+				game.resetGame();
 			}
 
 			if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {

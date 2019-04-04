@@ -7,13 +7,11 @@ public class Particle extends Entity {
 	private Image hitparticle = Toolkit.getDefaultToolkit().getImage("resources/hit_particle.png");
 	private String particleType;
 	private int timer;
-	private Handler handler;
 
 	Particle(int x, int y, String particleType, Handler handler) {
-		super(x, y);
+		super(x, y, handler);
 		this.particleType = particleType;
 		timer = 0;
-		this.handler = handler;
 	}
 
 	@Override

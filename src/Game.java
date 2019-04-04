@@ -38,7 +38,7 @@ public class Game extends Canvas {
 			WIDTH = 1030;
 			HEIGHT = 768;
 		} else {
-			WIDTH = 1027;
+			WIDTH = 1026;
 			HEIGHT = 776;
 		}
 
@@ -166,6 +166,14 @@ public class Game extends Canvas {
 	public void gameOver() {
 		gameState = "gameover";
 		menu.setMenuState("gameover");
+	}
+
+	public void resetGame() {
+		handler.clearEntities();
+		levelhandler = new LevelHandler(handler);
+		handler.addObject(new Player(490, 350, levelhandler, this));
+		menu.setMenuState("main");
+		setGameState("menu");
 	}
 
 }

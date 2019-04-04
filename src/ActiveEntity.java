@@ -22,8 +22,8 @@ abstract class ActiveEntity extends Entity {
 	 */
 	private int armor = 0;
 
-	ActiveEntity(int X, int Y) {
-		super(X, Y);
+	ActiveEntity(int x, int y, Handler handler) {
+		super(x, y, handler);
 	}
 
 	/**

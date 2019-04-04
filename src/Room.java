@@ -14,6 +14,8 @@ import java.util.Random;
  */
 public class Room {
 
+    Random r = new Random();
+
 	boolean north, south, east, west;
 	boolean unresolvedEvent;
 	int roomType;
@@ -37,7 +39,8 @@ public class Room {
 	// room it is
 	public Room(boolean north, boolean south, boolean east, boolean west, boolean unresolvedEvent, int roomType,
 			LevelHandler levelHandler) {
-		this.north = north;
+
+	    this.north = north;
 		this.south = south;
 		this.east = east;
 		this.west = west;
@@ -45,7 +48,25 @@ public class Room {
 		this.roomType = roomType;
 		this.levelHandler = levelHandler;
 
-		enemyList.add(new Wasp(500, 200, levelHandler));
+		int enemiesToSpawn = r.nextInt(4);
+
+		switch(enemiesToSpawn) {
+            case 1: {
+                enemyList.add(new Wasp(500, 270, levelHandler));
+                break;
+            }
+
+            case 2: {
+                enemyList.add(new Mosquito(500, 270, levelHandler));
+                break;
+            }
+
+            case 3: {
+                enemyList.add(new Mosquito(400, 270, levelHandler));
+                enemyList.add(new Mosquito(600, 270, levelHandler));
+                break;
+            }
+        }
 
 		Random rand = new Random();
 		if (rand.nextInt(100) < 25) {

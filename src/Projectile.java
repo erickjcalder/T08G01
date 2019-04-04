@@ -13,8 +13,8 @@ public class Projectile extends Entity {
 
 	Image projectile = Toolkit.getDefaultToolkit().getImage("resources/Projectile.png");
 
-	public Projectile(int x, int y, int velX, int velY) {
-		super(x, y);
+	public Projectile(int x, int y, int velX, int velY, Handler handler) {
+		super(x, y, handler);
 		this.setName("projectile");
 		this.setTeam("");
 

@@ -2,12 +2,10 @@ import java.awt.Graphics;
 
 public abstract class Enemy extends ActiveEntity {
 
-	private Handler handler;
 	LevelHandler levelHandler;
 
 	Enemy(int x, int y, LevelHandler levelHandler) {
-		super(x, y);
-		this.handler = levelHandler.getHandler();
+		super(x, y, levelHandler.getHandler());
 		this.levelHandler = levelHandler;
 		setMapX(2);
 		setMapY(1);
@@ -55,4 +53,8 @@ public abstract class Enemy extends ActiveEntity {
 		}
 	}
 
+    @Override
+    void setHealth(int health) {
+        super.setHealth(health);
+    }
 }

@@ -13,7 +13,6 @@ class Player extends ActiveEntity {
 	 * Instance of the current map.
 	 */
 	private Map map;
-	private Handler handler;
 	private Image left[] = new Image[5];
 	private Image right[] = new Image[5];
 	private Image back[] = new Image[5];
@@ -22,9 +21,8 @@ class Player extends ActiveEntity {
 	private Game game;
 
 	Player(int x, int y, LevelHandler levelHandler, Game game) {
-		super(x, y);
+		super(x, y, levelHandler.getHandler());
 		this.map = levelHandler.getMap();
-		this.handler = levelHandler.getHandler();
 		this.levelHandler = levelHandler;
 		setMapX(levelHandler.map.getStartX());
 		setMapY(levelHandler.map.getStartY());
@@ -212,19 +210,19 @@ class Player extends ActiveEntity {
 
 			switch (direction) {
 			case 270:
-				handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10));
+				handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10, handler));
 				break;
 
 			case 90:
-				handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10));
+				handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10, handler));
 				break;
 
 			case 180:
-				handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0));
+				handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0, handler));
 				break;
 
 			case 0:
-				handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0));
+				handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0, handler));
 				break;
 
 			}
