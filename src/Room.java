@@ -1,3 +1,6 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -32,6 +35,46 @@ public class Room {
 	Image doorOpenSouth = Toolkit.getDefaultToolkit().getImage("resources/door_open_south.png");
 	Image doorOpenEast = Toolkit.getDefaultToolkit().getImage("resources/door_open_east.png");
 	Image doorOpenWest = Toolkit.getDefaultToolkit().getImage("resources/door_open_west.png");
+
+	Element Save(Document save)
+	{
+		Element e = null;
+
+		Element rootElement = save.createElement("Room");
+
+		e = save.createElement("NorthSouthEastWest");
+		e.appendChild(save.createTextNode(Boolean.toString(this.north) +
+				" " + Boolean.toString(this.south) +
+				" " + Boolean.toString(this.east) +
+				" " + Boolean.toString(this.west)));
+		rootElement.appendChild(e);
+
+		e = save.createElement("unresolvedEvent");
+		e.appendChild(save.createTextNode(Boolean.toString(this.unresolvedEvent)));
+		rootElement.appendChild(e);
+
+		e = save.createElement("roomType");
+		e.appendChild(save.createTextNode(Integer.toString(this.roomType)));
+		rootElement.appendChild(e);
+
+		for(Pickups pickup : this.pickupList)
+		{
+			if(pickup != null)
+			{
+				rootElement.appendChild(pickup.Save(save));
+			}
+		}
+
+		for(Enemy enemy : this.enemyList)
+        {
+            if(enemy != null)
+            {
+                rootElement.appendChild(enemy.Save(save));
+            }
+        }
+
+		return rootElement;
+	}
 
 	// Each room has 4 booleans that represent if there is a door on that side of
 	// the room

@@ -1,3 +1,8 @@
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -11,6 +16,23 @@ import java.util.LinkedList;
 public class Handler {
 	LinkedList<Entity> object = new LinkedList<Entity>();
 
+	Node Save(Document save)
+	{
+		Element e = null;
+
+		Node rootElement = save.createElement("Handler");
+
+		e = save.createElement("objects");
+
+		for(Entity entity : object)
+		{
+			e.appendChild(entity.Save(save));
+		}
+
+		rootElement.appendChild(e);
+
+		return rootElement;
+	}
 	/**
 	 * Loops through every object in the LinkedList of entities and calls its tick
 	 * method

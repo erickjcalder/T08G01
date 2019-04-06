@@ -1,3 +1,6 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.awt.*;
 
 /**
@@ -358,47 +361,53 @@ abstract class Entity {
 
 	/**
 	 * Returns the current frame of animation of the Entity
+	 *
+	 * @return frame of the animation.
 	 */
 	public int getAnimFrame() {
 		return animFrame;
 	}
 
 	/**
-	 * Returns the current frame of animation of the Entity
+	 * Sets the current frame of animation of the Entity
 	 * 
-	 * @param team team of the entity.
+	 * @param animFrame frame of the animation
 	 */
 	public void setAnimFrame(int animFrame) {
 		this.animFrame = animFrame;
 	}
 	
 	/**
-	 * Returns the current frame of animation of the Entity
+	 * Returns the current timer of the animation of the Entity
+	 *
+	 * @return animation timer of the entity
 	 */
 	public int getAnimTimer() {
 		return animTimer;
 	}
 
 	/**
-	 * Returns the current frame of animation of the Entity
+	 * Sets the current timer of the animation of the Entity
 	 * 
-	 * @param team team of the entity.
+	 * @param animTimer animation timer of the entity.
 	 */
 	public void setAnimTimer(int animTimer) {
 		this.animTimer = animTimer;
 	}
 	
 	/**
-	 * Returns the current frame of animation of the Entity
+	 * Returns the current state of the animation of the Entity
+	 *
+	 * @return state of the animation.
 	 */
 	public String getAnimState() {
 		return new String(this.animState);
 	}
 
 	/**
-	 * Returns the current frame of animation of the Entity
+	 * Sets the current state of the animation of the Entity
 	 * 
-	 * @param team team of the entity.
+	 * @param animState state of the animation.
 	 */
 	public void setAnimState(String animState) {
 		this.animState = new String(animState);
@@ -448,4 +457,53 @@ abstract class Entity {
 	 * Handles updates.
 	 */
 	protected abstract void tick();
+
+	Element Save(Document save)
+	{
+		Element e = null;
+
+		Element rootElement = save.createElement(this.getClass().getName());
+
+		e = save.createElement("X");
+		e.appendChild(save.createTextNode(Integer.toString(getX())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("Y");
+		e.appendChild(save.createTextNode(Integer.toString(getY())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("mapX");
+		e.appendChild(save.createTextNode(Integer.toString(getMapX())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("mapY");
+		e.appendChild(save.createTextNode(Integer.toString(getMapY())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("velocityX");
+		e.appendChild(save.createTextNode(Float.toString(getVelocityX())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("velocityY");
+		e.appendChild(save.createTextNode(Float.toString(getVelocityY())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("damage");
+		e.appendChild(save.createTextNode(Integer.toString(getDamage())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("damageMult");
+		e.appendChild(save.createTextNode(Double.toString(getDamageMult())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("name");
+		e.appendChild(save.createTextNode(getName()));
+		rootElement.appendChild(e);
+
+		e = save.createElement("team");
+		e.appendChild(save.createTextNode(getTeam()));
+		rootElement.appendChild(e);
+
+		return rootElement;
+	}
 }

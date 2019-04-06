@@ -1,3 +1,6 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * Represents any 'active' entity. (e.g. enemies, player)
  *
@@ -138,5 +141,27 @@ abstract class ActiveEntity extends Entity {
 		} else {
 			modifyHealth(baseDamage);
 		}
+	}
+
+	@Override
+	Element Save(Document save)
+	{
+		Element e = null;
+
+		Element rootElement = super.Save(save);
+
+		e = save.createElement("healthMax");
+		e.appendChild(save.createTextNode(Integer.toString(getHealthMax())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("health");
+		e.appendChild(save.createTextNode(Integer.toString(getHealth())));
+		rootElement.appendChild(e);
+
+		e = save.createElement("armor");
+		e.appendChild(save.createTextNode(Integer.toString(getArmor())));
+		rootElement.appendChild(e);
+
+		return rootElement;
 	}
 }

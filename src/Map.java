@@ -1,3 +1,7 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,7 +40,52 @@ public class Map {
     //Simple bool to control console debug messages
     private boolean debug = false;
 
+    Node Save(Document save)
+    {
+        Element e = null;
 
+        Node rootElement = save.createElement("Map");
+
+        e = save.createElement("width");
+        e.appendChild(save.createTextNode(Integer.toString(this.width)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("height");
+        e.appendChild(save.createTextNode(Integer.toString(this.height)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("startX");
+        e.appendChild(save.createTextNode(Integer.toString(this.startX)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("startY");
+        e.appendChild(save.createTextNode(Integer.toString(this.startY)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("currentX");
+        e.appendChild(save.createTextNode(Integer.toString(this.currentX)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("currentY");
+        e.appendChild(save.createTextNode(Integer.toString(this.currentY)));
+        rootElement.appendChild(e);
+
+        e = save.createElement("roomLoc");
+
+        Node eStack = null;
+        for(Room[] roomList : this.roomLoc)
+        {
+            eStack = e.appendChild(save.createElement("roomList"));
+            for(Room room : roomList)
+            {
+                eStack.appendChild(room.Save(save));
+            }
+
+            rootElement.appendChild(eStack);
+        }
+
+        return rootElement;
+    }
     /**
      * Creates a 2D array of Room objects and will decide where each room will go
      * and what entrances the Room will have later on will also determine what type
@@ -434,5 +483,30 @@ public class Map {
      */
     public int getStartY() {
         return this.startY;
+    }
+
+    public void setStartX(int startX)
+    {
+        this.startX = startX;
+    }
+
+    public void setStartY(int startY)
+    {
+        this.startY = startY;
+    }
+
+    public void setCurrentX(int currentX)
+    {
+        this.currentX = currentX;
+    }
+
+    public void setCurrentY(int currentY)
+    {
+        this.currentY = currentY;
+    }
+
+    public void setRoomLoc(Room[][] roomLoc)
+    {
+        this.roomLoc = roomLoc;
     }
 }
