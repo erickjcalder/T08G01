@@ -5,6 +5,7 @@ import javax.xml.transform.stream.*;
 import org.xml.sax.*;
 import org.w3c.dom.*;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class Save
 {
-    static void saveGame(Map map, Handler handler)
+    static void saveGame(Map map, Handler handler, String filename)
     {
         Document save;
 
@@ -41,8 +42,7 @@ public class Save
                 tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
                 // send DOM to file
-                tr.transform(new DOMSource(save),
-                        new StreamResult(new FileOutputStream("save.xml")));
+                tr.transform(new DOMSource(save), new StreamResult(new FileOutputStream(filename)));
 
             }
             catch (TransformerException e)

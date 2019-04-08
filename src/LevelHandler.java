@@ -133,8 +133,6 @@ public class LevelHandler {
 				}
 			}
 		}
-
-		Save.saveGame(map, handler);
 	}
 
 	/**

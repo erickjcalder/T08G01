@@ -246,6 +246,8 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 
 					File file = fe.getSelectedFile();
 					System.out.println(file);
+					game.Save(file.getName());
+
 
 					game.setGameState("menu");
 				}

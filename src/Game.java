@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 
 /**
  * Class adapted from: https://www.youtube.com/watch?v=1gir2R7G9ws 
@@ -55,6 +56,11 @@ public class Game extends Canvas {
 
 		gameState = "menu";
 
+	}
+
+	void Save(String filename)
+	{
+		Save.saveGame(this.levelhandler.getMap(), this.handler, filename);
 	}
 
 	/**
