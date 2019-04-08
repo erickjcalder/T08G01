@@ -192,8 +192,10 @@ public class KeyInput extends KeyAdapter {
 		if (key == KeyEvent.VK_ESCAPE) {
 			if (game.getGameState().equals("game") && !this.escPress) {
 				game.setGameState("menu");
+				game.setMenuState("pause");
 			} else if (!this.escPress) {
 				game.setGameState("game");
+				game.setMenuState("");
 			}
 			this.escPress = true;
 		}

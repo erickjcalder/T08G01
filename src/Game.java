@@ -158,6 +158,10 @@ public class Game extends Canvas {
 	public void setGameState(String gameState) {
 		this.gameState = new String(gameState);
 	}
+	
+	public void setMenuState(String menuState) {
+		this.menu.setMenuState(menuState);
+	}
 
 	public void stop() {
 		running = false;
