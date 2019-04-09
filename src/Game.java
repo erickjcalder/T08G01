@@ -186,4 +186,22 @@ public class Game extends Canvas {
 		setGameState("menu");
 	}
 
+    /**
+     * Used to create a new game with load function.
+     * @param newLevelHandler LevelHandler created by load function.
+     */
+	public void newGame(LevelHandler newLevelHandler)
+	{
+		resetGame();
+		this.levelhandler = newLevelHandler;
+
+		// Pointing various variables to new version of handlers.
+		this.handler = levelhandler.getHandler();
+		this.hud.setHandler(handler);
+		this.keyInput.setHandler(handler);
+
+		// Starts game.
+		this.menu.setMenuState("");
+		setGameState("game");
+	}
 }

@@ -11,7 +11,7 @@ public class Wasp extends Enemy {
 	private Image front[] = new Image[5];
 	private Random r = new Random();
 
-	Wasp(int x, int y, LevelHandler levelHandler) {
+	public Wasp(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler);
 
 		setVelocityX(2);

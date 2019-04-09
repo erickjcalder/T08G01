@@ -167,4 +167,21 @@ public class LevelHandler {
 		checkEnemiesDefeated();
 	}
 
+	/**
+	 * Sets map.
+	 * @param newMap Instance of map.
+	 */
+	public void setMap(Map newMap)
+	{
+		this.map = newMap;
+	}
+
+	/**
+	 * Sets handler.
+	 * @param handler Instance of handler.
+	 */
+	public void setHandler(Handler handler)
+	{
+		this.handler = handler;
+	}
 }

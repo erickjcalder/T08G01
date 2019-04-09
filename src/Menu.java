@@ -220,13 +220,14 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				    // Loads game.
 					game.setGameState("file select");
 					FileExplorer fe = new FileExplorer("Select save");
 
 					File file = fe.getSelectedFile();
 					System.out.println(file);
 
-					game.setGameState("menu");
+					Save.loadGame(game, "save.xml");
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
@@ -241,12 +242,13 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+				    // Saves game.
 					game.setGameState("file select");
 					FileExplorer fe = new FileExplorer("Select save");
 
 					File file = fe.getSelectedFile();
 					System.out.println(file);
-					game.Save(file.getName());
+					game.Save("save.xml");
 
 
 					game.setGameState("menu");
