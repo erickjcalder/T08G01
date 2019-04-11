@@ -36,12 +36,4 @@ public class HUD {
 
 	}
 
-    /**
-     * Sets handler.
-     * @param handler Instance of handler.
-     */
-	public void setHandler(Handler handler)
-	{
-		this.handler = handler;
-	}
 }

@@ -7,7 +7,7 @@ import java.awt.*;
  * Represents any entity.
  *
  * @author Justin
- * @version Final
+ * @version Demo 2
  */
 abstract class Entity {
 	/**
@@ -95,13 +95,10 @@ abstract class Entity {
 	 * The current animation of the Entity
 	 */
 	private String animState;
-
-    /**
-     * Reference to the handler
-     */
+	
 	protected Handler handler;
 
-	public Entity(int x, int y, Handler handler) {
+	Entity(int x, int y, Handler handler) {
 		this.x = x;
 		this.y = y;
 		this.handler = handler;
@@ -181,8 +178,8 @@ abstract class Entity {
 
 	/**
 	 * Returns the time since the last shot.
-     *
-     * @param shotTimer time since the last shot.
+	 * 
+	 * @return Time that passed since the last shot.
 	 */
 	protected void setShotTimer(int shotTimer) {
 		this.shotTimer = shotTimer;
@@ -218,7 +215,7 @@ abstract class Entity {
 	/**
 	 * Sets the X-value of the entity's position.
 	 * 
-	 * @param x X-value of entity's position.
+	 * @param X X-value of entity's position.
 	 */
 	protected void setX(int x) {
 		this.x = x;
@@ -227,7 +224,7 @@ abstract class Entity {
 	/**
 	 * Sets the Y-value of the entity's position.
 	 * 
-	 * @param y Y-value of entity's position.
+	 * @param Y Y-value of entity's position.
 	 */
 	protected void setY(int y) {
 		this.y = y;
@@ -236,7 +233,7 @@ abstract class Entity {
 	/**
 	 * Sets the width of the entity
 	 * 
-	 * @param width width of the entity.
+	 * @param int width of the entity
 	 */
 
 	protected void setWidth(int width) {
@@ -246,7 +243,7 @@ abstract class Entity {
 	/**
 	 * Sets the height of the entity
 	 * 
-	 * @param height height of the entity.
+	 * @param int height of the entity
 	 */
 
 	protected void setHeight(int height) {
@@ -308,18 +305,18 @@ abstract class Entity {
 	}
 
 	/**
-	 * Returns the width of the entity.
+	 * Returns the width of the entity
 	 * 
-	 * @return width of the entity.
+	 * @return int width of the entity
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * Returns the height of the entity.
+	 * Returns the height of the entity
 	 * 
-	 * @return height of the entity.
+	 * @param int height of the entity
 	 */
 
 	public int getHeight() {
@@ -363,7 +360,7 @@ abstract class Entity {
 	}
 
 	/**
-	 * Returns the current frame of animation of the Entity.
+	 * Returns the current frame of animation of the Entity
 	 *
 	 * @return frame of the animation.
 	 */
@@ -372,25 +369,25 @@ abstract class Entity {
 	}
 
 	/**
-	 * Sets the current frame of animation of the Entity.
+	 * Sets the current frame of animation of the Entity
 	 * 
-	 * @param animFrame frame of the animation.
+	 * @param animFrame frame of the animation
 	 */
 	public void setAnimFrame(int animFrame) {
 		this.animFrame = animFrame;
 	}
 	
 	/**
-	 * Returns the current timer of the animation of the Entity.
+	 * Returns the current timer of the animation of the Entity
 	 *
-	 * @return animation timer of the entity.
+	 * @return animation timer of the entity
 	 */
 	public int getAnimTimer() {
 		return animTimer;
 	}
 
 	/**
-	 * Sets the current timer of the animation of the Entity.
+	 * Sets the current timer of the animation of the Entity
 	 * 
 	 * @param animTimer animation timer of the entity.
 	 */
@@ -399,7 +396,7 @@ abstract class Entity {
 	}
 	
 	/**
-	 * Returns the current state of the animation of the Entity.
+	 * Returns the current state of the animation of the Entity
 	 *
 	 * @return state of the animation.
 	 */
@@ -408,7 +405,7 @@ abstract class Entity {
 	}
 
 	/**
-	 * Sets the current state of the animation of the Entity.
+	 * Sets the current state of the animation of the Entity
 	 * 
 	 * @param animState state of the animation.
 	 */
@@ -461,11 +458,6 @@ abstract class Entity {
 	 */
 	protected abstract void tick();
 
-    /**
-     * Saves entity.
-     * @param save Document to use.
-     * @return Element to be saved to document.
-     */
 	Element Save(Document save)
 	{
 		Element e = null;
@@ -508,16 +500,8 @@ abstract class Entity {
 		e.appendChild(save.createTextNode(getName()));
 		rootElement.appendChild(e);
 
-		// Has error checking for empty string.
 		e = save.createElement("team");
-		if(getTeam().equals(""))
-		{
-			e.appendChild(save.createTextNode(""));
-		}
-		else
-		{
-			e.appendChild(save.createTextNode(getTeam()));
-		}
+		e.appendChild(save.createTextNode(getTeam()));
 		rootElement.appendChild(e);
 
 		return rootElement;

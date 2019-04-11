@@ -1,12 +1,10 @@
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.io.File;
 
 public class Menu extends MouseAdapter implements MouseMotionListener {
 
@@ -19,18 +17,27 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private Image loadButton = Toolkit.getDefaultToolkit().getImage("resources/load_button.png");
 	private Image backButton = Toolkit.getDefaultToolkit().getImage("resources/back_button.png");
 	private Image saveButton = Toolkit.getDefaultToolkit().getImage("resources/save_button.png");
+	private Image menuButton = Toolkit.getDefaultToolkit().getImage("resources/menu_button.png");
+	private Image gameOverText = Toolkit.getDefaultToolkit().getImage("resources/gameover.png");
+	private Image fade = Toolkit.getDefaultToolkit().getImage("resources/fadeout.png");
+	private Image boot = Toolkit.getDefaultToolkit().getImage("resources/boot.png");
+	private Image ant = Toolkit.getDefaultToolkit().getImage("resources/front.png");
 	private Image[] birds = new Image[3];
 
 	private int animFrame;
 	private int animTimer;
 	private int birdX;
 	private int birdY;
+	private int bootY;
+	private int fadeY;
 
 	private boolean hoverStart;
 	private boolean hoverQuit;
 	private boolean hoverLoad;
 	private boolean hoverBack;
 	private boolean hoverSave;
+	private boolean hoverMenu;
+	private boolean gameOverAnimDone;
 
 	public Menu(Game game) {
 		this.game = game;
@@ -47,6 +54,10 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 
 		birdX = -200;
 		birdY = 400;
+		bootY = -3600;
+		fadeY = -5000;
+
+		gameOverAnimDone = false;
 	}
 
 	public void render(Graphics g) {
@@ -109,41 +120,75 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				g.drawImage(quitButton, 400, 505, 260, 110, null);
 			}
 		} else if (menuState.equals("gameover")) {
-			g.setColor(new Color(255, 255, 255));
-			g.setFont(new Font("Helvetica", 1, 65));
-			g.drawString("Game Over", 350, 200);
+			g.setColor(new Color(200, 0, 0));
+			g.fillRect(0, 0, 1030, 750);
 
-			if (!hoverStart) {
-				g.drawImage(startButton, 405, 290, 250, 100, null);
-			} else {
-				g.drawImage(startButton, 400, 285, 260, 110, null);
-			}
+			g.setColor(new Color(50, 50, 50));
+			g.fillOval(450 - (400 + Math.abs(bootY)) / 2, 510, 630 + Math.abs(bootY), 100);
 
-			if (!hoverQuit) {
-				g.drawImage(quitButton, 405, 510, 250, 100, null);
-			} else {
-				g.drawImage(quitButton, 400, 505, 260, 110, null);
+			g.drawImage(ant, 480, 470, 56, 84, null);
+
+			g.drawImage(boot, 170, bootY, 711, 600, null);
+
+			g.drawImage(fade, 0, fadeY, null);
+
+			if (gameOverAnimDone) {
+				g.setColor(new Color(0, 0, 0));
+				g.fillRect(0, 0, 1030, 750);
+				g.drawImage(gameOverText, 36, 80, 954, 108, null);
+
+				if (!hoverMenu) {
+					g.drawImage(menuButton, 405, 290, 250, 100, null);
+				} else {
+					g.drawImage(menuButton, 400, 285, 260, 110, null);
+				}
+
+				if (!hoverQuit) {
+					g.drawImage(quitButton, 405, 400, 250, 100, null);
+				} else {
+					g.drawImage(quitButton, 400, 395, 260, 110, null);
+				}
 			}
 		}
 	}
 
 	public void tick() {
-		animTimer++;
-		birdX += 2;
-		birdY--;
 
-		if (birdX > 3000) {
-			birdX = -200;
-			birdY = 400;
+		if (menuState.equals("gameover")) {
+			if (bootY < -20 && animTimer > 100) {
+				bootY += 100;
+			}
+			animTimer++;
+
+			if (animTimer > 200 && fadeY < 0) {
+				fadeY += 30;
+			} else if (fadeY > 0) {
+				fadeY = 0;
+			}
+
+			if (animTimer > 350) {
+				gameOverAnimDone = true;
+			}
 		}
 
-		if (animTimer == 15) {
-			animFrame++;
-		} else if (animTimer == 25) {
-			animFrame++;
-		} else if (animTimer == 45) {
-			animFrame = 0;
-			animTimer = 0;
+		if (menuState.equals("main")) {
+			animTimer++;
+			birdX += 2;
+			birdY--;
+
+			if (birdX > 3000) {
+				birdX = -200;
+				birdY = 400;
+			}
+
+			if (animTimer == 15) {
+				animFrame++;
+			} else if (animTimer == 25) {
+				animFrame++;
+			} else if (animTimer == 45) {
+				animFrame = 0;
+				animTimer = 0;
+			}
 		}
 	}
 
@@ -194,12 +239,12 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 
 			if (menuState.equals("gameover")) {
 				if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
-					hoverStart = true;
+					hoverMenu = true;
 				} else {
-					hoverStart = false;
+					hoverMenu = false;
 				}
 
-				if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
 					hoverQuit = true;
 				} else {
 					hoverQuit = false;
@@ -220,14 +265,15 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
-				    // Loads game.
 					game.setGameState("file select");
-					FileExplorer fe = new FileExplorer("Select save");
+					FileExplorer fe = new FileExplorer("Select save file");
+					fe.open();
 
-					File file = fe.getSelectedFile();
+					String file = fe.getSelectedFile();
 					System.out.println(file);
+					game.load(file);
 
-					Save.loadGame(game, "save.xml");
+					game.setGameState("menu");
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
@@ -242,14 +288,13 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
-				    // Saves game.
 					game.setGameState("file select");
-					FileExplorer fe = new FileExplorer("Select save");
+					FileExplorer fe = new FileExplorer("Select save location");
+					fe.save();
 
-					File file = fe.getSelectedFile();
+					String file = fe.getSelectedFile();
 					System.out.println(file);
-					game.Save("save.xml");
-
+					game.save(file);
 
 					game.setGameState("menu");
 				}
@@ -259,8 +304,13 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 				}
 			}
 
-			if (menuState.equals("gameover")) {
+			if (menuState.equals("gameover") && gameOverAnimDone) {
 				if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+					animTimer = 0;
+					animFrame = 0;
+					bootY = -3600;
+					fadeY = -5000;
+					gameOverAnimDone = false;
 					game.resetGame();
 				}
 

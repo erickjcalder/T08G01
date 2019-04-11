@@ -40,11 +40,6 @@ public class Map {
     //Simple bool to control console debug messages
     private boolean debug = false;
 
-    /**
-     * Saves map.
-     * @param save Document to use.
-     * @return Element to save to document.
-     */
     Node Save(Document save)
     {
         Element e = null;
@@ -77,7 +72,6 @@ public class Map {
 
         e = save.createElement("roomLoc");
 
-        // Saves all rooms in map.
         Node eStack = null;
         for(Room[] roomList : this.roomLoc)
         {
@@ -491,46 +485,26 @@ public class Map {
         return this.startY;
     }
 
-    /**
-     * Sets starting X.
-     * @param startX starting X.
-     */
     public void setStartX(int startX)
     {
         this.startX = startX;
     }
 
-    /**
-     * Sets starting Y.
-     * @param startY starting Y.
-     */
     public void setStartY(int startY)
     {
         this.startY = startY;
     }
 
-    /**
-     * Sets current X.
-     * @param currentX current X.
-     */
     public void setCurrentX(int currentX)
     {
         this.currentX = currentX;
     }
 
-    /**
-     * Sets current Y.
-     * @param currentY current Y.
-     */
     public void setCurrentY(int currentY)
     {
         this.currentY = currentY;
     }
 
-    /**
-     * Sets map of rooms.
-     * @param roomLoc map of rooms.
-     */
     public void setRoomLoc(Room[][] roomLoc)
     {
         this.roomLoc = roomLoc;

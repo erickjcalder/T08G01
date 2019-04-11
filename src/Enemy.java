@@ -4,7 +4,7 @@ public abstract class Enemy extends ActiveEntity {
 
 	LevelHandler levelHandler;
 
-	public Enemy(int x, int y, LevelHandler levelHandler) {
+	Enemy(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler.getHandler());
 		this.levelHandler = levelHandler;
 		setMapX(2);
