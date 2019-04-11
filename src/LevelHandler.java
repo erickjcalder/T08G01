@@ -12,6 +12,7 @@ public class LevelHandler {
 	Handler handler;
 	Map map;
 	int width, height, currentRoomX, currentRoomY;
+	String gameState = "";
 
 	/**
 	 * Creates a new LevelHandler object and also creates a new Map

@@ -46,7 +46,7 @@ public class Game extends Canvas {
 		new Window(WIDTH, HEIGHT, "Game", this);
 		handler = new Handler();
 		levelhandler = new LevelHandler(handler);
-		handler.addObject(new Player(490, 350, levelhandler, this));
+		handler.addObject(new Player(490, 350, levelhandler));
 		keyInput = new KeyInput(handler, this);
 		menu = new Menu(this);
 		this.addKeyListener(keyInput);
@@ -84,6 +84,14 @@ public class Game extends Canvas {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while (delta >= 1) {
+				if(levelhandler.gameState.equals("lose"))
+				{
+					gameOver();
+				}
+				else if(levelhandler.gameState.equals("won"))
+				{
+					// Win
+				}
 				tick();
 				delta--;
 			}
@@ -185,7 +193,7 @@ public class Game extends Canvas {
 	public void resetGame() {
 		handler.clearEntities();
 		levelhandler = new LevelHandler(handler);
-		handler.addObject(new Player(490, 350, levelhandler, this));
+		handler.addObject(new Player(490, 350, levelhandler));
 		menu.setMenuState("main");
 		setGameState("menu");
 	}

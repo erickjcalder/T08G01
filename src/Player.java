@@ -39,12 +39,7 @@ class Player extends ActiveEntity {
      */
 	private LevelHandler levelHandler;
 
-    /**
-     * Reference to Game.
-     */
-	private Game game;
-
-	Player(int x, int y, LevelHandler levelHandler, Game game) {
+	Player(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler.getHandler());
 		this.map = levelHandler.getMap();
 		this.levelHandler = levelHandler;
@@ -57,7 +52,6 @@ class Player extends ActiveEntity {
 		setDamageMult(1);
 		setName("Player");
 		setTeam("player");
-		this.game = game;
 
 		setWidth(56);
 		setHeight(84);
@@ -263,7 +257,7 @@ class Player extends ActiveEntity {
 	@Override
 	protected void healthThresholdEvents() {
 		if (getHealth() <= 0) {
-			game.gameOver();
+			levelHandler.gameState = "lose";
 		}
 	}
 

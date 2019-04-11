@@ -110,7 +110,7 @@ public class Save
                     {
                         // Building Player class.
                         case "Player":
-                            e = new Player(0, 0, levelHandler, game);
+                            e = new Player(0, 0, levelHandler);
                             break;
                         // Building Projectile class.
                         case "Projectile":
