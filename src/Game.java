@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 
 /**
  * Class adapted from: https://www.youtube.com/watch?v=1gir2R7G9ws 
@@ -57,7 +58,8 @@ public class Game extends Canvas {
 
 	}
 
-	public void save(String filename) {
+	public void save(String filename)
+	{
 		Save.saveGame(this.levelhandler.getMap(), this.handler, filename);
 	}
 	
@@ -186,6 +188,25 @@ public class Game extends Canvas {
 		handler.addObject(new Player(490, 350, levelhandler, this));
 		menu.setMenuState("main");
 		setGameState("menu");
+	}
+
+	/**
+	 * Used to create a new game with load function.
+	 * @param newLevelHandler LevelHandler created by load function.
+	 */
+	public void newGame(LevelHandler newLevelHandler)
+	{
+		resetGame();
+		this.levelhandler = newLevelHandler;
+
+		// Pointing various variables to new version of handlers.
+		this.handler = levelhandler.getHandler();
+		this.hud.setHandler(handler);
+		this.keyInput.setHandler(handler);
+
+		// Starts game.
+		this.menu.setMenuState("");
+		setGameState("game");
 	}
 
 }
