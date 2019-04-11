@@ -16,12 +16,18 @@ import java.util.LinkedList;
 public class Handler {
 	LinkedList<Entity> object = new LinkedList<Entity>();
 
+	/**
+	 * Saves Handler.
+	 * @param save Document to use.
+	 * @return Element to be saved to document.
+	 */
 	Node Save(Document save)
 	{
 		Element e = null;
 
 		Node rootElement = save.createElement("Handler");
 
+		// Saves each Entity in handler.
 		e = save.createElement("objects");
 
 		for(Entity entity : object)

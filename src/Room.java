@@ -1,5 +1,6 @@
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -36,6 +37,11 @@ public class Room {
 	Image doorOpenEast = Toolkit.getDefaultToolkit().getImage("resources/door_open_east.png");
 	Image doorOpenWest = Toolkit.getDefaultToolkit().getImage("resources/door_open_west.png");
 
+    /**
+     * Saves Room.
+     * @param save Document to save to.
+     * @return Element to save to document.
+     */
 	Element Save(Document save)
 	{
 		Element e = null;
@@ -57,21 +63,34 @@ public class Room {
 		e.appendChild(save.createTextNode(Integer.toString(this.roomType)));
 		rootElement.appendChild(e);
 
-		for(Pickups pickup : this.pickupList)
+		// Saves pickups.
+		if(!pickupList.isEmpty())
 		{
-			if(pickup != null)
+			Node pickupStack = e.appendChild(save.createElement("pickupList"));
+			for(Pickups pickup : this.pickupList)
 			{
-				rootElement.appendChild(pickup.Save(save));
+				if(pickup != null)
+				{
+					pickupStack.appendChild(pickup.Save(save));
+				}
 			}
+			rootElement.appendChild(pickupStack);
 		}
 
-		for(Enemy enemy : this.enemyList)
-        {
-            if(enemy != null)
-            {
-                rootElement.appendChild(enemy.Save(save));
-            }
-        }
+		// Saves enemies.
+		if(!enemyList.isEmpty())
+		{
+			Node enemyStack = e.appendChild(save.createElement("enemyList"));
+			for(Enemy enemy : this.enemyList)
+			{
+				if(enemy != null)
+				{
+					enemyStack.appendChild(enemy.Save(save));
+				}
+			}
+			rootElement.appendChild(enemyStack);
+		}
+
 
 		return rootElement;
 	}
@@ -216,4 +235,30 @@ public class Room {
 
 	}
 
+    /**
+     * Sets list of pickups.
+     * @param pickupList List of pickups.
+     */
+	public void setPickupList(LinkedList<Pickups> pickupList)
+	{
+		this.pickupList = pickupList;
+	}
+
+    /**
+     * Sets list of enemies.
+     * @param enemyList List of enemies.
+     */
+	public void setEnemyList(LinkedList<Enemy> enemyList)
+	{
+		this.enemyList = enemyList;
+	}
+
+    /**
+     * Sets levelHandler.
+     * @param levelHandler Instance of levelHandler.
+     */
+	public void setLevelHandler(LevelHandler levelHandler)
+	{
+		this.levelHandler = levelHandler;
+	}
 }

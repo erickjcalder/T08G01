@@ -6,18 +6,42 @@ import java.awt.Toolkit;
  * Represents any player character.
  *
  * @author Justin
- * @version Demo 2
+ * @version Final
  */
 class Player extends ActiveEntity {
 	/**
 	 * Instance of the current map.
 	 */
 	private Map map;
+
+    /**
+     * Animation frames for moving left.
+     */
 	private Image left[] = new Image[5];
+
+    /**
+     * Animation frames for moving right.
+     */
 	private Image right[] = new Image[5];
+
+    /**
+     * Animation frames for moving back.
+     */
 	private Image back[] = new Image[5];
+
+    /**
+     * Animation frames for moving forwards.
+     */
 	private Image front[] = new Image[5];
+
+    /**
+     * Reference to LevelHandler.
+     */
 	private LevelHandler levelHandler;
+
+    /**
+     * Reference to Game.
+     */
 	private Game game;
 
 	Player(int x, int y, LevelHandler levelHandler, Game game) {
@@ -40,6 +64,7 @@ class Player extends ActiveEntity {
 
 		setAnimState("walking front");
 
+		// Sets up animations.
 		left[0] = Toolkit.getDefaultToolkit().getImage("resources/left_side.png");
 		left[1] = Toolkit.getDefaultToolkit().getImage("resources/left_left_step.png");
 		left[2] = Toolkit.getDefaultToolkit().getImage("resources/left_right_step.png");
@@ -151,6 +176,8 @@ class Player extends ActiveEntity {
 	 */
 	@Override
 	protected void movementLogic() {
+
+	    // Handles wall checking.
 		if (getY() + getHeight() + getVelocityY() > 640
 				&& (!this.map.roomCheck(getMapX(), getMapY() + 1) || !levelHandler.canLeaveRoom())) {
 			setY(640 - getHeight());
@@ -191,6 +218,7 @@ class Player extends ActiveEntity {
 			setVelocityX(0);
 		}
 
+		// Handles movement.
 		setX(getX() + (int) getVelocityX());
 		setY(getY() + (int) getVelocityY());
 	}
@@ -307,6 +335,9 @@ class Player extends ActiveEntity {
 		}
 	}
 
+    /**
+     * Handles animations.
+     */
 	public void animationHandler() {
 		setAnimTimer(getAnimTimer() + 1);
 
@@ -337,6 +368,10 @@ class Player extends ActiveEntity {
 		}
 	}
 
+    /**
+     * Handles rendering.
+     * @param g Graphics object to be drawn to.
+     */
 	@Override
 	public void render(Graphics g) {
 		switch (getAnimState()) {
@@ -374,6 +409,9 @@ class Player extends ActiveEntity {
 		}
 	}
 
+    /**
+     * Events to be looped.
+     */
 	@Override
 	protected void tick() {
 		movementLogic();

@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
  * Represents any 'active' entity. (e.g. enemies, player)
  *
  * @author Justin
- * @version Demo 2
+ * @version Final
  */
 abstract class ActiveEntity extends Entity {
 	/**
@@ -25,7 +25,7 @@ abstract class ActiveEntity extends Entity {
 	 */
 	private int armor = 0;
 
-	ActiveEntity(int x, int y, Handler handler) {
+	public ActiveEntity(int x, int y, Handler handler) {
 		super(x, y, handler);
 	}
 
@@ -60,8 +60,7 @@ abstract class ActiveEntity extends Entity {
 	/**
 	 * Sets current health of entity, up to maximum health.
 	 * 
-	 * @param health
-	 *            current health of entity.
+	 * @param health current health of entity.
 	 */
 	void setHealth(int health) {
 		this.health = health;
@@ -83,8 +82,7 @@ abstract class ActiveEntity extends Entity {
 	/**
 	 * Sets armor value of entity, where armor is between 0 and 100.
 	 * 
-	 * @param armor
-	 *            armor value of entity.
+	 * @param armor armor value of entity.
 	 */
 	void setArmor(int armor) {
 		this.armor = armor;
@@ -120,8 +118,7 @@ abstract class ActiveEntity extends Entity {
 	/**
 	 * Damages health of entity based on armor and damage.
 	 * 
-	 * @param baseDamage
-	 *            damage taken.
+	 * @param baseDamage damage taken.
 	 */
 	protected void modifyHealth(int baseDamage) {
 		this.health -= baseDamage * (1 - getArmorAbsorption());
@@ -130,10 +127,8 @@ abstract class ActiveEntity extends Entity {
 	/**
 	 * Damages health of entity based on armor and damage.
 	 * 
-	 * @param baseDamage
-	 *            damage taken.
-	 * @param bypassArmor
-	 *            if the damage should ignore armor.
+	 * @param baseDamage damage taken.
+	 * @param bypassArmor if the damage should ignore armor.
 	 */
 	protected void modifyHealth(int baseDamage, boolean bypassArmor) {
 		if (bypassArmor) {
@@ -143,11 +138,17 @@ abstract class ActiveEntity extends Entity {
 		}
 	}
 
+	/**
+	 * Saves ActiveEntity
+	 * @param save Document to use.
+	 * @return Element to be saved to document.
+	 */
 	@Override
 	Element Save(Document save)
 	{
 		Element e = null;
 
+		// Saves fields from Entity.
 		Element rootElement = super.Save(save);
 
 		e = save.createElement("healthMax");
