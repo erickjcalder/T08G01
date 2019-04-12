@@ -114,7 +114,7 @@ public class Save
                             break;
                         // Building Projectile class.
                         case "Projectile":
-                            e = new Projectile(0, 0, 0, 0, handler);
+                            e = new Projectile(0, 0, 0, 0, handler, "");
                             break;
                         // Building Pickup class.
                         case "Pickups":

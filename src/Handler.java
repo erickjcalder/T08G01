@@ -18,11 +18,12 @@ public class Handler {
 
 	/**
 	 * Saves Handler.
-	 * @param save Document to use.
+	 * 
+	 * @param save
+	 *            Document to use.
 	 * @return Element to be saved to document.
 	 */
-	Node Save(Document save)
-	{
+	Node Save(Document save) {
 		Element e = null;
 
 		Node rootElement = save.createElement("Handler");
@@ -30,8 +31,7 @@ public class Handler {
 		// Saves each Entity in handler.
 		e = save.createElement("objects");
 
-		for(Entity entity : object)
-		{
+		for (Entity entity : object) {
 			e.appendChild(entity.Save(save));
 		}
 
@@ -39,6 +39,7 @@ public class Handler {
 
 		return rootElement;
 	}
+
 	/**
 	 * Loops through every object in the LinkedList of entities and calls its tick
 	 * method
@@ -80,17 +81,17 @@ public class Handler {
 	public void removeObject(Entity object) {
 		this.object.remove(object);
 	}
-	
+
 	public void clearEntities() {
-		while(object.size() > 0) {
+		while (object.size() > 0) {
 			object.removeFirst();
 		}
 	}
-	
+
 	public Player getPlayerInstance() {
 		for (int i = 0; i < object.size(); i++) {
 			if (object.get(i) instanceof Player) {
-				return (Player)object.get(i);
+				return (Player) object.get(i);
 			}
 		}
 		return null;
@@ -162,11 +163,15 @@ public class Handler {
 			}
 
 			if (object.get(i) instanceof Projectile && collisionType.equals("projectile")) {
-				if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
-						&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
-						&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
-								&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
-					return true;
+				if (!((Projectile) object.get(i)).getType().equals("player")) {
+					if ((playerObject.getWidth() + playerObject.getX() >= object.get(i).getX()
+							&& playerObject.getX() <= object.get(i).getWidth() + object.get(i).getX())
+							&& (playerObject.getHeight() + playerObject.getY() >= object.get(i).getY()
+									&& playerObject.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+						addObject(new Particle(object.get(i).getX(), object.get(i).getY(), "hitparticle", this));
+						removeObject(object.get(i));
+						return true;
+					}
 				}
 			}
 		}
@@ -179,13 +184,15 @@ public class Handler {
 	public boolean checkEnemyCollision(String collisionType, Enemy enemy) {
 		for (int i = 0; i < object.size(); i++) {
 			if (object.get(i) instanceof Projectile && collisionType.equals("projectile")) {
-				if ((enemy.getWidth() + enemy.getX() >= object.get(i).getX()
-						&& enemy.getX() <= object.get(i).getWidth() + object.get(i).getX())
-						&& (enemy.getHeight() + enemy.getY() >= object.get(i).getY()
-								&& enemy.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
-					addObject(new Particle(object.get(i).getX(), object.get(i).getY(), "hitparticle", this));
-					removeObject(object.get(i));
-					return true;
+				if (((Projectile) object.get(i)).getType().equals("player")) {
+					if ((enemy.getWidth() + enemy.getX() >= object.get(i).getX()
+							&& enemy.getX() <= object.get(i).getWidth() + object.get(i).getX())
+							&& (enemy.getHeight() + enemy.getY() >= object.get(i).getY()
+									&& enemy.getY() <= object.get(i).getHeight() + object.get(i).getY())) {
+						addObject(new Particle(object.get(i).getX(), object.get(i).getY(), "hitparticle", this));
+						removeObject(object.get(i));
+						return true;
+					}
 				}
 			}
 		}

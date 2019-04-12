@@ -223,19 +223,19 @@ class Player extends ActiveEntity {
 
 		switch (direction) {
 		case 270:
-			handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10, handler));
+			handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10, handler, "player"));
 			break;
 
 		case 90:
-			handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10, handler));
+			handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10, handler, "player"));
 			break;
 
 		case 180:
-			handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0, handler));
+			handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0, handler, "player"));
 			break;
 
 		case 0:
-			handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0, handler));
+			handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0, handler, "player"));
 			break;
 		}
 	}
@@ -266,6 +266,14 @@ class Player extends ActiveEntity {
 	protected void checkCollision() {
 		if (handler.checkPlayerCollision("enemy")) {
 			setHealth(getHealth() - 1);
+		}
+
+		if (handler.checkPlayerCollision("projectile")) {
+			if (getHealth() - 10 > 0) {
+				setHealth(getHealth() - 10);
+			} else {
+				setHealth(0);
+			}
 		}
 	}
 

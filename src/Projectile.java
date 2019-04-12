@@ -12,8 +12,11 @@ import java.awt.Toolkit;
 public class Projectile extends Entity {
 
 	Image projectile = Toolkit.getDefaultToolkit().getImage("resources/Projectile.png");
+	Image web = Toolkit.getDefaultToolkit().getImage("resources/Web Projectile.png");
 
-	public Projectile(int x, int y, int velX, int velY, Handler handler) {
+	private String type;
+
+	public Projectile(int x, int y, int velX, int velY, Handler handler, String type) {
 		super(x, y, handler);
 		this.setName("projectile");
 		this.setTeam("");
@@ -23,6 +26,18 @@ public class Projectile extends Entity {
 
 		this.setVelocityX(velX);
 		this.setVelocityY(velY);
+
+		this.type = type;
+		
+		if (type.equals("player")) {
+			setWidth(1);
+			setHeight(1);
+		}
+		
+		if (type.equals("web")) {
+			setWidth(90);
+			setHeight(90);
+		}
 	}
 
 	@Override
@@ -39,7 +54,13 @@ public class Projectile extends Entity {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(projectile, getX(), getY(), null);
+		if (type.equals("player")) {
+			g.drawImage(projectile, getX(), getY(), null);
+		}
+
+		if (type.equals("web")) {
+			g.drawImage(web, getX(), getY(), 90, 90, null);
+		}
 
 	}
 
@@ -68,5 +89,9 @@ public class Projectile extends Entity {
 	protected void checkInteraction(Entity initiator) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public String getType() {
+		return new String(this.type);
 	}
 }

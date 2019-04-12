@@ -5,26 +5,24 @@ import java.util.Random;
 
 public class Spider extends Enemy {
 
-	private Image left[] = new Image[5];
-	private Image right[] = new Image[5];
-	private Image back[] = new Image[5];
+	private Image jump[] = new Image[5];
 	private Image front[] = new Image[5];
 	private Random r = new Random();
+
+	private int battleTimer = 0;
+
+	private int jumpX = 0;
+	private int jumpY = 0;
 
 	public Spider(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler);
 
-		setVelocityX(2);
-		setVelocityY(2);
+		setVelocityX(-5);
+		setVelocityY(-2);
 
-		left[0] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Left Side.png");
-		left[1] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Left Side Flying.png");
-
-		right[0] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Right Side.png");
-		right[1] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Right Side Flying.png");
-
-		back[0] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Back.png");
-		back[1] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Back Flying.png");
+		jump[0] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Full Bend.png");
+		jump[1] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Half Bend and Landing.png");
+		jump[2] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Jumping.png");
 
 		front[0] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Right Step.png");
 		front[1] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front.png");
@@ -33,10 +31,10 @@ public class Spider extends Enemy {
 
 		setAnimTimer(0);
 		setAnimFrame(0);
-		setAnimState("walking front");
-		
-		setWidth(100);
-		setHeight(100);
+		setAnimState("walking");
+
+		setWidth(160);
+		setHeight(120);
 	}
 
 	@Override
@@ -47,62 +45,130 @@ public class Spider extends Enemy {
 
 	@Override
 	protected void attackLogic(int direction) {
-		// TODO Auto-generated method stub
+		switch (direction) {
+		case 0:
+			handler.addObject(new Projectile(getX() - 10, getY(), -10, 0, handler, "web"));
+			break;
+		case 1:
+			handler.addObject(new Projectile(getX() + 150, getY(), 10, 0, handler, "web"));
+			break;
+		case 2:
+			handler.addObject(new Projectile(getX() + 150, getY(), 0, -10, handler, "web"));
+			break;
+		case 3:
+			handler.addObject(new Projectile(getX() + 150, getY(), -5, 5, handler, "web"));
+			break;
+		case 4:
+			handler.addObject(new Projectile(getX() + 150, getY(), 5, 5, handler, "web"));
+			break;
+
+		}
 
 	}
 
 	@Override
 	protected void movementLogic() {
-		int rand = r.nextInt(100);
-		if (rand > 10 && rand < 12) {
-			setVelocityX(-4);
+		if (battleTimer == 0) {
+			setVelocityX(-2);
 		}
-		
-		if (rand > 20 && rand < 22) {
-			setVelocityY(-4);
+
+		if (battleTimer < 500) {
+			setAnimState("walking");
+			setVelocityY(-2);
+			if (getY() > 100) {
+				setY(getY() + (int) getVelocityY());
+			} else {
+				setX(getX() + (int) getVelocityX());
+			}
+			if (getX() + getVelocityX() < 100 || getX() + getVelocityX() > 750) {
+				setVelocityX(getVelocityX() * -1);
+			}
 		}
-		
-		if (rand > 30 && rand < 32) {
-			setVelocityX(4);
+
+		if (battleTimer > 500) {
+			setAnimState("jump");
 		}
-		
-		if (rand > 40 && rand < 42) {
-			setVelocityY(4);
+
+		if (battleTimer == 550) {
+			setAnimTimer(0);
+			setAnimFrame(0);
+			jumpX = handler.getPlayerInstance().getX();
+			jumpY = handler.getPlayerInstance().getY();
+
+			setVelocityX((jumpX - getX()) / 15);
+			setVelocityY((jumpY - getY()) / 15);
+
+			if (Math.abs(getVelocityX()) < 1) {
+				setVelocityX(1);
+			}
+
+			if (Math.abs(getVelocityY()) < 1) {
+				setVelocityY(1);
+			}
 		}
-		
-		if (getX() + getVelocityX() + getWidth() > 950 || getX() + getVelocityX() < 80) {
-			setVelocityX(getVelocityX() * -1);
+
+		if (battleTimer > 550 && getX() <= 750 && getX() >= 100 && getY() <= 500 && getY() >= 100) {
+			setX(getX() + (int) getVelocityX());
+			setY(getY() + (int) getVelocityY());
 		}
-		
-		if (getY() + getVelocityY() + getHeight() > 520 || getY() + getVelocityY() < 20) {
-			setVelocityY(getVelocityY() * -1);
+
+		if (getY() > 500) {
+			setY(500);
+			setVelocityY(0);
+			setVelocityX(0);
 		}
-		
-		setX(getX() + (int) getVelocityX());
-		setY(getY() + (int) getVelocityY());
+
+		if (getY() < 100) {
+			setY(100);
+			setVelocityY(0);
+			setVelocityX(0);
+		}
+
+		if (getX() > 750) {
+			setX(750);
+			setVelocityY(0);
+			setVelocityX(0);
+		}
+
+		if (getX() < 100) {
+			setX(100);
+			setVelocityY(0);
+			setVelocityX(0);
+		}
+
+		battleTimer++;
+
+		if (battleTimer == 650) {
+			battleTimer = 0;
+		}
 
 	}
 
 	@Override
 	public void animationHandler() {
-		if (getVelocityY() > 0) {
-			setAnimState("walking front");
-		}
-		
-		if (getVelocityY() < 0) {
-			setAnimState("walking back");
-		}
-		
-		
-		setAnimTimer(getAnimTimer() + 1);
 
-		if (getAnimTimer() > 3) {
-			setAnimTimer(0);
+		if (getAnimState().equals("walking")) {
+			setAnimTimer(getAnimTimer() + 1);
+			if (getAnimTimer() > 3) {
+				setAnimTimer(0);
+			}
+
+			if (getAnimTimer() == 3) {
+				setAnimFrame(getAnimFrame() + 1);
+				if (getAnimFrame() >= 4) {
+					setAnimFrame(0);
+				}
+			}
 		}
 
-		if (getAnimTimer() == 3) {
-			setAnimFrame(getAnimFrame() + 1);
-			if (getAnimFrame() >= 4) {
+		if (getAnimState().equals("jump")) {
+			setAnimTimer(getAnimTimer() + 1);
+
+			if (getAnimTimer() == 50) {
+				setAnimFrame(1);
+			}
+
+			if (getAnimTimer() == 100) {
 				setAnimFrame(0);
 			}
 		}
@@ -111,38 +177,34 @@ public class Spider extends Enemy {
 	@Override
 	public void render(Graphics g) {
 		switch (getAnimState()) {
-		case "walking left":
-			g.drawImage(left[getAnimFrame()], getX(), getY(), 180, 180, null);
+
+		case "jump":
+			g.drawImage(jump[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 
-		case "walking right":
-			g.drawImage(right[getAnimFrame()], getX(), getY(), 180, 180, null);
-			break;
-
-		case "walking back":
-			g.drawImage(back[getAnimFrame()], getX(), getY(), 180, 180, null);
-			break;
-
-		case "walking front":
+		case "walking":
 			g.drawImage(front[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 		}
 	}
 
-	public void healthThresholdEvents(){
+	public void healthThresholdEvents() {
 		if (getHealth() <= 0) {
 			int x = getX();
 			int y = getY();
 			handler.removeObject(this);
 			levelHandler.removeEnemy(this);
-			handler.addObject(new Pickups(levelHandler.getHandler(), levelHandler,66, x, y));
+			handler.addObject(new Pickups(levelHandler.getHandler(), levelHandler, 66, x, y));
 
 		}
 	}
 
 	@Override
 	protected void tick() {
-		//movementLogic();
+		int rand = r.nextInt(100);
+
+		attackLogic(rand);
+		movementLogic();
 		animationHandler();
 		healthThresholdEvents();
 		this.checkCollision();

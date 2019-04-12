@@ -222,7 +222,7 @@ public class Pickups extends Entity {
 			g.drawImage(defence, getX(), getY(), 38, 38, null);
 
 		if (pickupNumber==66)
-			g.drawImage(win, getX(), getY(), 60, 60, null);
+			g.drawImage(win, getX(), getY(), 140, 140, null);
 	}
 
 	@Override
