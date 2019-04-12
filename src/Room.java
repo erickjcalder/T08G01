@@ -131,7 +131,7 @@ public class Room {
         }
 
 		Random rand = new Random();
-		if (rand.nextInt(100) < 25) {
+		if (rand.nextInt(100) < 75) {
 			pickupList.add(new Pickups(levelHandler.getHandler(), levelHandler));
 		}
 
