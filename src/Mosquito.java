@@ -53,7 +53,7 @@ public class Mosquito extends Enemy {
 		int playerY = this.handler.getPlayerInstance().getY();
 		boolean xFurtherThanY = (Math.abs(playerX) - Math.abs(this.getX()) > Math.abs(playerY) - Math.abs(this.getY()));
 
-		if (playerX == this.getX()) {
+		if (Math.abs(playerX - this.getX()) <= 3) {
             // Player above/below mosquito
             setVelocityX(0);
 		} else if (playerX > this.getX()) {
@@ -72,7 +72,7 @@ public class Mosquito extends Enemy {
 			}
 		}
 
-		if (playerY == this.getY()) {
+		if (Math.abs(playerY - this.getY()) <= 3) {
             // Player beside mosquito
             setVelocityY(0);
 		} else if (playerY > this.getY()) {
