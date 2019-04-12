@@ -21,3 +21,15 @@ Authors: Erick, Justin, Parker, Vlad and Rahil
 5. Run "javac *.java"
 6. Run "java Game"
 7. Enjoy the semi-functional game
+
+
+
+### VERSION 1.0 RUN INSTRUCTIONS ###
+
+1. Download v01.0.zip off the release page of this repository
+2. Unzip all files
+3. Add resources folder to src folder
+4. Navigate to src folder in terminal
+5. Run "javac *.java"
+6. Run "java Game"
+7. Enjoy the game
