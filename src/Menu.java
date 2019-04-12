@@ -272,8 +272,6 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 					String file = fe.getSelectedFile();
 					System.out.println(file);
 					game.load(file);
-
-					game.setGameState("menu");
 				}
 
 				if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
