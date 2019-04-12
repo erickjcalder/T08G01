@@ -140,25 +140,25 @@ class Player extends ActiveEntity {
 			break;
 
 		case "shootup":
-			if (getShotTimer() == getShotCooldown()) {
+			if (getShotTimer() >= getShotCooldown()) {
 				attackLogic(270);
 			}
 			break;
 
 		case "shootdown":
-			if (getShotTimer() == getShotCooldown()) {
+			if (getShotTimer() >= getShotCooldown()) {
 				attackLogic(90);
 			}
 			break;
 
 		case "shootleft":
-			if (getShotTimer() == getShotCooldown()) {
+			if (getShotTimer() >= getShotCooldown()) {
 				attackLogic(180);
 			}
 			break;
 
 		case "shootright":
-			if (getShotTimer() == getShotCooldown()) {
+			if (getShotTimer() >= getShotCooldown()) {
 				attackLogic(0);
 			}
 			break;
@@ -225,29 +225,24 @@ class Player extends ActiveEntity {
 	 */
 	@Override
 	protected void attackLogic(int direction) {
+		setShotTimer(0);
 
-		if (getShotTimer() >= getShotCooldown()) {
+		switch (direction) {
+		case 270:
+			handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10, handler));
+			break;
 
-			setShotTimer(0);
+		case 90:
+			handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10, handler));
+			break;
 
-			switch (direction) {
-			case 270:
-				handler.addObject(new Projectile(getX() + 10, getY() - 25, 0, -10, handler));
-				break;
+		case 180:
+			handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0, handler));
+			break;
 
-			case 90:
-				handler.addObject(new Projectile(getX() + 10, getY() + 45, 0, 10, handler));
-				break;
-
-			case 180:
-				handler.addObject(new Projectile(getX() - 25, getY() + 10, -10, 0, handler));
-				break;
-
-			case 0:
-				handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0, handler));
-				break;
-
-			}
+		case 0:
+			handler.addObject(new Projectile(getX() + 45, getY() + 10, 10, 0, handler));
+			break;
 		}
 	}
 

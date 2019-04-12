@@ -195,6 +195,10 @@ abstract class Entity {
 	 */
 	protected void setShotCooldown(int shotCooldown) {
 		this.shotCooldown = shotCooldown;
+		if(this.shotTimer > this.shotCooldown)
+		{
+			this.shotTimer = shotCooldown;
+		}
 	}
 
 	/**
