@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.Random;
 
 public abstract class Enemy extends ActiveEntity {
 
@@ -32,6 +33,11 @@ public abstract class Enemy extends ActiveEntity {
 		if (getHealth() <= 0) {
 			handler.removeObject(this);
 			levelHandler.removeEnemy(this);
+			Random r = new Random();
+			int roll = r.nextInt(4);
+			if (roll == 3) {
+                handler.addObject(new Pickups(levelHandler.getHandler(), levelHandler, 3, this.getX(), this.getY()));
+            }
 		}
 	}
 

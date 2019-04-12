@@ -126,15 +126,7 @@ public class Wasp extends Enemy {
 			break;
 		}
 	}
-
-	public void healthThresholdEvents(){
-		if (getHealth() <= 0) {
-			int x = getX();
-			int y = getY();
-			handler.removeObject(this);
-			levelHandler.removeEnemy(this);
-		}
-	}
+	
 
 	@Override
 	protected void tick() {

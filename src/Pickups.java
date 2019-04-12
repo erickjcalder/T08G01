@@ -14,6 +14,10 @@ public class Pickups extends Entity {
 	Random r = new Random();
 	private int pickupNumber = 0;
 
+	private int cooldownFix = 0;
+
+	private int damageFix = 0;
+
 	Handler handler;
 	LevelHandler levelHandler;
 
@@ -88,11 +92,10 @@ public class Pickups extends Entity {
 	}
 
 	/**
-	 * efectively increases damage by 2 times
+	 * effectively increases damage by 2 times
 	 */
 	public void doubleDamage() {
-
-		handler.getPlayerInstance().setDamage(100);
+	    handler.getPlayerInstance().setDamage(100);
 	}
 
 	/**
@@ -109,8 +112,15 @@ public class Pickups extends Entity {
 	 */
 	public void bonusAtackSpeed() {
 
-		handler.getPlayerInstance().setShotCooldown(15);
-
+	    if (cooldownFix == 0) {
+	        cooldownFix = 30;
+        }
+	    if (cooldownFix - 5 > 0) {
+            handler.getPlayerInstance().setShotCooldown(cooldownFix/2);
+            cooldownFix = cooldownFix/2;
+        } else {
+            handler.getPlayerInstance().setShotCooldown(1);
+        }
 	}
 
 	/**

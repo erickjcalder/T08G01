@@ -154,5 +154,6 @@ public class Mosquito extends Enemy {
 		animationHandler();
 		healthThresholdEvents();
 		this.checkCollision();
+
 	}
 }

@@ -33,8 +33,8 @@ public class Spider extends Enemy {
 		setAnimFrame(0);
 		setAnimState("walking");
 		
-		setHealthMax(1000);
-		setHealth(1000);
+		setHealthMax(500);
+		setHealth(500);
 		
 		System.out.println("tea sis: " + getHealth());
 

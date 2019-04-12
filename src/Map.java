@@ -132,7 +132,9 @@ public class Map {
         //Generate the map
         this.chooseLayout();
 
-        int arrayPosition = 0;
+        //Delete enemies in starting room
+        roomLoc[startX][startY].enemyList.clear();
+
         //Place the boss
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -141,7 +143,6 @@ public class Map {
                         System.out.println("Added boss room candidate at (" + i + " " + j + ")");
                         bossXs.add(i);
                         bossYs.add(j);
-                        arrayPosition++;
                     }
                 }
             }
