@@ -133,8 +133,6 @@ public class Wasp extends Enemy {
 			int y = getY();
 			handler.removeObject(this);
 			levelHandler.removeEnemy(this);
-			handler.addObject(new Pickups(levelHandler.getHandler(), levelHandler,66, x, y));
-
 		}
 	}
 

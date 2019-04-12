@@ -1,6 +1,7 @@
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import sun.security.provider.ConfigFile;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,6 +40,10 @@ public class Map {
 
     //Simple bool to control console debug messages
     private boolean debug = false;
+
+    //Tracks all rooms where the boss could be placed
+    private ArrayList<Integer> bossXs = new ArrayList<Integer>();
+    private ArrayList<Integer> bossYs = new ArrayList<Integer>();
 
     /**
      * Saves map.
@@ -126,6 +131,25 @@ public class Map {
 
         //Generate the map
         this.chooseLayout();
+
+        int arrayPosition = 0;
+        //Place the boss
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i < 2 || i > 4 && j < 2 || j > 4) {
+                    if (roomLoc[i][j].getRoomType() == 1) {
+                        System.out.println("Added boss room candidate at (" + i + " " + j + ")");
+                        bossXs.add(i);
+                        bossYs.add(j);
+                        arrayPosition++;
+                    }
+                }
+            }
+        }
+        int selectedRoom = r.nextInt(bossXs.size());
+        roomLoc[bossXs.get(selectedRoom)][bossYs.get(selectedRoom)].enemyList.clear();
+        roomLoc[bossXs.get(selectedRoom)][bossYs.get(selectedRoom)].enemyList.add(new Spider(270, 400, roomLoc[bossXs.get(selectedRoom)][bossYs.get(selectedRoom)].levelHandler));
+        System.out.println(bossXs.get(selectedRoom) + " THIS IS DEBUG " + bossYs.get(selectedRoom) );
     }
 
     /**
@@ -495,8 +519,7 @@ public class Map {
      * Sets starting X.
      * @param startX starting X.
      */
-    public void setStartX(int startX)
-    {
+    public void setStartX(int startX) {
         this.startX = startX;
     }
 
@@ -504,8 +527,7 @@ public class Map {
      * Sets starting Y.
      * @param startY starting Y.
      */
-    public void setStartY(int startY)
-    {
+    public void setStartY(int startY) {
         this.startY = startY;
     }
 
