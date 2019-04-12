@@ -3,6 +3,9 @@ import java.awt.*;
 public class Mosquito extends Enemy {
 
 	private Image front[] = new Image[5];
+	private Image left[] = new Image[5];
+	private Image right[] = new Image[5];
+	private Image back[] = new Image[5];
 
 	public Mosquito(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler);
@@ -12,6 +15,15 @@ public class Mosquito extends Enemy {
 
 		front[0] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Front.png");
 		front[1] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Front Flying.png");
+
+		left[0] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Left Side.png");
+        left[1] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Left Side Flying.png");
+
+        right[0] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Right Side.png");
+        right[1] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Right Side Flying.png");
+
+        back[0] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Back.png");
+        back[1] = Toolkit.getDefaultToolkit().getImage("resources/Mosquito Back Flying.png");
 
 		setAnimTimer(0);
 		setAnimFrame(0);
@@ -41,16 +53,16 @@ public class Mosquito extends Enemy {
 		int playerY = this.handler.getPlayerInstance().getY();
 		boolean xFurtherThanY = (Math.abs(playerX) - Math.abs(this.getX()) > Math.abs(playerY) - Math.abs(this.getY()));
 
-		if (playerX > this.getX()) {
-			// Player to the right of mosquito
-			if (xFurtherThanY) {
-				setVelocityX(3);
-			} else {
-				setVelocityX(2);
-			}
-		} else if (playerX == this.getX()) {
-			// Player above/below mosquito
-			setVelocityX(0);
+		if (playerX == this.getX()) {
+            // Player above/below mosquito
+            setVelocityX(0);
+		} else if (playerX > this.getX()) {
+		    // Player to the right of mosquito
+            if (xFurtherThanY) {
+                setVelocityX(3);
+            } else {
+                setVelocityX(2);
+            }
 		} else {
 			// Player to the left of mosquito
 			if (xFurtherThanY) {
@@ -60,16 +72,16 @@ public class Mosquito extends Enemy {
 			}
 		}
 
-		if (playerY > this.getY()) {
-			// Player above mosquito
-			if (xFurtherThanY) {
-				setVelocityY(2);
-			} else {
-				setVelocityY(3);
-			}
-		} else if (playerY == this.getY()) {
-			// Player beside mosquito
-			setVelocityY(0);
+		if (playerY == this.getY()) {
+            // Player beside mosquito
+            setVelocityY(0);
+		} else if (playerY > this.getY()) {
+            // Player above mosquito
+            if (xFurtherThanY) {
+                setVelocityY(2);
+            } else {
+                setVelocityY(3);
+            }
 		} else {
 			// Player below mosquito
 			if (xFurtherThanY) {
@@ -86,7 +98,19 @@ public class Mosquito extends Enemy {
 	@Override
 	public void animationHandler() {
 
-		setAnimState("walking front");
+	    if (getVelocityY() > getVelocityX()) {
+            if (getVelocityY() >= 0) {
+                setAnimState("walking front");
+            } else {
+                setAnimState("walking back");
+            }
+        } else {
+	        if (getVelocityX() <= 0) {
+	            setAnimState("walking left");
+            } else {
+	            setAnimState("walking right");
+            }
+        }
 
 		setAnimTimer(getAnimTimer() + 1);
 
@@ -106,9 +130,21 @@ public class Mosquito extends Enemy {
 	public void render(Graphics g) {
 		switch (getAnimState()) {
 
-		case "walking front":
-			g.drawImage(front[getAnimFrame()], getX(), getY(), 120, 120, null);
-			break;
+            case "walking left":
+                g.drawImage(left[getAnimFrame()], getX(), getY(), 120, 120, null);
+                break;
+
+            case "walking right":
+                g.drawImage(right[getAnimFrame()], getX(), getY(), 120, 120, null);
+                break;
+
+            case "walking back":
+                g.drawImage(back[getAnimFrame()], getX(), getY(), 120, 120, null);
+                break;
+
+            case "walking front":
+                g.drawImage(front[getAnimFrame()], getX(), getY(), 120, 120, null);
+                break;
 		}
 	}
 
