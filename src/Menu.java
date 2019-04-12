@@ -312,7 +312,7 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 					game.resetGame();
 				}
 
-				if (mouseOver(mouseX, mouseY, 405, 510, 250, 100)) {
+				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
 					game.stop();
 				}
 			}
