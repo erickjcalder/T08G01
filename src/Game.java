@@ -204,7 +204,6 @@ public class Game extends Canvas {
 	 */
 	public void newGame(LevelHandler newLevelHandler)
 	{
-		resetGame();
 		this.levelhandler = newLevelHandler;
 
 		// Pointing various variables to new version of handlers.

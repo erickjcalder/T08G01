@@ -170,6 +170,8 @@ public class LevelHandler {
 
 	public void tick() {
 		checkEnemiesDefeated();
+		this.currentRoomX = handler.getPlayerInstance().getMapX();
+		this.currentRoomY = handler.getPlayerInstance().getMapY();
 	}
 
 	/**

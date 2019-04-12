@@ -9,10 +9,6 @@ import java.awt.Toolkit;
  * @version Final
  */
 class Player extends ActiveEntity {
-	/**
-	 * Instance of the current map.
-	 */
-	private Map map;
 
     /**
      * Animation frames for moving left.
@@ -41,7 +37,6 @@ class Player extends ActiveEntity {
 
 	Player(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler.getHandler());
-		this.map = levelHandler.getMap();
 		this.levelHandler = levelHandler;
 		setMapX(levelHandler.map.getStartX());
 		setMapY(levelHandler.map.getStartY());
@@ -170,43 +165,42 @@ class Player extends ActiveEntity {
 	 */
 	@Override
 	protected void movementLogic() {
-
 	    // Handles wall checking.
 		if (getY() + getHeight() + getVelocityY() > 640
-				&& (!this.map.roomCheck(getMapX(), getMapY() + 1) || !levelHandler.canLeaveRoom())) {
+				&& (!this.levelHandler.getMap().roomCheck(getMapX(), getMapY() + 1) || !levelHandler.canLeaveRoom())) {
 			setY(640 - getHeight());
 			setVelocityY(0);
-		} else if (getY() + getHeight() + getVelocityY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)
+		} else if (getY() + getHeight() + getVelocityY() > 640 && this.levelHandler.getMap().roomCheck(getMapX(), getMapY() + 1)
 				&& (getX() > 515 || getX() < 452)) {
 			setY(640 - getHeight());
 			setVelocityY(0);
 		}
 
 		if (getY() + getVelocityY() < 55
-				&& (!this.map.roomCheck(getMapX(), getMapY() - 1) || !levelHandler.canLeaveRoom())) {
+				&& (!this.levelHandler.getMap().roomCheck(getMapX(), getMapY() - 1) || !levelHandler.canLeaveRoom())) {
 			setY(55);
 			setVelocityY(0);
-		} else if (getY() + getVelocityY() < 55 && this.map.roomCheck(getMapX(), getMapY() - 1)
+		} else if (getY() + getVelocityY() < 55 && this.levelHandler.getMap().roomCheck(getMapX(), getMapY() - 1)
 				&& (getX() > 515 || getX() < 452)) {
 			setY(55);
 			setVelocityY(0);
 		}
 
 		if (getX() + getWidth() + getVelocityX() > 936
-				&& (!this.map.roomCheck(getMapX() + 1, getMapY()) || !levelHandler.canLeaveRoom())) {
+				&& (!this.levelHandler.getMap().roomCheck(getMapX() + 1, getMapY()) || !levelHandler.canLeaveRoom())) {
 			setX(936 - getWidth());
 			setVelocityX(0);
-		} else if (getX() + getWidth() + getVelocityX() > 936 && this.map.roomCheck(getMapX() + 1, getMapY())
+		} else if (getX() + getWidth() + getVelocityX() > 936 && this.levelHandler.getMap().roomCheck(getMapX() + 1, getMapY())
 				&& (getY() > 335 || getY() < 265)) {
 			setX(936 - getWidth());
 			setVelocityX(0);
 		}
 
 		if (getX() + getVelocityX() < 90
-				&& (!this.map.roomCheck(getMapX() - 1, getMapY()) || !levelHandler.canLeaveRoom())) {
+				&& (!this.levelHandler.getMap().roomCheck(getMapX() - 1, getMapY()) || !levelHandler.canLeaveRoom())) {
 			setX(90);
 			setVelocityX(0);
-		} else if (getX() + getVelocityX() < 90 && this.map.roomCheck(getMapX() - 1, getMapY())
+		} else if (getX() + getVelocityX() < 90 && this.levelHandler.getMap().roomCheck(getMapX() - 1, getMapY())
 				&& (getY() > 335 || getY() < 265)) {
 			setX(90);
 			setVelocityX(0);
@@ -279,7 +273,7 @@ class Player extends ActiveEntity {
 	 * Handles changing rooms.
 	 */
 	private void changeRoom() {
-		if (getX() > 940 && this.map.roomCheck(getMapX() + 1, getMapY())) {
+		if (getX() > 940 && this.levelHandler.getMap().roomCheck(getMapX() + 1, getMapY())) {
 			setX(90);
 			handler.clearProjectiles();
 			handler.clearPickups();
@@ -287,10 +281,9 @@ class Player extends ActiveEntity {
 			levelHandler.addPickups(getMapX() + 1, getMapY());
 			levelHandler.addEnemies(getMapX() + 1, getMapY());
 			setMapX(getMapX() + 1);
-			levelHandler.setCurrentRoomX(getMapX());
 		}
 
-		if (getX() < 40 && this.map.roomCheck(getMapX() - 1, getMapY())) {
+		if (getX() < 40 && this.levelHandler.getMap().roomCheck(getMapX() - 1, getMapY())) {
 			setX(936 - getWidth());
 			handler.clearProjectiles();
 			handler.clearPickups();
@@ -298,10 +291,9 @@ class Player extends ActiveEntity {
 			levelHandler.addPickups(getMapX() - 1, getMapY());
 			levelHandler.addEnemies(getMapX() - 1, getMapY());
 			setMapX(getMapX() - 1);
-			levelHandler.setCurrentRoomX(getMapX());
 		}
 
-		if (getY() < 40 && this.map.roomCheck(getMapX(), getMapY() - 1)) {
+		if (getY() < 40 && this.levelHandler.getMap().roomCheck(getMapX(), getMapY() - 1)) {
 			setY(640 - getHeight());
 			handler.clearProjectiles();
 			handler.clearPickups();
@@ -309,10 +301,9 @@ class Player extends ActiveEntity {
 			levelHandler.addPickups(getMapX(), getMapY() - 1);
 			levelHandler.addEnemies(getMapX(), getMapY() - 1);
 			setMapY(getMapY() - 1);
-			levelHandler.setCurrentRoomY(getMapY());
 		}
 
-		if (getY() > 640 && this.map.roomCheck(getMapX(), getMapY() + 1)) {
+		if (getY() > 640 && this.levelHandler.getMap().roomCheck(getMapX(), getMapY() + 1)) {
 			setY(55);
 			handler.clearProjectiles();
 			handler.clearPickups();
@@ -320,7 +311,6 @@ class Player extends ActiveEntity {
 			levelHandler.addPickups(getMapX(), getMapY() + 1);
 			levelHandler.addEnemies(getMapX(), getMapY() + 1);
 			setMapY(getMapY() + 1);
-			levelHandler.setCurrentRoomY(getMapY());
 		}
 	}
 
