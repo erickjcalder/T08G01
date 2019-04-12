@@ -32,6 +32,11 @@ public class Spider extends Enemy {
 		setAnimTimer(0);
 		setAnimFrame(0);
 		setAnimState("walking");
+		
+		setHealthMax(1000);
+		setHealth(1000);
+		
+		System.out.println("tea sis: " + getHealth());
 
 		setWidth(160);
 		setHeight(120);
@@ -53,7 +58,7 @@ public class Spider extends Enemy {
 			handler.addObject(new Projectile(getX() + 150, getY(), 10, 0, handler, "web"));
 			break;
 		case 2:
-			handler.addObject(new Projectile(getX() + 150, getY(), 0, -10, handler, "web"));
+			handler.addObject(new Projectile(getX() + 150, getY(), 0, 10, handler, "web"));
 			break;
 		case 3:
 			handler.addObject(new Projectile(getX() + 150, getY(), -5, 5, handler, "web"));
@@ -173,6 +178,13 @@ public class Spider extends Enemy {
 			}
 		}
 	}
+	
+	@Override
+	protected void checkCollision() {
+		if (handler.checkEnemyCollision("projectile", this)) {
+			setHealth(getHealth() - 5);
+		}
+	}
 
 	@Override
 	public void render(Graphics g) {
@@ -202,6 +214,8 @@ public class Spider extends Enemy {
 	@Override
 	protected void tick() {
 		int rand = r.nextInt(100);
+		
+		System.out.println(getHealth());
 
 		attackLogic(rand);
 		movementLogic();

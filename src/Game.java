@@ -58,11 +58,10 @@ public class Game extends Canvas {
 
 	}
 
-	public void save(String filename)
-	{
+	public void save(String filename) {
 		Save.saveGame(this.levelhandler.getMap(), this.handler, filename);
 	}
-	
+
 	public void load(String filename) {
 		Save.loadGame(this, filename);
 	}
@@ -84,13 +83,10 @@ public class Game extends Canvas {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while (delta >= 1) {
-				if(levelhandler.gameState.equals("lose"))
-				{
+				if (levelhandler.gameState.equals("lose")) {
 					gameOver();
-				}
-				else if(levelhandler.gameState.equals("won"))
-				{
-					// Win
+				} else if (levelhandler.gameState.equals("won")) {
+					winGame();
 				}
 				tick();
 				delta--;
@@ -189,6 +185,11 @@ public class Game extends Canvas {
 		gameState = "gameover";
 		menu.setMenuState("gameover");
 	}
+	
+	public void winGame() {
+		gameState = "gameover";
+		menu.setMenuState("winscreen");
+	}
 
 	public void resetGame() {
 		handler.clearEntities();
@@ -200,10 +201,11 @@ public class Game extends Canvas {
 
 	/**
 	 * Used to create a new game with load function.
-	 * @param newLevelHandler LevelHandler created by load function.
+	 * 
+	 * @param newLevelHandler
+	 *            LevelHandler created by load function.
 	 */
-	public void newGame(LevelHandler newLevelHandler)
-	{
+	public void newGame(LevelHandler newLevelHandler) {
 		this.levelhandler = newLevelHandler;
 
 		// Pointing various variables to new version of handlers.

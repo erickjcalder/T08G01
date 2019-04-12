@@ -22,6 +22,10 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 	private Image fade = Toolkit.getDefaultToolkit().getImage("resources/fadeout.png");
 	private Image boot = Toolkit.getDefaultToolkit().getImage("resources/boot.png");
 	private Image ant = Toolkit.getDefaultToolkit().getImage("resources/front.png");
+	private Image money = Toolkit.getDefaultToolkit().getImage("resources/winPose.png");
+	private Image saloon = Toolkit.getDefaultToolkit().getImage("resources/saloon.png");
+	private Image saloonOpen = Toolkit.getDefaultToolkit().getImage("resources/saloon_open.png");
+	private Image thanks = Toolkit.getDefaultToolkit().getImage("resources/thanks.png");
 	private Image[] birds = new Image[3];
 
 	private int animFrame;
@@ -149,6 +153,37 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 					g.drawImage(quitButton, 400, 395, 260, 110, null);
 				}
 			}
+		} else if (menuState.equals("winscreen")) {
+			g.drawImage(saloon, -5, 0, 1030, 780, null);
+
+			if (animTimer > 100) {
+				g.drawImage(saloonOpen, -5, 0, 1030, 780, null);
+				g.drawImage(money, 450, 500, 128, 128, null);
+			}
+
+			if (animTimer > 200) {
+				g.drawImage(fade, 0, fadeY, null);
+			}
+
+			if (animTimer > 600) {
+				g.setColor(new Color(0, 0, 0));
+				g.fillRect(0, 0, 1030, 780);
+				g.drawImage(thanks, 36, 80, 942, 165, null);
+			}
+
+			if (animTimer > 700) {
+				if (!hoverMenu) {
+					g.drawImage(menuButton, 405, 290, 250, 100, null);
+				} else {
+					g.drawImage(menuButton, 400, 285, 260, 110, null);
+				}
+
+				if (!hoverQuit) {
+					g.drawImage(quitButton, 405, 400, 250, 100, null);
+				} else {
+					g.drawImage(quitButton, 400, 395, 260, 110, null);
+				}
+			}
 		}
 	}
 
@@ -168,6 +203,13 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 
 			if (animTimer > 350) {
 				gameOverAnimDone = true;
+			}
+		}
+
+		if (menuState.equals("winscreen")) {
+			animTimer++;
+			if (animTimer > 200 && fadeY < 0) {
+				fadeY += 10;
 			}
 		}
 
@@ -250,6 +292,20 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 					hoverQuit = false;
 				}
 			}
+			
+			if (menuState.equals("winscreen")) {
+				if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+					hoverMenu = true;
+				} else {
+					hoverMenu = false;
+				}
+
+				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+					hoverQuit = true;
+				} else {
+					hoverQuit = false;
+				}
+			}
 		}
 	}
 
@@ -303,6 +359,21 @@ public class Menu extends MouseAdapter implements MouseMotionListener {
 			}
 
 			if (menuState.equals("gameover") && gameOverAnimDone) {
+				if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
+					animTimer = 0;
+					animFrame = 0;
+					bootY = -3600;
+					fadeY = -5000;
+					gameOverAnimDone = false;
+					game.resetGame();
+				}
+
+				if (mouseOver(mouseX, mouseY, 405, 400, 250, 100)) {
+					game.stop();
+				}
+			}
+			
+			if (menuState.equals("winscreen") && animTimer > 700) {
 				if (mouseOver(mouseX, mouseY, 405, 290, 250, 100)) {
 					animTimer = 0;
 					animFrame = 0;

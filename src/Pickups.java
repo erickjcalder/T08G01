@@ -17,8 +17,6 @@ public class Pickups extends Entity {
 	Handler handler;
 	LevelHandler levelHandler;
 
-	private Player player;
-
 	Image health = Toolkit.getDefaultToolkit().getImage("resources/health_up.png");
 	Image damage = Toolkit.getDefaultToolkit().getImage("resources/double_damage.png");
 	Image speed = Toolkit.getDefaultToolkit().getImage("resources/attack_speed.png");

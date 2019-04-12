@@ -30,8 +30,8 @@ public class Projectile extends Entity {
 		this.type = type;
 		
 		if (type.equals("player")) {
-			setWidth(1);
-			setHeight(1);
+			setWidth(20);
+			setHeight(20);
 		}
 		
 		if (type.equals("web")) {
