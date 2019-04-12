@@ -83,6 +83,10 @@ public class LevelHandler {
 			}
 		}
 	}
+	
+	public void addPickupToRoom(Pickups pickup) {
+		this.map.roomLoc[currentRoomX][currentRoomY].pickupList.add(pickup);
+	}
 
 	public void setCurrentRoomX(int currentRoomX) {
 		this.currentRoomX = currentRoomX;
