@@ -110,7 +110,7 @@ public class Room {
 		this.roomType = roomType;
 		this.levelHandler = levelHandler;
 
-		int enemiesToSpawn = r.nextInt(4);
+		int enemiesToSpawn = r.nextInt(6);
 
 		switch(enemiesToSpawn) {
             case 1: {
@@ -128,10 +128,21 @@ public class Room {
                 enemyList.add(new Mosquito(600, 270, levelHandler));
                 break;
             }
+
+			case 4: {
+				enemyList.add(new Worm(500, 270, levelHandler));
+				break;
+			}
+
+            case 5: {
+                enemyList.add(new Worm(600, 270, levelHandler));
+                enemyList.add(new Wasp(400, 270, levelHandler));
+                break;
+            }
         }
 
 		Random rand = new Random();
-		if (rand.nextInt(100) < 75) {
+		if (rand.nextInt(100) < 25) {
 			pickupList.add(new Pickups(levelHandler.getHandler(), levelHandler));
 		}
 
@@ -261,4 +272,6 @@ public class Room {
 	{
 		this.levelHandler = levelHandler;
 	}
+
 }
+

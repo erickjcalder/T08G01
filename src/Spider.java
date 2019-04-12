@@ -3,7 +3,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Random;
 
-public class Wasp extends Enemy {
+public class Spider extends Enemy {
 
 	private Image left[] = new Image[5];
 	private Image right[] = new Image[5];
@@ -11,7 +11,7 @@ public class Wasp extends Enemy {
 	private Image front[] = new Image[5];
 	private Random r = new Random();
 
-	public Wasp(int x, int y, LevelHandler levelHandler) {
+	public Spider(int x, int y, LevelHandler levelHandler) {
 		super(x, y, levelHandler);
 
 		setVelocityX(2);
@@ -26,8 +26,10 @@ public class Wasp extends Enemy {
 		back[0] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Back.png");
 		back[1] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Back Flying.png");
 
-		front[0] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Front.png");
-		front[1] = Toolkit.getDefaultToolkit().getImage("resources/Wasp Front Flying.png");
+		front[0] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Right Step.png");
+		front[1] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front.png");
+		front[2] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front Left Step.png");
+		front[3] = Toolkit.getDefaultToolkit().getImage("resources/Spider Front.png");
 
 		setAnimTimer(0);
 		setAnimFrame(0);
@@ -100,7 +102,7 @@ public class Wasp extends Enemy {
 
 		if (getAnimTimer() == 3) {
 			setAnimFrame(getAnimFrame() + 1);
-			if (getAnimFrame() >= 2) {
+			if (getAnimFrame() >= 4) {
 				setAnimFrame(0);
 			}
 		}
@@ -110,19 +112,19 @@ public class Wasp extends Enemy {
 	public void render(Graphics g) {
 		switch (getAnimState()) {
 		case "walking left":
-			g.drawImage(left[getAnimFrame()], getX(), getY(), 120, 120, null);
+			g.drawImage(left[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 
 		case "walking right":
-			g.drawImage(right[getAnimFrame()], getX(), getY(), 120, 120, null);
+			g.drawImage(right[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 
 		case "walking back":
-			g.drawImage(back[getAnimFrame()], getX(), getY(), 120, 120, null);
+			g.drawImage(back[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 
 		case "walking front":
-			g.drawImage(front[getAnimFrame()], getX(), getY(), 120, 120, null);
+			g.drawImage(front[getAnimFrame()], getX(), getY(), 180, 180, null);
 			break;
 		}
 	}
@@ -133,12 +135,14 @@ public class Wasp extends Enemy {
 			int y = getY();
 			handler.removeObject(this);
 			levelHandler.removeEnemy(this);
+			handler.addObject(new Pickups(levelHandler.getHandler(), levelHandler,66, x, y));
+
 		}
 	}
 
 	@Override
 	protected void tick() {
-		movementLogic();
+		//movementLogic();
 		animationHandler();
 		healthThresholdEvents();
 		this.checkCollision();

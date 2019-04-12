@@ -26,13 +26,11 @@ public class Pickups extends Entity {
 	Image win = Toolkit.getDefaultToolkit().getImage("resources/Trophy.png");
 
 
-
+	/**This contructor is called when randomly rolling for normal power pickup
+	 *There are 4 types of pickups
+	 *each helps the player to get advantage.
+	 */
 	public Pickups(Handler handler, LevelHandler levelHandler) {
-		/**
-		 *
-		 *
-		 */
-
 
 		super(0,0, handler);
 
@@ -59,12 +57,11 @@ public class Pickups extends Entity {
 
 	}
 
+	/**This contructor is called creating the final pickup when you have defeated final
+	 * boss. when you pick this pickup the game ends resulting in your win.
+	 *
+	 */
 	public Pickups(Handler handler, LevelHandler levelHandler, int number, int x, int y) {
-		/**
-		 *
-		 *
-		 */
-
 
 		super(0,0, handler);
 
@@ -92,36 +89,37 @@ public class Pickups extends Entity {
 
 	}
 
-
+	/**
+	 * efectively increases damage by 2 times
+	 */
 	public void doubleDamage() {
-		/**
-		 * efectively increases damage by 2 times
-		 */
+
 		handler.getPlayerInstance().setDamage(100);
 	}
 
-
+	/**
+	 * restores health to full
+	 */
 	public void healthRegen() {
-		/**
-		 * restores health to full
-		 */
+
 		handler.getPlayerInstance().setHealth(100);
 
-
 	}
 
+	/**
+	 * increases attack speed (by reducing shot Cooldown by half).
+	 */
 	public void bonusAtackSpeed() {
-		/**
-		 * increases attack speed (by reducing shot Cooldown by half).
-		 */
+
 		handler.getPlayerInstance().setShotCooldown(15);
+
 	}
 
+	/**
+	 * increases armor by ten everytime a rune is activated.
+	 */
 	public void armorUp() {
-		/**
-		 * increases armor by one everytime a rune is activated.
-		 */
-		//ae.setArmor(ae.getArmor() + 1);
+
 		handler.getPlayerInstance().setArmor(handler.getPlayerInstance().getArmor()+10);
 
 	}
@@ -131,11 +129,11 @@ public class Pickups extends Entity {
 	}
 
 
+	/**
+	 * this method deals with calling of methods, as the pickup spawning will be
+	 * random. This method gives equal equal change to all the pickups.
+	 */
 	public void randomPickup() {
-		/**
-		 * this method deals with calling of methods, as the pickup spawning will be
-		 * random. This method gives equal equal change to all the pickups.
-		 */
 
 		if (pickupNumber == 0) {
 			Random rand = new Random();
@@ -157,26 +155,23 @@ public class Pickups extends Entity {
 				//armorUp();
 				pickupNumber = 4;
 			}
-
-
 		}
 	}
 
-
+	/**
+	 * this method is never invoked as there are no buttons pressed for pickups
+	 */
 	public void logicInterface(String inp) {
-		/**
-		 * this method is never invoked as there are no buttons pressed for pickups
-		 */
+
 	}
+
+	/**
+	 * Pickups are not mobile.
+	 */
 
 	public void movementLogic() {
-		/**
-		 * Pickups are not mobile.
-		 */
 
 	}
-
-
 
 	/**
 	 * handles updates
